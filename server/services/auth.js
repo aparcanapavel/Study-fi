@@ -71,3 +71,13 @@ const login = async data => {
 };
 
 module.exports = { register, login };
+const logout = async data => {
+
+  const { _id } = data;
+  const user = User.findById({ _id });
+  const token = "";
+
+  return { token, loggedIn: false, ...user._doc };
+};
+
+module.exports = { register, logout };
