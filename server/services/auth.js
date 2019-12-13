@@ -49,6 +49,22 @@ const login = async data => {
     if (!isValid) {
       throw new Error(message);
     }
+
+    const { email, password } = data;
+
+    const existingUser = await User.findOne({ email });
+
+    if (!existingUser) {
+      throw new Error("Incorrect email/password");
+    }
+
+    const isPassword = await bcrypt.compare(password, existingUser.password);
+    if (!isPassword) {
+      throw new Error("Incorrect email/password");
+    } else {
+      const token = jwt.sign({ id: existingUser._id }, keys.secretOrKey);
+      return { token, loggedIn: true, ...existingUser._doc, password: null };
+    }
   } catch (err) {
     throw err;
   }
