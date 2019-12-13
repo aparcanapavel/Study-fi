@@ -41,4 +41,17 @@ const register = async data => {
   }
 };
 
-module.exports = { register };
+const login = async data => {
+  try {
+    // use our other validator we wrote to validate this data
+    const { message, isValid } = validateLoginInput(data);
+
+    if (!isValid) {
+      throw new Error(message);
+    }
+  } catch (err) {
+    throw err;
+  }
+};
+
+module.exports = { register, login };
