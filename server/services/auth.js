@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const keys = require("../../config/keys");
 const validateRegisterInput = require("../validation/register");
+const validateLoginInput = require("../validation/login");
 
 const register = async data => {
   try {
@@ -70,7 +71,6 @@ const login = async data => {
   }
 };
 
-module.exports = { register, login };
 const logout = async data => {
 
   const { _id } = data;
@@ -80,4 +80,25 @@ const logout = async data => {
   return { token, loggedIn: false, ...user._doc };
 };
 
-module.exports = { register, logout };
+const verifyUser = async data => {
+  try {
+    // we take in the token from our mutation
+    const { token } = data;
+    // we decode the token using our secret password to get the
+    // user's id
+    const decoded = jwt.verify(token, keys.secretOrKey);
+    const { id } = decoded;
+
+    // then we try to use the User with the id we just decoded
+    // making sure we await the response
+    const loggedIn = await User.findById(id).then(user => {
+      return user ? true : false;
+    });
+
+    return { loggedIn };
+  } catch (err) {
+    return { loggedIn: false };
+  }
+};
+
+module.exports = { register, logout, login, verifyUser };
