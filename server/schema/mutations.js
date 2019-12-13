@@ -27,7 +27,7 @@ const mutation = new GraphQLObjectType({
       resolve(_, args) {
         return AuthService.login(args);
       }
-    },  
+    },
     logout: {
       type: UserType,
       args: {
@@ -37,6 +37,15 @@ const mutation = new GraphQLObjectType({
         return AuthService.logout(args);
       }
     },
+    verifyUser: {
+      type: UserType,
+      args: {
+        token: { type: GraphQLString }
+      },
+      resolve(_, args) {
+        return AuthService.verifyUser(args);
+      }
+    }
   }
 });
 
