@@ -4,6 +4,7 @@ import { Query } from "react-apollo";
 import { Route, Switch, HashRouter } from "react-router-dom";
 import AuthRoute from "../util/route_util";
 import Login from "./Login";
+
 const App = () => {
   return (
     <div>
