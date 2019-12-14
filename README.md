@@ -50,5 +50,6 @@ Technologies Used:
 
 Challenges:
 - Understanding the Spotify API
+- Seeding databases
 - Creating the queue
 - Continuous play of music when navigating pages
