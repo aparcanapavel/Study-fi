@@ -22,7 +22,7 @@ Day 1
 Day 2
 - User Authentication frontend- Brennan and Pavel
 - Protecting routes- Brennan and Pavel
-- Create backend functionality for the spotify api to fetch songs. - Brennan and Pavel
+- Create backend functionality for the spotify api to fetch song details. - Brennan and Pavel
 
 Day 3
 - Create functional music controls bar( prev, next, play/pause, shuffle, repeat, volume, add to playlist[wait for day 4], progress bar, queue[wait for day 4])
@@ -39,7 +39,7 @@ Day 5
 - styling touch ups.
  
 Technologies Used:
-- Spotify API for fetching songs
+- Spotify API for fetching song details(name, album, and year)
 - Mongo DB for storing user information
 - Express
 - GraphQL
