@@ -23,9 +23,16 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(
   "/graphql",
-  expressGraphQL({
-    schema,
-    graphiql: true
+  expressGraphQL(req => {
+    return {
+      schema,
+      // we are receiving the request and can check for our
+      // auth token under headers
+      context: {
+        token: req.headers.authorization
+      },
+      graphiql: true
+    };
   })
 );
 
