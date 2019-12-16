@@ -4,11 +4,13 @@ const { GraphQLObjectType, GraphQLList, GraphQLID, GraphQLNonNull } = graphql;
 
 const UserType = require("./user_type");
 const SongType = require("./song_type");
+const ALbumType = require("./album_type");
 const ArtistType = require("./artist_type");
 
 const User = mongoose.model("users");
 const Song = mongoose.model("songs");
 const Artist = mongoose.model("artists");
+const Album = mongoose.model("album");
 
 const RootQueryType = new GraphQLObjectType({
   name: "RootQueryType",
@@ -36,6 +38,12 @@ const RootQueryType = new GraphQLObjectType({
       type: new GraphQLList(ArtistType),
       resolve() {
         return Artist.find({});
+      }
+    },
+    albums: {
+      type: new GraphQLList(AlbumType),
+      resolve() {
+        return Album.find({});
       }
     }
   })
