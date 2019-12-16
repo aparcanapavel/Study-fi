@@ -7,6 +7,7 @@ const MusicType = require("./types/song_type");
 const Song = require("../models/Song");
 const Album = require("../models/Album");
 const AlbumType = require("./types/album_type");
+const ArtistType = require("./types/artist_type");
 
 const mutation = new GraphQLObjectType({
   name: "Mutation",

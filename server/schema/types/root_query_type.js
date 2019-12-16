@@ -4,7 +4,7 @@ const { GraphQLObjectType, GraphQLList, GraphQLID, GraphQLNonNull } = graphql;
 
 const UserType = require("./user_type");
 const SongType = require("./song_type");
-const ALbumType = require("./album_type");
+const AlbumType = require("./album_type");
 const ArtistType = require("./artist_type");
 
 const User = mongoose.model("users");
