@@ -6,6 +6,7 @@ import AuthRoute from "../util/route_util";
 import Login from "./Login";
 import Nav from "./Nav";
 import MusicPlayer from './music_player';
+import UserShow from "./user/User_Show";
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
 
         <Nav />
         <AuthRoute exact path="/login" component={Login} routeType="auth" />
+        <UserShow />
         <MusicPlayer />
     </div>
   );
