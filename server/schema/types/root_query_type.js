@@ -3,8 +3,10 @@ const graphql = require("graphql");
 const { GraphQLObjectType, GraphQLList, GraphQLID, GraphQLNonNull } = graphql;
 
 const UserType = require("./user_type");
+const SongType = require("./song_type");
 
 const User = mongoose.model("users");
+const Song = mongoose.model("songs");
 
 const RootQueryType = new GraphQLObjectType({
   name: "RootQueryType",
@@ -23,9 +25,9 @@ const RootQueryType = new GraphQLObjectType({
       }
     },
     songs: {
-      type: MusicType,
+      type: SongType,
       resolve() {
-        return Music.find({});
+        return Song.find({});
       }
     }
   })
