@@ -21,6 +21,12 @@ const RootQueryType = new GraphQLObjectType({
       resolve(_, args) {
         return User.findById(args._id);
       }
+    },
+    songs: {
+      type: MusicType,
+      resolve() {
+        return Music.find({});
+      }
     }
   })
 });
