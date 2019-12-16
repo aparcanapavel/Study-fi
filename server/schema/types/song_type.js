@@ -10,7 +10,7 @@ const MusicType = new GraphQLObjectType({
     artist: { type: GraphQLString },
     album: { type: GraphQLString },
     duration: { type: GraphQLInt },
-    songURL: { type: GraphQLString }
+    songUrl: { type: GraphQLString }
   })
 });
 

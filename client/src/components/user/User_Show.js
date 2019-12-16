@@ -18,6 +18,10 @@ class UserShow extends Component {
     };
   }
 
+  update(field) {
+    return e => this.setState({ [field]: e.target.value });
+  }
+
   handleSubmit(e, createSong) {
     e.preventDefault();
     const minutes = Math.floor(this.state.duration / 60);
@@ -27,6 +31,7 @@ class UserShow extends Component {
         name: this.state.name,
         artist: this.state.artist,
         duration: this.state.duration,
+        Url: this.state.URL,
         album: this.state.album
       }
     }).then(() => {
@@ -61,17 +66,24 @@ class UserShow extends Component {
                 value={this.state.name}
                 placeholder="Song name"
               />
-              <textarea
+              <br />
+              <br />
+              <input
+                type="text"
                 onChange={this.update("artist")}
                 value={this.state.artist}
                 placeholder="artist"
               />
+              <br />
+              <br />
               <input
                 onChange={this.update("duration")}
                 value={this.state.duration}
                 placeholder="duration in seconds"
                 type="number"
               />
+              <br />
+              <br />
 
               <input
                 onChange={this.update("album")}
@@ -79,6 +91,17 @@ class UserShow extends Component {
                 placeholder="album"
                 type="text"
               />
+              <br />
+              <br />
+
+              <input
+                onChange={this.update("URL")}
+                value={this.state.URL}
+                placeholder="URL"
+                type="text"
+              />
+              <br/>
+              <br/>
               <button type="submit">Create Song</button>
             </form>
             <p>{this.state.message}</p>

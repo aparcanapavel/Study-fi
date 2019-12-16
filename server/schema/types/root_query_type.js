@@ -25,7 +25,7 @@ const RootQueryType = new GraphQLObjectType({
       }
     },
     songs: {
-      type: SongType,
+      type: new GraphQLList(SongType),
       resolve() {
         return Song.find({});
       }
