@@ -4,9 +4,11 @@ const { GraphQLObjectType, GraphQLList, GraphQLID, GraphQLNonNull } = graphql;
 
 const UserType = require("./user_type");
 const SongType = require("./song_type");
+const ALbumType = require("./album_type");
 
 const User = mongoose.model("users");
 const Song = mongoose.model("songs");
+const Album = mongoose.model("album");
 
 const RootQueryType = new GraphQLObjectType({
   name: "RootQueryType",

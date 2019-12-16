@@ -5,6 +5,8 @@ const AuthService = require("../services/auth");
 const UserType = require("./types/user_type");
 const MusicType = require("./types/song_type");
 const Song = require("../models/Song");
+const Album = require("../models/Album");
+const AlbumType = require("./types/album_type");
 
 const mutation = new GraphQLObjectType({
   name: "Mutation",
@@ -59,7 +61,16 @@ const mutation = new GraphQLObjectType({
       },
       resolve(_, args) {
         return new Song({ name: args.name, artist: args.artist, album: args.album, duration: args.duration, songUrl: args.songUrl}).save();
-    }
+      }
+    },
+    createAlbum: {
+      type: AlbumType,
+      args: {
+        name: { type: GraphQLString },
+        artist: { type: GraphQLString },
+        year: { type: GraphQLInt }
+      }
+      // add a resolve
     }
   }
 });
