@@ -71,7 +71,16 @@ const mutation = new GraphQLObjectType({
         year: { type: GraphQLInt }
       }
       // add a resolve
-    }
+    },
+    createArtist: {
+      type: ArtistType,
+      args: {
+        name: {type: GraphQLString }
+      },
+      resolve(_, args) {
+        return new Artist({ name: args.name }).save()
+      }
+    },
   }
 });
 

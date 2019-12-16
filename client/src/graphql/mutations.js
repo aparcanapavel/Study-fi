@@ -24,16 +24,6 @@ const Mutations = {
       }
     }
   `,
-  CREATE_SONG: gql`
-    mutation CreateSong($name: String!, $author: String!, $album: String!, $URL: String!, $duration: Int!){
-      createSong(name: $name, author: $authod, album: $album, songURL: $URL, duration: $duration){
-        _id
-        name
-        artist
-        album
-        duration
-      }
-    }
-  `
+  
 };
 export default Mutations;
