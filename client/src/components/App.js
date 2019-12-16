@@ -6,6 +6,7 @@ import AuthRoute from "../util/route_util";
 import Login from "./Login";
 import Nav from "./Nav";
 import MusicPlayer from './music_player';
+import "./css_index.css";
 
 const App = () => {
   return (

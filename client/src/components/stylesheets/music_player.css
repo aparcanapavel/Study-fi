@@ -1,0 +1,14 @@
+.music-player-container {
+  display: flex;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  background-color: rgb(70, 70, 70);
+  justify-content: center;
+  padding: 10px;
+}
+
+.music-player {
+  background-color: gray;
+}
