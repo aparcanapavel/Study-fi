@@ -7,6 +7,7 @@ import Login from "./Login";
 import Nav from "./Nav";
 import MusicPlayer from './music_player';
 import UserShow from "./user/User_Show";
+import "./css_index.css";
 
 const App = () => {
   return (
