@@ -13,3 +13,5 @@ const MusicType = new GraphQLObjectType({
     songURL: { type: GraphQLString }
   })
 });
+
+module.exports = MusicType

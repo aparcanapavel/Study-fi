@@ -29,7 +29,7 @@ const RootQueryType = new GraphQLObjectType({
       resolve() {
         return Song.find({});
       }
-    }
+    },
   })
 });
 
