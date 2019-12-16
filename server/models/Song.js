@@ -17,6 +17,10 @@ const SongSchema = new Schema({
   duration: {
     type: Number,
     required: true
+  },
+  songUrl: {
+    type: String,
+    required: true
   }
 })
 
