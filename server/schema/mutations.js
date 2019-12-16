@@ -60,7 +60,16 @@ const mutation = new GraphQLObjectType({
       resolve(_, args) {
         return new Song({ name: args.name, artist: args.artist, album: args.album, duration: args.duration, songUrl: args.songUrl}).save();
     }
-    }
+    },
+    createArtist: {
+      type: ArtistType,
+      args: {
+        name: {type: GraphQLString }
+      },
+      resolve(_, args) {
+        return new Artist({ name: args.name }).save()
+      }
+    },
   }
 });
 
