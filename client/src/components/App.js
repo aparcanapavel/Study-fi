@@ -8,6 +8,7 @@ import Nav from "./Nav";
 import MusicPlayer from './music_player';
 import UserShow from "./user/User_Show";
 import "./css_index.css";
+import SongIndex from "./song/song_index";
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
         <AuthRoute exact path="/login" component={Login} routeType="auth" />
         <UserShow />
         <MusicPlayer />
+        <SongIndex />
     </div>
   );
 };
