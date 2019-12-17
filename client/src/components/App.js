@@ -12,17 +12,33 @@ import SongIndex from "./song/song_index";
 
 import Splash from "./splash/Splash";
 import MainComponent from './main_app/main';
+import Queries from "../graphql/queries";
+const { IS_LOGGED_IN } = Queries;
 
 
 const App = () => {
   return (
-    <div>
+    <Query query={IS_LOGGED_IN}>
+      {({ data }) => {
+        if(data.isLoggedIn){
+          return(
+            <div className='main-component'>
+              <MainComponent />
+              <MusicPlayer />
+            </div>
+          )
+        } else {
+          return (
+            <div className="splash-page-container">
+              <Nav />
+              <Splash />
+              <MusicPlayer />
+            </div>
+          );
+        }
+      }}
+    </Query>
 
-        <Nav />
-        <Splash />
-        <MusicPlayer />
-
-    </div>
   );
 };
 
