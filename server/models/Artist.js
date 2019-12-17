@@ -4,12 +4,20 @@ const Schema = mongoose.Schema;
 const ArtistSchema = new Schema({
   name: {
     type: String,
-    required: true,
+    required: true
   },
-  albums: [{
-    type: Schema.Types.ObjectId,
-    ref: "album"
-  }]
+  albums: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "album"
+    }
+  ],
+  songs: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "songs"
+    }
+  ]
 });
 
 ArtistSchema.statics.findAlbums = function(id) {
