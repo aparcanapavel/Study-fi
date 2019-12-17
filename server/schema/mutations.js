@@ -8,6 +8,7 @@ const Song = require("../models/Song");
 const Album = require("../models/Album");
 const AlbumType = require("./types/album_type");
 const ArtistType = require("./types/artist_type");
+const Artist = require('../models/Artist');
 
 const mutation = new GraphQLObjectType({
   name: "Mutation",
@@ -68,10 +69,11 @@ const mutation = new GraphQLObjectType({
       type: AlbumType,
       args: {
         name: { type: GraphQLString },
-        artist: { type: GraphQLString },
         year: { type: GraphQLInt }
+      },
+      resolve(_, { name, year }){
+        return new Album({ name: name, year: year }).save();
       }
-      // add a resolve
     },
     createArtist: {
       type: ArtistType,
@@ -82,6 +84,16 @@ const mutation = new GraphQLObjectType({
         return new Artist({ name: args.name }).save()
       }
     },
+    addArtistAlbum: {
+      type: ArtistType,
+      args: {
+        artistId: { type: GraphQLID },
+        albumId: { type: GraphQLID }
+      },
+      resolve(_, { artistId, albumId }){
+        return Artist.addAlbum(artistId, albumId);
+      }
+    }
   }
 });
 

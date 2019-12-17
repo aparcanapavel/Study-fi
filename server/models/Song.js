@@ -4,12 +4,14 @@ const Schema = mongoose.Schema;
 const SongSchema = new Schema({
   name: {
     type: String,
-    required: true,
-  },
-  artist: {
-    type: String,
     required: true
   },
+  artists: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "artists"
+    }
+  ],
   album: {
     type: String,
     required: true
@@ -22,6 +24,6 @@ const SongSchema = new Schema({
     type: String,
     required: true
   }
-})
+});
 
 module.exports = mongoose.model("songs", SongSchema);
