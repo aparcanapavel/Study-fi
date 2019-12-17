@@ -1,5 +1,5 @@
 const graphql = require("graphql");
-const { GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLID } = graphql;
+const { GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLID, GraphQLList } = graphql;
 const mongoose = require("mongoose");
 const AuthService = require("../services/auth");
 const UserType = require("./types/user_type");
@@ -55,14 +55,23 @@ const mutation = new GraphQLObjectType({
     createSong: {
       type: MusicType,
       args: {
-        name: {type: GraphQLString},
-        artist: {type: GraphQLString},
-        album: {type: GraphQLString},    
-        duration: {type: GraphQLInt},
-        songUrl: {type: GraphQLString},
+        name: { type: GraphQLString },
+        artists: { type: new GraphQLList(GraphQLID) },
+        album: { type: GraphQLID },
+        duration: { type: GraphQLInt },
+        songUrl: { type: GraphQLString }
       },
       resolve(_, args) {
-        return new Song({ name: args.name, artist: args.artist, album: args.album, duration: args.duration, songUrl: args.songUrl}).save();
+        return new Song({
+          name: args.name,
+          artists: args.artists,
+          album: args.album,
+          duration: args.duration,
+          songUrl: args.songUrl
+        }).save().then(song => {
+          console.log(song)
+          Song.addSongToArtistAlbum(song.id, song.artists, song.album);
+        });
       }
     },
     createAlbum: {
@@ -71,17 +80,17 @@ const mutation = new GraphQLObjectType({
         name: { type: GraphQLString },
         year: { type: GraphQLInt }
       },
-      resolve(_, { name, year }){
+      resolve(_, { name, year }) {
         return new Album({ name: name, year: year }).save();
       }
     },
     createArtist: {
       type: ArtistType,
       args: {
-        name: {type: GraphQLString }
+        name: { type: GraphQLString }
       },
       resolve(_, args) {
-        return new Artist({ name: args.name }).save()
+        return new Artist({ name: args.name }).save();
       }
     },
     addArtistAlbum: {
@@ -90,7 +99,7 @@ const mutation = new GraphQLObjectType({
         artistId: { type: GraphQLID },
         albumId: { type: GraphQLID }
       },
-      resolve(_, { artistId, albumId }){
+      resolve(_, { artistId, albumId }) {
         return Artist.addAlbum(artistId, albumId);
       }
     }
