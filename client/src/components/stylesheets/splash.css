@@ -2,3 +2,25 @@
   display: flex;
   justify-content: center;
 }
+
+.splash-page-container {
+  background-image: linear-gradient(rgb(83, 83, 83), rgb(20, 20, 20), rgb(20, 20, 20));
+  height: 100vh;
+}
+
+.splash-graphic {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.splash-graphic-header {
+  font-weight: 500;
+  font-size: 22px;
+  padding: 10px;
+}
+
+.splash-graphic-p {
+  font-size: 18px;
+}

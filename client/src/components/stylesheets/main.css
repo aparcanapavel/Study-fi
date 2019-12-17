@@ -4,7 +4,7 @@
   height: 100%;
   width: 100%;
   color: white;
-  background-color: rgb(28, 28, 28);
+  background-image: linear-gradient(rgb(83, 83, 83), rgb(20, 20, 20), rgb(20, 20, 20));
   top: 0px;
   left: 0px;
 }
