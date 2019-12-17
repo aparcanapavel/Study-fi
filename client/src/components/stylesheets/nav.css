@@ -1,0 +1,16 @@
+.nav-auth {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+  background-color: rgb(68, 68, 68);
+}
+
+.nav-button {
+  border-radius: 5px;
+}
+
+.nav-link {
+  margin: 10px;
+  color: white;
+}
