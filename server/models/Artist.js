@@ -8,14 +8,23 @@ const ArtistSchema = new Schema({
   },
   albums: [{
     type: Schema.Types.ObjectId,
-    ref: "albums"
+    ref: "album"
   }]
 });
 
 ArtistSchema.statics.findAlbums = function(id) {
   return this.findById(id)
-    .populate('albums')
-    .then(artist => artist.albums)
+    .populate('album')
+    .then(artist => {
+      // console.log(artist)
+      const Album = mongoose.model("album");
+      const albumArr = artist.albums;
+      let returnArr = [];
+      albumArr.forEach(artistAlbum => {
+        returnArr.push(Album.findById(artistAlbum))
+      });
+      return returnArr;
+    })
 }
 
 ArtistSchema.statics.addAlbum = (artistId, albumId) => {
