@@ -10,18 +10,46 @@ import UserShow from "./user/User_Show";
 import "./css_index.css";
 import SongIndex from "./song/song_index";
 import MainComponent from './main_app/main';
+import Queries from "../graphql/queries";
+const { IS_LOGGED_IN } = Queries;
 
 const App = () => {
   return (
-    <div>
-      <h1>Study-fi</h1>
+    // <div>
+    //   <h1>Study-fi</h1>
 
-        <Nav />
-        <AuthRoute exact path="/login" component={Login} routeType="auth" />
-        <UserShow />
-        <MusicPlayer />
-        <SongIndex />
-    </div>
+    //     <Nav />
+    //     <AuthRoute exact path="/login" component={Login} routeType="auth" />
+    //     <UserShow />
+    //     <MusicPlayer />
+    //     <SongIndex />
+    // </div>
+    <Query query={IS_LOGGED_IN}>
+      {({ data }) => {
+        if(data.isLoggedIn){
+          return(
+            <div className='main-component'>
+              <MainComponent />
+              <MusicPlayer />
+            </div>
+          )
+        } else {
+          return (
+            <div className="splash-page-container">
+              <Nav />
+              <AuthRoute
+                exact
+                path="/login"
+                component={Login}
+                routeType="auth"
+              />
+              ;
+              <MusicPlayer />
+            </div>
+          );
+        }
+      }}
+    </Query>
   );
 };
 
