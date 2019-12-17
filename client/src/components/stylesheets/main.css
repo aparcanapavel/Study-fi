@@ -1,0 +1,97 @@
+.overall-container{
+  display: block;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  color: white;
+  background-color: rgb(28, 28, 28);
+  top: 0px;
+  left: 0px;
+}
+.top-nav{
+  display: block;
+  position: fixed;
+  /* background-color: black; */
+  width: 100%;
+  padding: 16px 24px;
+  margin-left: 230px;
+  box-sizing: border-box;
+}
+
+.main-nav{
+  width: 230px;
+  background-color: black;
+  padding-top: 24px;
+  box-sizing: border-box;
+  position: fixed;
+  height: 100%;
+}
+
+.main-nav h2{
+  font-size: 30px;
+  padding-left: 25px;
+}
+
+.main-nav .main-links{
+  display: block;
+  position: relative;
+  left: 0px;
+  padding-left: 0px;
+}
+
+.main-nav .main-links li{
+  border-left: 5px solid green;
+  margin: 5px 0px;
+  margin-left: 1px;
+  height: 30px;
+  padding-top: 10px;
+  list-style: none;
+  position: relative;
+  cursor: pointer;
+}
+
+.main-nav .main-links li i,
+.main-nav .main-links li p {
+  margin: 0px;
+  position: relative;
+  display: inline-block;
+  margin-left: 15px;
+  vertical-align: middle;
+  color: white
+}
+
+.main-nav .main-links li i{
+  font-size: 20px;
+}
+
+.main-nav .main-links li p{
+  font-size: 15px;
+}
+
+.main-nav h3 {
+  font-size: 15px;
+  margin-top: 30px;
+  position: relative;
+  margin-left: 20px;
+  margin-bottom: 0px;
+}
+
+.new-playlist {
+  display: block;
+  position: relative;
+  margin-left: 20px;
+}
+
+.new-playlist i,
+.new-playlist p {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.new-playlist i{
+  font-size: 30px;
+}
+
+.new-playlist p{
+  margin-left: 10px;
+}

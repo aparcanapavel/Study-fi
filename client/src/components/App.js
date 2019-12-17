@@ -9,6 +9,7 @@ import MusicPlayer from './music_player';
 import UserShow from "./user/User_Show";
 import "./css_index.css";
 import SongIndex from "./song/song_index";
+import MainComponent from './main_app/main';
 
 const App = () => {
   return (
