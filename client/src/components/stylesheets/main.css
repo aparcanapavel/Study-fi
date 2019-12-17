@@ -1,0 +1,8 @@
+.overall-container{
+  display: block;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  color: white;
+  background-color: black;
+}
