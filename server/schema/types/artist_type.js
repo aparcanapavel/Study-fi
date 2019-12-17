@@ -12,7 +12,7 @@ const ArtistType = new GraphQLObjectType({
     albums: {
       type: new GraphQLList(require('./album_type')),
       resolve(parentValue) {
-        return Artist.findGods(parentValue.id);
+        return Artist.findAlbums(parentValue.id);
       }
     }
   })

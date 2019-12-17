@@ -4,11 +4,16 @@ const { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLList, GraphQLInt } =
 const Album = mongoose.model("album");
 
 const AlbumType = new GraphQLObjectType({
-  name: 'AlbumType',
+  name: "AlbumType",
   fields: () => ({
     _id: { type: GraphQLID },
     name: { type: GraphQLString },
-    artist: { type: GraphQLString },
+    artist: {
+      type: new GraphQLList(require("./artist_type")),
+      resolve(parentValue) {
+        return Album.findArtists(parentValue.id);
+      }
+    },
     year: { type: GraphQLInt }
   })
 });
