@@ -22,7 +22,6 @@ class Register extends Component {
 
   updateCache(client, { data }) {
     console.log(data);
-    // here we can write directly to our cache with our returned mutation data
     client.writeData({
       data: { isLoggedIn: data.register.loggedIn }
     });
@@ -33,7 +32,6 @@ class Register extends Component {
       <Mutation
         mutation={REGISTER_USER}
         onCompleted={data => {
-          debugger;
           const { token } = data.register;
           localStorage.setItem("auth-token", token);
           this.props.history.push("/");
