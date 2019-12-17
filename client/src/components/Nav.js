@@ -12,7 +12,9 @@ const Nav = props => {
           {({ data }) => {
             if (data.isLoggedIn) {
               return (
+                <div className="nav-auth">
                 <button
+                  className="nav-button"
                   onClick={e => {
                     e.preventDefault();
                     localStorage.removeItem("auth-token");
@@ -22,11 +24,13 @@ const Nav = props => {
                 >
                   Logout
                 </button>
+                </div>
               );
             } else {
               return (
-                <div>
-                  <Link to="/login">Login</Link>
+                <div className="nav-auth">
+                  <Link to="/login"><h1 className="nav-link">Login</h1></Link>
+                  <Link to="/register"><h1 className="nav-link">Register</h1></Link>
                 </div>
               );
             }
