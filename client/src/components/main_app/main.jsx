@@ -14,23 +14,32 @@ class MainComponent extends Component {
         </nav>
         <aside className="main-nav">
           <h2>
-            <i class="fas fa-graduation-cap"></i> Study-fi
+            <i className="fas fa-graduation-cap"></i> Study-fi
           </h2>
-          <div className="main-links">
-            <h3 key="1">
-              <i class="fas fa-university"></i> Home
-            </h3>
-            <h3 key="2">
-              <i class="fas fa-search"></i> Search
-            </h3>
-            <h3 key="3">
-              <i class="fas fa-book"></i> Your Library
-            </h3>
+          <ul className="main-links">
+            <li key="1">
+              <i className="fas fa-university"></i>
+              <p>Home</p>
+            </li>
+            <li key="2">
+              <i className="fas fa-search"></i>
+              <p>Search</p>
+            </li>
+            <li key="3">
+              <i className="fas fa-book"></i>
+              <p>Your Library</p>
+            </li>
+          </ul>
+          <h3>PLAYLISTS</h3>
+          <div className="new-playlist">
+            <i className="fas fa-plus-square"></i>
+            <p>Create Playlist</p>
           </div>
+          <ul className="playlists">
+            <li></li>
+          </ul>
         </aside>
-        <section className="main-container">
-          all the music boxes
-        </section>
+        <section className="main-container">all the music boxes</section>
       </main>
     );
   }

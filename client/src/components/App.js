@@ -14,7 +14,13 @@ import MainComponent from './main_app/main';
 const App = () => {
   return (
     <div>
-        <MainComponent />
+      <h1>Study-fi</h1>
+
+        <Nav />
+        <AuthRoute exact path="/login" component={Login} routeType="auth" />
+        <UserShow />
+        <MusicPlayer />
+        <SongIndex />
     </div>
   );
 };
