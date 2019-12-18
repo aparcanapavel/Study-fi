@@ -14,5 +14,13 @@ export default {
         _id
       }
     }
+  `,
+  FETCH_SONGS: gql`
+    query fetchSongs {
+      songs{
+        name
+        songUrl
+      }
+    }
   `
 };
