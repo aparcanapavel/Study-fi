@@ -4,6 +4,8 @@ import { Switch, Route } from 'react-router-dom';
 import Nav from "../Nav";
 import HomeComponent from './home';
 
+import Search from "./search/search";
+
 class MainComponent extends Component {
   constructor(props){
     super(props);
