@@ -45,8 +45,8 @@
 }
 
 .song-album-icon{
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
 }
 
 .artist-show-song{
@@ -56,12 +56,23 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.349);
 }
 
+.artist-show-song > i {
+  visibility: hidden;
+  font-size: 20px;
+  position: fixed;
+
+}
+
+.artist-show-song:hover{
+  background-color: rgba(255, 255, 255, 0.082);
+}
+
 .artist-show-song-name{
   margin: 10px;
 }
 
 .song-index {
-  margin: 10px;
+  margin: 15px;
 }
 
 .artist-show-albums-header{
@@ -104,4 +115,42 @@
 .album-icon{
   height: 150px;
   width: 150px;
+}
+
+.artist-show-album-songs{
+  
+}
+
+
+.artist-show-album-songs-list:first-child {
+  border-top: 1px solid rgba(255, 255, 255, 0.349);
+}
+
+.artist-show-album-song{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.349);
+  vertical-align: middle;
+}
+
+.artist-show-album-song:hover{
+  background-color: rgba(255, 255, 255, 0.082);
+}
+
+.artist-show-album-song-header{
+  display: flex;
+  flex-direction: row;
+}
+
+.artist-show-album-index{
+  margin: 10px;
+}
+
+.artist-show-album-song-name{
+  margin: 10px;
+}
+
+.artist-show-album-song-duration{
+  margin: 10px;
 }

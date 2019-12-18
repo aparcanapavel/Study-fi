@@ -5,6 +5,8 @@
 .artist-index-header{
   font-size: 24px;
   padding: 10px;
+  border-bottom: 1px solid   rgba(255, 255, 255, 0.082);
+;
 }
 
 .artist-list{
@@ -31,5 +33,5 @@
 
 .artist-list-name{
   text-align: center;
-  
+
 }

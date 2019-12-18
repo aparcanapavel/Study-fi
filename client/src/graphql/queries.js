@@ -25,6 +25,8 @@ export default {
           year
           songs{
             name
+            duration
+
           }
         }
         songs{
