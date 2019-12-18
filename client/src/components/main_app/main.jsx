@@ -52,7 +52,7 @@ class MainComponent extends Component {
         <section className="main-container">
           <Switch>
             <Route path="/" component={HomeComponent} />
-            <Route path="/search"  />
+            <Route path="/search" component={Search} />
           </Switch>
         </section>
       </main>
