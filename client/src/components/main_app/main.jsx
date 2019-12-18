@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Nav from "../Nav";
 
+import Search from "./search/search";
+
 class MainComponent extends Component {
   constructor(props){
     super(props);
