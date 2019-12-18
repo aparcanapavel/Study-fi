@@ -18,16 +18,19 @@ Features included in our study-fi version are based on the original spotify feat
 ### MVP:
 
 Day 1
--User Authentication backend - Brennan and Pavel
+- User Authentication backend - Brennan and Pavel
+- User Authentication frontend- Brennan and Pavel
 
 Day 2
-- User Authentication frontend- Brennan and Pavel
 - Protecting routes- Brennan and Pavel
-- Create backend functionality for the spotify api to fetch song details. - Brennan and Pavel
+- app backend structuring brainstorming - Brennan and Pavel
+- App styling - Brennan and Pavel
+- Explore APIs to use with Studify - Brennan and Pavel
 
 Day 3
-- Create functional music controls bar( prev, next, play/pause, shuffle, repeat, volume, add to playlist[wait for day 4], progress bar, queue[wait for day 4])
-- Play continuous songs on the frontend with page to page navigation without interruption
+- Create Queries for all the Associations - Brennan and Pavel
+- Create app backend structure - Brennan and Pavel
+- Music library structure and seeding - Brennan and Pavel
 
 Day 4
 - Work on backend Playlist CRUD
