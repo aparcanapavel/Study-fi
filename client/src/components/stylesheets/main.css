@@ -100,3 +100,8 @@
   margin-left: 230px;
   margin-top: 50px;
 }
+
+#testInput input{
+  background-color: white;
+  color:black;
+}
