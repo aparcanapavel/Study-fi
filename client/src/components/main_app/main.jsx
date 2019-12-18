@@ -9,11 +9,25 @@ import Search from "./search/search";
 class MainComponent extends Component {
   constructor(props){
     super(props);
+    this.state = {
+      newQueue: ""
+    }
     this.toPage = this.toPage.bind(this);
+    this.update = this.update.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   toPage(page){
     return this.props.history.push(`/${page}`);
+  }
+
+  update(field){
+    return e => this.setState({ [field]: e.target.value });
+  }
+
+  handleSubmit(e){
+    e.preventDefault();
+    this.child.addToQueue(this.state.newQueue);
   }
 
   render(){
@@ -54,9 +68,17 @@ class MainComponent extends Component {
             <Route path="/search" component={Search} />
             <Route path="/" component={HomeComponent} />
           </Switch>
+          <form onSubmit={this.handleSubmit} id="testInput">
+            <input
+              type="text"
+              value={this.state.newQueue}
+              onChange={this.update("newQueue")}
+            />
+            <button>go</button>
+          </form>
         </section>
         <div className="music-player">
-          <MusicPlayer />
+          <MusicPlayer onRef={ref => (this.child = ref)} />
         </div>
       </main>
     );
