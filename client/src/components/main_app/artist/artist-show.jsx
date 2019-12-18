@@ -5,7 +5,13 @@ const { FETCH_ARTIST } = Queries;
 
 class ArtistShow extends React.Component {
   constructor(props){
-    super(props)
+    super(props);
+  }
+
+  parseTime(int){
+    let minutes = Math.floor(int/60);
+    let seconds = (int%60) < 10 ? `0${int%60}` : (int%60)
+    return `${minutes}:${seconds}`
   }
 
   render(){
@@ -32,6 +38,7 @@ class ArtistShow extends React.Component {
                   <li className="artist-show-song" key={song._id}>
                     <img className="song-album-icon" src="https://study-fi-public.s3.amazonaws.com/3.jpg"/>
                     <h1 className="song-index">{i + 1}</h1>
+                    <i className="far fa-play-circle"></i>
                     <h1 className="artist-show-song-name">{song.name}</h1>
                   </li>
                 ))}
@@ -49,6 +56,20 @@ class ArtistShow extends React.Component {
                       <h1 className="artist-show-album-name">{album.name}</h1>
                     </div>
                   </div>
+                    <div className="artist-show-album-songs">
+                      <ul className="artist-show-album-songs-list">
+                      {album.songs.map((song, i) => (
+                        <li className="artist-show-album-song">
+                          <div className="artist-show-album-song-header">
+                            <h1 className="artist-show-album-index">{i + 1}</h1>
+                            <h1 className="artist-show-album-song-name">{song.name}</h1>
+                          </div>
+                          <h1 className="artist-show-album-song-duration">{this.parseTime(song.duration)}</h1>
+                        </li>
+                      ))}
+                      </ul>
+                    </div>
+                  
                 </li>
               ))}
               </ul>

@@ -1,7 +1,7 @@
 .nav-auth {
-  width: 100%;
+  width: 80vw;
   display: flex;
-  justify-content: flex-start;
+  justify-content: flex-end;
   margin-bottom: 10px;
 }
 
