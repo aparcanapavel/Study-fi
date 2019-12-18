@@ -45,8 +45,9 @@ class MusicPlayer extends React.Component {
   addToQueue(song) {
     console.log("old queue: " + this.state.queue);
     const newQueue = this.state.queue;
-    newQueue.push(song);
-    this.setState({ queue: newQueue });
+    // newQueue.push(song);
+    Object.assign(this.state, (newQueue[song._id] = song));
+    // this.setState({ queue: newQueue });
     console.log("-------------------------------");
     console.log("new Queue: " + this.state.queue);
   }
@@ -67,6 +68,7 @@ class MusicPlayer extends React.Component {
               //   return <source key={song._id} src={song.songUrl}/>
               // })
               let song = songs.shift();
+              console.log(song);
               return <source key={song._id} src={song.songUrl} />;
             }}
           </Query>
