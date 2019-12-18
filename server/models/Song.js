@@ -26,21 +26,6 @@ const SongSchema = new Schema({
   }
 });
 
-// ArtistSchema.statics.addAlbum = (artistId, albumId) => {
-//   const Artist = mongoose.model("artists");
-//   const Album = mongoose.model("album");
-
-//   return Artist.findById(artistId).then(artist => {
-//     Album.findById(albumId).then(album => {
-//       artist.albums.push(album);
-//       album.artists.push(artist);
-//       return Promise.all([artist.save(), album.save()]).then(
-//         ([artist, album]) => artist
-//       );
-//     });
-//   });
-// };
-
 SongSchema.statics.addSongToArtistAlbum = (songId, artistArr, albumId) => {
   const Artist = mongoose.model("artists");
   const Album = mongoose.model("album");
@@ -48,10 +33,13 @@ SongSchema.statics.addSongToArtistAlbum = (songId, artistArr, albumId) => {
   return artistArr.forEach(artistId => {
     Artist.findById(artistId).then(artist=> {
       Album.findById(albumId).then(album => {
+        console.log("adding song to artist...");
         artist.songs.push(songId);
         if(!album.songs.includes(songId)){
+          console.log("adding song to album...");
           album.songs.push(songId);
         }
+        console.log("--------------------------------------");
         return Promise.all([artist.save(), album.save()])
           .then(([artist, album]) => artist)
       })
