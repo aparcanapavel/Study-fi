@@ -95,3 +95,8 @@
 .new-playlist p{
   margin-left: 10px;
 }
+
+.main-container {
+  margin-left: 230px;
+  margin-top: 50px;
+}
