@@ -28,7 +28,6 @@ class MusicPlayer extends React.Component {
       }
     }
     Object.assign(this.state, { queue: songsObj});
-    // this.setState({ queue: songsObj });
   }
 
   componentDidMount() {
@@ -55,24 +54,52 @@ class MusicPlayer extends React.Component {
   render() {
     return (
       <div className="music-player-container">
-        <audio className="music-player" controls onEnded={this.nextSong}>
-          <Query query={FETCH_SONGS}>
-            {({ loading, error, data }) => {
-              if (loading) return <p>Loading...</p>;
-              if (error) return <p>Error</p>;
+        <Query query={FETCH_SONGS}>
+          {({ loading, error, data }) => {
+            if (loading) return <p>Loading...</p>;
+            if (error) return <p>Error</p>;
 
-              this.populateQueue(data.songs);
+            this.populateQueue(data.songs);
 
-              const songs = Object.values(this.state.queue)
-              // .map(song => {
-              //   return <source key={song._id} src={song.songUrl}/>
-              // })
-              let song = songs.shift();
-              console.log(song);
-              return <source key={song._id} src={song.songUrl} />;
-            }}
-          </Query>
-        </audio>
+            const songs = Object.values(this.state.queue);
+            // .map(song => {
+            //   return <source key={song._id} src={song.songUrl}/>
+            // })
+            let song = songs.shift();
+            console.log(song);
+            let artists = "";
+            song.artists.map((artist, i) => {
+              if(i === 0){
+                artists += artist.name;
+              } else {
+                artists += ", " + artist.name;
+              }
+            })
+            return (
+              <div className="controlls">
+                <div className="left-controlls">
+                  <img className="player-album-cover" />
+                  <div className="player-song-details">
+                    <p>{song.name}</p>
+                    <p>{artists}</p>
+                  </div>
+                </div>
+                <div className="mind-controlls">
+                  <i class="fas fa-step-backward"></i>
+                  <i class="far fa-play-circle"></i>
+                  <i class="fas fa-step-forward"></i>
+                  <audio
+                    id="music-player"
+                    className="music-player-container"
+                    onEnded={this.nextSong}
+                    src={song.songUrl}
+                  ></audio>
+                </div>
+                <div className="right-controlls"></div>
+              </div>
+            );
+          }}
+        </Query>
       </div>
     );
   }

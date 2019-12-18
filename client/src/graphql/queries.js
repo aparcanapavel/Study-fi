@@ -1,7 +1,6 @@
 import gql from "graphql-tag";
 
 export default {
-
   IS_LOGGED_IN: gql`
     query IsUserLoggedIn {
       isLoggedIn @client
@@ -9,7 +8,7 @@ export default {
   `,
   FETCH_ARTISTS: gql`
     query fetchArtists {
-      artists{
+      artists {
         name
         _id
       }
@@ -17,26 +16,29 @@ export default {
   `,
   FETCH_SONGS: gql`
     query fetchSongs {
-      songs{
+      songs {
         _id
         name
         songUrl
+        artists {
+          name
+        }
       }
     }
   `,
   FETCH_ARTIST: gql`
-    query fetchArtist($id: ID!){
-      artist(_id: $id){
+    query fetchArtist($id: ID!) {
+      artist(_id: $id) {
         name
-        albums{
+        albums {
           _id
           name
           year
-          songs{
+          songs {
             name
           }
         }
-        songs{
+        songs {
           _id
           name
         }
