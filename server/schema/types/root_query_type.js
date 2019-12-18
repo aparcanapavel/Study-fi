@@ -15,17 +15,24 @@ const Album = mongoose.model("album");
 const RootQueryType = new GraphQLObjectType({
   name: "RootQueryType",
   fields: () => ({
+    user: {
+      type: UserType,
+      args: { _id: { type: new GraphQLNonNull(GraphQLID) } },
+      resolve(_, args) {
+        return User.findById(args._id);
+      }
+    },
     users: {
       type: new GraphQLList(UserType),
       resolve() {
         return User.find({});
       }
     },
-    user: {
-      type: UserType,
+    song: {
+      type: SongType,
       args: { _id: { type: new GraphQLNonNull(GraphQLID) } },
       resolve(_, args) {
-        return User.findById(args._id);
+        return Song.findById(args._id);
       }
     },
     songs: {
@@ -34,10 +41,24 @@ const RootQueryType = new GraphQLObjectType({
         return Song.find({});
       }
     },
+    artist: {
+      type: ArtistType,
+      args: { _id: { type: new GraphQLNonNull(GraphQLID) } },
+      resolve(_, args) {
+        return Artist.findById(args._id);
+      }
+    },
     artists: {
       type: new GraphQLList(ArtistType),
       resolve() {
         return Artist.find({});
+      }
+    },
+    album: {
+      type: AlbumType,
+      args: { _id: { type: new GraphQLNonNull(GraphQLID) } },
+      resolve(_, args) {
+        return Album.findById(args._id);
       }
     },
     albums: {

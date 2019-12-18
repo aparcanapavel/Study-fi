@@ -14,7 +14,7 @@ const SongSchema = new Schema({
   ],
   album: {
     type: Schema.Types.ObjectId,
-    required: true
+    ref: "album"
   },
   duration: {
     type: Number,
@@ -26,20 +26,29 @@ const SongSchema = new Schema({
   }
 });
 
-// ArtistSchema.statics.addAlbum = (artistId, albumId) => {
-//   const Artist = mongoose.model("artists");
-//   const Album = mongoose.model("album");
+SongSchema.statics.findArtists = function(id) {
+  return this.findById(id)
+    .populate("artists")
+    .then(song => {
+      const Artist = mongoose.model("artists");
+      const artistsArr = song.artists;
+      let returnArr = [];
+      artistsArr.forEach(artist => {
+        returnArr.push(Artist.findById(artist));
+      });
+      return returnArr;
+    });
+};
 
-//   return Artist.findById(artistId).then(artist => {
-//     Album.findById(albumId).then(album => {
-//       artist.albums.push(album);
-//       album.artists.push(artist);
-//       return Promise.all([artist.save(), album.save()]).then(
-//         ([artist, album]) => artist
-//       );
-//     });
-//   });
-// };
+SongSchema.statics.findAlbum = function(id) {
+  return this.findById(id)
+    .populate("album")
+    .then(song => {
+      console.log(song)
+      const Album = mongoose.model("album");
+      return Album.findById(song.album);
+    });
+};
 
 SongSchema.statics.addSongToArtistAlbum = (songId, artistArr, albumId) => {
   const Artist = mongoose.model("artists");
@@ -48,10 +57,13 @@ SongSchema.statics.addSongToArtistAlbum = (songId, artistArr, albumId) => {
   return artistArr.forEach(artistId => {
     Artist.findById(artistId).then(artist=> {
       Album.findById(albumId).then(album => {
+        console.log("adding song to artist...");
         artist.songs.push(songId);
         if(!album.songs.includes(songId)){
+          console.log("adding song to album...");
           album.songs.push(songId);
         }
+        console.log("--------------------------------------");
         return Promise.all([artist.save(), album.save()])
           .then(([artist, album]) => artist)
       })

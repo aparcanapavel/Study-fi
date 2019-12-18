@@ -24,4 +24,18 @@ AlbumSchema.statics.findArtists = function(id) {
     .then(album => album.artists);
 };
 
+AlbumSchema.statics.findSongs = function(id) {
+  return this.findById(id)
+    .populate("songs")
+    .then(album => {
+      const Song = mongoose.model("songs");
+      const songArr = album.songs;
+      let returnArr = [];
+      songArr.forEach(albumSong => {
+        returnArr.push(Song.findById(albumSong));
+      });
+      return returnArr;
+    });
+};
+
 module.exports = mongoose.model("album", AlbumSchema);
