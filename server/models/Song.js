@@ -44,7 +44,7 @@ SongSchema.statics.findAlbum = function(id) {
   return this.findById(id)
     .populate("album")
     .then(song => {
-      console.log(song)
+      // console.log(song)
       const Album = mongoose.model("album");
       return Album.findById(song.album);
     });
