@@ -62,12 +62,12 @@ class MusicPlayer extends React.Component {
 
               this.populateQueue(data.songs);
 
-              const songs = Object.values(this.state.queue).map(song => {
-                return <source key={song._id} src={song.songUrl}/>
-              })
-              // let newSong = songs.shift();
-              // console.log(newSong);
-              return songs;
+              const songs = Object.values(this.state.queue)
+              // .map(song => {
+              //   return <source key={song._id} src={song.songUrl}/>
+              // })
+              let song = songs.shift();
+              return <source key={song._id} src={song.songUrl} />;
             }}
           </Query>
         </audio>
