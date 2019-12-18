@@ -1,16 +1,34 @@
 import React from 'react';
+import Queries from "../graphql/queries";
+import { Query } from 'react-apollo';
+const { FETCH_SONGS } = Queries;
 
 class MusicPlayer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      queue: []
+      queue: {}
     };
     this.addToQueue = this.addToQueue.bind(this);
+    this.populateQueue = this.populateQueue.bind(this);
+    this.nextSong = this.nextSong.bind(this);
   }
 
-  populateQueue() {
-    //queries for all songs and populates the queue for up to 10 songs at a time.
+  populateQueue(songs) {
+    const currentQueue = Object.values(this.state.queue);
+    const songsObj = {};
+    
+    for(let i = currentQueue.length; i < 10; i++){
+      let song =
+        songs[
+          Math.floor(Math.random() * Math.floor(Object.keys(songs).length))
+        ];
+      if(!Object.keys(songsObj).includes(song._id)){
+        songsObj[song._id] = song;
+      }
+    }
+    Object.assign(this.state, { queue: songsObj});
+    // this.setState({ queue: songsObj });
   }
 
   componentDidMount() {
@@ -18,6 +36,10 @@ class MusicPlayer extends React.Component {
   }
   componentWillUnmount() {
     this.props.onRef(undefined);
+  }
+
+  nextSong(){
+    console.log("play next song");
   }
 
   addToQueue(song) {
@@ -32,7 +54,23 @@ class MusicPlayer extends React.Component {
   render() {
     return (
       <div className="music-player-container">
-        <audio className="music-player" src="" controls></audio>
+        <audio className="music-player" controls onEnded={this.nextSong}>
+          <Query query={FETCH_SONGS}>
+            {({ loading, error, data }) => {
+              if (loading) return <p>Loading...</p>;
+              if (error) return <p>Error</p>;
+
+              this.populateQueue(data.songs);
+
+              const songs = Object.values(this.state.queue).map(song => {
+                return <source key={song._id} src={song.songUrl}/>
+              })
+              // let newSong = songs.shift();
+              // console.log(newSong);
+              return songs;
+            }}
+          </Query>
+        </audio>
       </div>
     );
   }

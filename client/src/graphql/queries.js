@@ -18,6 +18,7 @@ export default {
   FETCH_SONGS: gql`
     query fetchSongs {
       songs{
+        _id
         name
         songUrl
       }
