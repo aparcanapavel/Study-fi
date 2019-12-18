@@ -14,7 +14,7 @@ const SongSchema = new Schema({
   ],
   album: {
     type: Schema.Types.ObjectId,
-    required: true
+    ref: "album"
   },
   duration: {
     type: Number,
@@ -25,6 +25,30 @@ const SongSchema = new Schema({
     required: true
   }
 });
+
+SongSchema.statics.findArtists = function(id) {
+  return this.findById(id)
+    .populate("artists")
+    .then(song => {
+      const Artist = mongoose.model("artists");
+      const artistsArr = song.artists;
+      let returnArr = [];
+      artistsArr.forEach(artist => {
+        returnArr.push(Artist.findById(artist));
+      });
+      return returnArr;
+    });
+};
+
+SongSchema.statics.findAlbum = function(id) {
+  return this.findById(id)
+    .populate("album")
+    .then(song => {
+      console.log(song)
+      const Album = mongoose.model("album");
+      return Album.findById(song.album);
+    });
+};
 
 SongSchema.statics.addSongToArtistAlbum = (songId, artistArr, albumId) => {
   const Artist = mongoose.model("artists");

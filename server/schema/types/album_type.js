@@ -8,13 +8,19 @@ const AlbumType = new GraphQLObjectType({
   fields: () => ({
     _id: { type: GraphQLID },
     name: { type: GraphQLString },
-    artist: {
+    artists: {
       type: new GraphQLList(require("./artist_type")),
       resolve(parentValue) {
         return Album.findArtists(parentValue.id);
       }
     },
-    year: { type: GraphQLInt }
+    year: { type: GraphQLInt },
+    songs: {
+      type: new GraphQLList(require("./song_type")),
+      resolve(parentValue) {
+        return Album.findSongs(parentValue.id);
+      }
+    }
   })
 });
 
