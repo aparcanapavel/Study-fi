@@ -1,0 +1,35 @@
+.artist-index{
+ margin: 10px;
+}
+
+.artist-index-header{
+  font-size: 24px;
+  padding: 10px;
+}
+
+.artist-list{
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  height: 300px;
+}
+
+.artist-list-item{
+  display: flex;
+  margin: 15px;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+.artist-list-icon{
+  height: 150px;
+  width: 150px;
+  border-radius: 100%;
+  margin: 10px;
+}
+
+.artist-list-name{
+  text-align: center;
+  
+}
