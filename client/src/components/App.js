@@ -24,7 +24,6 @@ const App = () => {
           return(
             <div className='main-component'>
               <MainComponent />
-              <MusicPlayer />
             </div>
           )
         } else {
