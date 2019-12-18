@@ -6,6 +6,13 @@ export default {
     query IsUserLoggedIn {
       isLoggedIn @client
     }
+  `,
+  FETCH_ARTISTS: gql`
+    query fetchArtists {
+      artists{
+        name
+        _id
+      }
+    }
   `
-  
 };

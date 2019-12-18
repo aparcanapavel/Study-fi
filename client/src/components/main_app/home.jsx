@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ArtistIndex from "./artist/artist_index";
 
 class HomeComponent extends Component{
   constructor(props){
@@ -7,7 +8,9 @@ class HomeComponent extends Component{
 
   render(){
     return(
-      <h3>this is the home component</h3>
+      <div className="home-container">
+        <ArtistIndex />
+      </div>
     )
   }
 }
