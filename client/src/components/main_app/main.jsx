@@ -3,7 +3,7 @@ import { withRouter } from "react-router";
 import { Switch, Route } from 'react-router-dom';
 import Nav from "../Nav";
 import HomeComponent from './home';
-
+import MusicPlayer from '../music_player';
 import Search from "./search/search";
 
 class MainComponent extends Component {
@@ -55,6 +55,9 @@ class MainComponent extends Component {
             <Route path="/" component={HomeComponent} />
           </Switch>
         </section>
+        <div className="music-player">
+          <MusicPlayer />
+        </div>
       </main>
     );
   }
