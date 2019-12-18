@@ -23,5 +23,24 @@ export default {
         songUrl
       }
     }
+  `,
+  FETCH_ARTIST: gql`
+    query fetchArtist($id: ID!){
+      artist(_id: $id){
+        name
+        albums{
+          _id
+          name
+          year
+          songs{
+            name
+          }
+        }
+        songs{
+          _id
+          name
+        }
+      }
+    }
   `
 };
