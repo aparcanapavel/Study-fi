@@ -51,8 +51,8 @@ class MainComponent extends Component {
         </aside>
         <section className="main-container">
           <Switch>
-            <Route path="/" component={HomeComponent} />
             <Route path="/search" component={Search} />
+            <Route path="/" component={HomeComponent} />
           </Switch>
         </section>
       </main>
