@@ -23,7 +23,11 @@ const SongSchema = new Schema({
   songUrl: {
     type: String,
     required: true
-  }
+  },
+  playlists: [{
+    type: Schema.Types.ObjectId,
+    ref: "playlists"
+  }]
 });
 
 SongSchema.statics.findArtists = function(id) {
