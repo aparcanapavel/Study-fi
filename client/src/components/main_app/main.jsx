@@ -7,6 +7,10 @@ import MusicPlayer from '../music_player';
 import Search from "./search/search";
 import ArtistShow from "./artist/artist_show";
 import AlbumShow from "./album/album_show";
+import PlaylistIndex from "./playlist/playlist_index";
+import { Query } from "react-apollo";
+import Queries from "../../graphql/queries";
+const {CURRENT_USER_ID} = Queries;
 
 class MainComponent extends Component {
   constructor(props){
@@ -39,52 +43,64 @@ class MainComponent extends Component {
 
   render(){
     return (
-      <main className="overall-container">
-        <nav className="top-nav">
-          <Nav />
-        </nav>
-        <aside className="main-nav">
-          <h2>
-            <i className="fas fa-graduation-cap"></i> Study-fi
-          </h2>
-          <ul className="main-links">
-            <li key="1" onClick={() => this.toPage("")}>
-              <i className="fas fa-university"></i>
-              <p>Home</p>
-            </li>
-            <li key="2" onClick={() => this.toPage("search")}>
-              <i className="fas fa-search"></i>
-              <p>Search</p>
-            </li>
-            <li key="3">
-              <i className="fas fa-book"></i>
-              <p>Your Library</p>
-            </li>
-          </ul>
-          <h3>PLAYLISTS</h3>
-          <div className="new-playlist">
-            <i className="fas fa-plus-square"></i>
-            <p>Create Playlist</p>
+      <Query query={CURRENT_USER_ID}>
+        {({ loading, error, data }) => {
+          return (
+        <main className="overall-container">
+          <nav className="top-nav">
+            <Nav />
+          </nav>
+          <aside className="main-nav">
+            <h2>
+              <i className="fas fa-graduation-cap"></i> Study-fi
+            </h2>
+            <ul className="main-links">
+              <li key="1" onClick={() => this.toPage("")}>
+                <i className="fas fa-university"></i>
+                <p>Home</p>
+              </li>
+              <li key="2" onClick={() => this.toPage("search")}>
+                <i className="fas fa-search"></i>
+                <p>Search</p>
+              </li>
+              <li key="3">
+                <i className="fas fa-book"></i>
+                <p>Your Library</p>
+              </li>
+            </ul>
+            <h3>PLAYLISTS</h3>
+              <PlaylistIndex  />
+            <div className="new-playlist">
+              <i className="fas fa-plus-square"></i>
+              <p>Create Playlist</p>
+            </div>
+          </aside>
+          <section className="main-container">
+            <Switch>
+              <Route
+                path="/search"
+                render={props => <Search playNow={this.playNow} />}
+              />              <Route path="/artist/:artistId" component={ArtistShow} />
+              <Route path="/album/:albumId" component={AlbumShow} />
+              <Route path="/" component={HomeComponent} />
+            </Switch>
+            <form onSubmit={this.handleSubmit} id="testInput">
+              <input
+                type="text"
+                value={this.state.newQueue}
+                onChange={this.update("newQueue")}
+              />
+              <button>go</button>
+            </form>
+          </section>
+          <div className="music-player">
+            <MusicPlayer onRef={ref => (this.musicPlayer = ref)} />
           </div>
-          <ul className="playlists">
-            <li></li>
-          </ul>
-        </aside>
-        <section className="main-container">
-          <Switch>
-            <Route 
-              path="/search" 
-              render={props => <Search playNow={this.playNow}/>} 
-            />
-            <Route path="/artist/:artistId" component={ArtistShow} />
-            <Route path="/album/:albumId" component={AlbumShow} />
-            <Route path="/" component={HomeComponent} />
-          </Switch>
-        </section>
-        <div className="music-player">
-          <MusicPlayer onRef={ref => (this.musicPlayer = ref)} />
-        </div>
-      </main>
+
+        </main>
+          )
+        }}
+        </Query>
     );
   }
 }
