@@ -5,7 +5,8 @@ import Nav from "../Nav";
 import HomeComponent from './home';
 import MusicPlayer from '../music_player';
 import Search from "./search/search";
-import ArtistShow from "./artist/artist-show";
+import ArtistShow from "./artist/artist_show";
+import AlbumShow from "./album/album_show";
 
 class MainComponent extends Component {
   constructor(props){
@@ -68,6 +69,7 @@ class MainComponent extends Component {
           <Switch>
             <Route path="/search" component={Search} />
             <Route path="/artist/:artistId" component={ArtistShow} />
+            <Route path="/album/:albumId" component={AlbumShow} />
             <Route path="/" component={HomeComponent} />
           </Switch>
           <form onSubmit={this.handleSubmit} id="testInput">

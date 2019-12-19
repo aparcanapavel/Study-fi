@@ -1,0 +1,113 @@
+.album-show{
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: scroll;
+}
+
+.album-show-header{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-bottom: 10px;
+}
+
+.album-show-icon{
+  width: 200px;
+  height: 200px;
+}
+
+.album-show-header-details{
+  padding: 20px;
+}
+
+.album-show-year{
+
+}
+
+.album-show-name {
+  font-weight: 700;
+  font-size: 36px;
+}
+
+.album-show-songs {
+  padding-bottom: 300px;
+}
+
+.album-show-song {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.253);
+}
+
+.album-show-song:hover {
+  background-color: rgba(255, 255, 255, 0.075);
+}
+
+
+.album-show-song-start{
+  width: 500px;
+  display: flex;
+  flex-direction: row;
+}
+
+.album-show-song-name {
+  display: flex;
+  flex-direction: row;
+}
+
+.album-show-song-artists { 
+  display: flex;
+  justify-content: flex-start;
+  width: 300px;
+}
+
+.album-show-artist-name {
+  margin-left: 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0);
+}
+
+.album-show-artist-name:hover {
+  border-bottom: 1px solid white;
+}
+
+.album-show-song-index {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.album-show-artists {
+  display: flex;
+  flex-direction: row;
+}
+
+.album-show-artist {
+  margin-left: 6px;
+  border-bottom: 1px solid white;
+}
+
+.album-show-song-header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.253);
+  padding: 10px;
+  font-size: 16px;
+  color: gray;
+}
+
+.album-show-song-header-title {
+  margin-left: 22px;
+  width: 250px;
+}
+
+.album-show-song-header-artist {
+  margin-right: 10px;
+}
+
+.album-show-song-duration {
+  margin-left: 10px;
+}
+
