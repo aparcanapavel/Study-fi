@@ -6,11 +6,13 @@ const UserType = require("./user_type");
 const SongType = require("./song_type");
 const AlbumType = require("./album_type");
 const ArtistType = require("./artist_type");
+const PlaylistType = require("./playlist_type")
 
 const User = mongoose.model("users");
 const Song = mongoose.model("songs");
 const Artist = mongoose.model("artists");
 const Album = mongoose.model("album");
+const Playlist = mongoose.model("playlists");
 
 const RootQueryType = new GraphQLObjectType({
   name: "RootQueryType",
@@ -65,6 +67,19 @@ const RootQueryType = new GraphQLObjectType({
       type: new GraphQLList(AlbumType),
       resolve() {
         return Album.find({});
+      }
+    },
+    playlist: {
+      type: PlaylistType,
+      args: { _id: { type: new GraphQLNonNull(GraphQLID) } },
+      resolve(_, args) {
+        return Playlist.findById(args._id);
+      }
+    },
+    playlists: {
+      type: new GraphQLList(PlaylistType),
+      resolve() {
+        return Playlist.find({});
       }
     }
   })

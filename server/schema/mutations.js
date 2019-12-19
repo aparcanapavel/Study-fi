@@ -9,6 +9,8 @@ const Album = require("../models/Album");
 const AlbumType = require("./types/album_type");
 const ArtistType = require("./types/artist_type");
 const Artist = require('../models/Artist');
+const PlaylistType = require("./types/playlist_type");
+const Playlist = mongoose.model("playlists")
 
 const mutation = new GraphQLObjectType({
   name: "Mutation",
@@ -101,6 +103,27 @@ const mutation = new GraphQLObjectType({
       },
       resolve(_, { artistId, albumId }) {
         return Artist.addAlbum(artistId, albumId);
+      }
+    },
+    createPlaylist: {
+      type: PlaylistType,
+      args: {
+        name: { type: GraphQLString },
+        userId: { type: GraphQLID }
+      },
+      resolve(_, args) {
+        return new Playlist({ name: args.name, user: args.userId }).save()
+          .then((playlist) => Playlist.addPlaylistToUser(playlist._id, playlist.user));
+      }
+    },
+    addSongToPlaylist: {
+      type: PlaylistType,
+      args: {
+        playlistId : { type: GraphQLID },
+        songId: { type: GraphQLID }
+      },
+      resolve(_, args) {
+        return Playlist.addSong(args.playlistId, args.songId);
       }
     }
   }
