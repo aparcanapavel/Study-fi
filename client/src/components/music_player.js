@@ -65,6 +65,7 @@ class MusicPlayer extends React.Component {
       this.setState({ isPlaying: false });
     } else {
       player.play();
+      this.setState({ isPlaying: true });
     }
   }
 
