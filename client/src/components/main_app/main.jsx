@@ -80,18 +80,11 @@ class MainComponent extends Component {
               <Route
                 path="/search"
                 render={props => <Search playNow={this.playNow} />}
-              />              <Route path="/artist/:artistId" component={ArtistShow} />
+              />              
+              <Route path="/artist/:artistId" component={ArtistShow} />
               <Route path="/album/:albumId" component={AlbumShow} />
               <Route path="/" component={HomeComponent} />
             </Switch>
-            <form onSubmit={this.handleSubmit} id="testInput">
-              <input
-                type="text"
-                value={this.state.newQueue}
-                onChange={this.update("newQueue")}
-              />
-              <button>go</button>
-            </form>
           </section>
           <div className="music-player">
             <MusicPlayer onRef={ref => (this.musicPlayer = ref)} />
