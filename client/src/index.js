@@ -12,62 +12,77 @@ import { ApolloLink } from "apollo-link";
 import Mutations from "./graphql/mutations";
 const { VERIFY_USER } = Mutations;
 
-const cache = new InMemoryCache({
-  dataIdFromObject: object => object._id || null
-});
+let cache;
+let client;
 
-const httpLink = createHttpLink({
-  uri: "http://localhost:5000/graphql",
-  headers: {
-    // pass our token into the header of each request
-    authorization: localStorage.getItem("auth-token")
-  }
-});
+async function setupClient() {
+  cache = new InMemoryCache({
+    dataIdFromObject: object => object._id || null
+  });
 
-const errorLink = onError(({ graphQLErrors }) => {
-  if (graphQLErrors) graphQLErrors.map(({ message }) => console.log(message));
-});
+  const httpLink = createHttpLink({
+    uri: "http://localhost:5000/graphql",
+    headers: {
+      // pass our token into the header of each request
+      authorization: localStorage.getItem("auth-token")
+    }
+  });
 
-const client = new ApolloClient({
-  link: httpLink,
-  cache,
-  onError: ({ networkError, graphQLErrors }) => {
-    console.log("graphQLErrors", graphQLErrors);
-    console.log("networkError", networkError);
-  }
-});
+  const errorLink = onError(({ graphQLErrors }) => {
+    if (graphQLErrors) graphQLErrors.map(({ message }) => console.log(message));
+  });
 
-const token = localStorage.getItem("auth-token");
-
-cache.writeData({
-  data: {
-    isLoggedIn: Boolean(token)
-  }
-});
-
-if (token) {
-  client
-    .mutate({ mutation: VERIFY_USER, variables: { token } })
-    .then(({ data }) => {
-      cache.writeData({
-        data: {
-          isLoggedIn: data.verifyUser.loggedIn
-        }
-      });
-    });
+  client = new ApolloClient({
+    link: httpLink,
+    cache,
+    onError: ({ networkError, graphQLErrors }) => {
+      console.log("graphQLErrors", graphQLErrors);
+      console.log("networkError", networkError);
+    }
+  });
 }
 
-const Root = () => {
-  return (
-    <ApolloProvider client={client}>
-      <HashRouter>
-      <App />
-      </HashRouter>
-    </ApolloProvider>
-  );
-};
+async function populateCache() {
+  const token = localStorage.getItem("auth-token");
 
-ReactDOM.render(<Root />, document.getElementById("root"));
+  await cache.writeData({
+    data: {
+      isLoggedIn: Boolean(token)
+    }
+  });
+
+  if (token) {
+    await client
+      .mutate({ mutation: VERIFY_USER, variables: { token } })
+      .then(({ data }) => {
+
+        cache.writeData({
+          data: {
+            isLoggedIn: data.verifyUser.loggedIn,
+            currentUserId: data.verifyUser._id
+          }
+        });
+      });
+  }
+}
+
+setupClient()
+  .then(() => populateCache())
+  .then(() => {
+    const Root = () => {
+      return (
+        <ApolloProvider client={client}>
+          <HashRouter>
+            <App />
+          </HashRouter>
+        </ApolloProvider>
+      );
+    };
+
+    ReactDOM.render(<Root />, document.getElementById("root"));
+  })
+
+
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

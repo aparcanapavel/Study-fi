@@ -13,6 +13,7 @@ const Mutations = {
     mutation VerifyUser($token: String!) {
       verifyUser(token: $token) {
         loggedIn
+        _id
       }
     }
   `,

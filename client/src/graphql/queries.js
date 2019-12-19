@@ -6,6 +6,11 @@ export default {
       isLoggedIn @client
     }
   `,
+  CURRENT_USER_ID: gql`
+    query fetchCurrentUserId {
+      currentUserId @client
+    }
+  `,
   FETCH_ARTISTS: gql`
     query fetchArtists {
       artists {
@@ -81,5 +86,16 @@ export default {
         }
       }
     }
-  `
+  `,
+  FETCH_USER_PLAYLISTS: gql`
+    query fetchUser($id: ID!){
+      user(_id: $id){
+        _id
+        playlists{
+          _id
+          name
+        }
+      }
+    }
+  `,
 };
