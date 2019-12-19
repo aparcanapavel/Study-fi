@@ -97,6 +97,9 @@ export default {
       albums{
         _id
         name
+        artists{
+          name
+        }
       }
     }
   `

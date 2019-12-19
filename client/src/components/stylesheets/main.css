@@ -7,7 +7,13 @@
   background-image: linear-gradient(rgb(83, 83, 83), rgb(20, 20, 20), rgb(20, 20, 20));
   top: 0px;
   left: 0px;
+  overflow-y: auto;
 }
+
+.overall-container::-webkit-scrollbar {
+    display: none;
+}
+
 .top-nav{
   display: block;
   position: fixed;

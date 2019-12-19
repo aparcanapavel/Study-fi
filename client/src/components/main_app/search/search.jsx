@@ -53,13 +53,33 @@ class Search extends React.Component {
 
       let albums = Object.values(data.albums).map(album => {
         if (this.doesMatch(search, album)) {
-          return <li key={album._id} className="album-item">{album.name}</li>;
+          let albumArtists = "";
+          album.artists.map((artist, i) => {
+            if (i === 0) {
+              albumArtists += artist.name;
+            } else if(i < 2){
+              albumArtists += ", " + artist.name;
+            }
+          });
+          return (
+            <li key={album._id} className="album-item">
+              <img alt="" />
+              <p>{album.name}</p>
+              <p>{albumArtists}</p>
+            </li>
+          );
         }
       });
 
       let artists = Object.values(data.artists).map(artist => {
         if (this.doesMatch(search, artist)) {
-          return <li key={artist._id} className="artist-item">{artist.name}</li>;
+          return (
+            <li key={artist._id} className="artist-item">
+              <img alt="" />
+              <p>{artist.name}</p>
+              <p>Artist</p>
+            </li>
+          );
         }
       });
       // console.log(songs);
@@ -141,15 +161,24 @@ class Search extends React.Component {
                 ) : (
                   <div className="search-results">
                     <ul className="search-results-songs" key="5">
-                      <h4>Songs</h4>
+                      <div className="search-result-header">
+                        <h4>Songs</h4>
+                        <p>SEE ALL</p>
+                      </div>
                       {songs}
                     </ul>
                     <ul className="search-results-artists" key="6">
-                      <h4>Artists</h4>
+                      <div className="search-result-header">
+                        <h4>Artists</h4>
+                        <p>SEE ALL</p>
+                      </div>
                       {artists}
                     </ul>
                     <ul className="search-results-albums" key="7">
-                      <h4>Albums</h4>
+                      <div className="search-result-header">
+                        <h4>Albums</h4>
+                        <p>SEE ALL</p>
+                      </div>
                       {albums}
                     </ul>
                   </div>
