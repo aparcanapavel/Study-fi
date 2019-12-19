@@ -7,11 +7,16 @@ class MusicPlayer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      queue: {}
+      queue: [],
+      history: [],
+      currentSongIdx: 0,
+      isPlaying: false
     };
     this.addToQueue = this.addToQueue.bind(this);
     this.populateQueue = this.populateQueue.bind(this);
     this.nextSong = this.nextSong.bind(this);
+    this.previous = this.previous.bind(this);
+    this.playpause = this.playpause.bind(this);
   }
 
   populateQueue(songs) {
@@ -27,7 +32,7 @@ class MusicPlayer extends React.Component {
         songsObj[song._id] = song;
       }
     }
-    Object.assign(this.state, { queue: songsObj});
+    Object.assign(this.state, { queue: Object.values(songsObj)});
   }
 
   componentDidMount() {
@@ -35,10 +40,51 @@ class MusicPlayer extends React.Component {
   }
   componentWillUnmount() {
     this.props.onRef(undefined);
+    clearTimeout(this.timeout);
+  }
+
+  previous(){
+    let songIdx = this.state.currentSongIdx;
+    if(songIdx <= 0){
+      songIdx = 0;
+    } else {
+      songIdx--;
+    }
+    this.timeout = setTimeout(() => {
+      const player = document.getElementById("music-player");
+      player.play();
+    }, 100);
+    this.setState({ currentSongIdx: songIdx, isPlaying: true });
+  }
+
+  playpause(){
+    console.log("playpause");
+    const player = document.getElementById("music-player");
+    if (this.state.isPlaying) {
+      player.pause();
+      this.setState({ isPlaying: false });
+    } else {
+      player.play();
+    }
   }
 
   nextSong(){
-    console.log("play next song");
+    const currentSong = this.state.queue[0];
+    const currentHist = this.state.history;
+    const currentQueue = this.state.queue;
+    let songIdx = this.state.currentSongIdx + 1;
+    currentHist.push(currentSong);
+    // currentQueue.shift();
+    this.timeout = setTimeout(() => {
+      const player = document.getElementById("music-player");
+      player.play();
+    }, 100);
+    this.setState({
+      queue: currentQueue,
+      history: currentHist,
+      currentSongIdx: songIdx,
+      isPlaying: true
+    });
   }
 
   addToQueue(song) {
@@ -59,13 +105,15 @@ class MusicPlayer extends React.Component {
             if (loading) return <p>Loading...</p>;
             if (error) return <p>Error</p>;
 
-            this.populateQueue(data.songs);
+            if(this.state.queue.length === 0){
+              this.populateQueue(data.songs);
+            }
 
-            const songs = Object.values(this.state.queue);
+            const songs = this.state.queue;
             // .map(song => {
             //   return <source key={song._id} src={song.songUrl}/>
             // })
-            let song = songs.shift();
+            let song = songs[this.state.currentSongIdx];
             console.log(song);
             let artists = "";
             song.artists.map((artist, i) => {
@@ -85,9 +133,9 @@ class MusicPlayer extends React.Component {
                   </div>
                 </div>
                 <div className="mind-controlls">
-                  <i class="fas fa-step-backward"></i>
-                  <i class="far fa-play-circle"></i>
-                  <i class="fas fa-step-forward"></i>
+                  <i className="fas fa-step-backward" onClick={this.previous}></i>
+                  <i className="far fa-play-circle" onClick={this.playpause}></i>
+                  <i className="fas fa-step-forward" onClick={this.nextSong}></i>
                   <audio
                     id="music-player"
                     className="music-player-container"
