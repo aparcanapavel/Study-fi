@@ -17,6 +17,7 @@ class MainComponent extends Component {
     this.toPage = this.toPage.bind(this);
     this.update = this.update.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.playNow = this.playNow.bind(this);
   }
 
   toPage(page){
@@ -30,6 +31,10 @@ class MainComponent extends Component {
   handleSubmit(e){
     e.preventDefault();
     this.musicPlayer.addToQueue(this.state.newQueue);
+  }
+
+  playNow(song){
+    console.log("from main component: " + song);
   }
 
   render(){
@@ -67,19 +72,14 @@ class MainComponent extends Component {
         </aside>
         <section className="main-container">
           <Switch>
-            <Route path="/search" component={Search} />
+            <Route 
+              path="/search" 
+              render={props => <Search playNow={this.playNow}/>} 
+            />
             <Route path="/artist/:artistId" component={ArtistShow} />
             <Route path="/album/:albumId" component={AlbumShow} />
             <Route path="/" component={HomeComponent} />
           </Switch>
-          {/* <form onSubmit={this.handleSubmit} id="testInput">
-            <input
-              type="text"
-              value={this.state.newQueue}
-              onChange={this.update("newQueue")}
-            />
-            <button>go</button>
-          </form> */}
         </section>
         <div className="music-player">
           <MusicPlayer onRef={ref => (this.musicPlayer = ref)} />

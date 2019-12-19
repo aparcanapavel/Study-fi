@@ -50,6 +50,8 @@
 .empty-search{
   text-align: center;
   padding: 200px 300px;
+  word-spacing: 1px;
+  letter-spacing: 1px;
 }
 .search-results{
   overflow-y: auto;

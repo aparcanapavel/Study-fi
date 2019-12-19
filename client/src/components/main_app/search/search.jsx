@@ -86,7 +86,9 @@ class Search extends React.Component {
       songs = Object.values(songs).filter(Boolean);
       albums = Object.values(albums).filter(Boolean);
       artists = Object.values(artists).filter(Boolean);
-
+      
+      this.props.playNow(search);
+      
       this.setState({ 
         search: search, 
         songs: songs, 
@@ -124,6 +126,7 @@ class Search extends React.Component {
                     type="text"
                     value={this.state.search}
                     placeholder="Search for Artists, Songs, or Albums"
+                    disabled
                   />
                   <label htmlFor="search-field" className="search-field-x">
                     X
@@ -161,24 +164,27 @@ class Search extends React.Component {
                 ) : (
                   <div className="search-results">
                     <ul className="search-results-songs" key="5">
+                      {songs ? (
                       <div className="search-result-header">
                         <h4>Songs</h4>
                         <p>SEE ALL</p>
-                      </div>
+                      </div>) : null}
                       {songs}
                     </ul>
                     <ul className="search-results-artists" key="6">
+                      {artists ? (
                       <div className="search-result-header">
                         <h4>Artists</h4>
                         <p>SEE ALL</p>
-                      </div>
+                      </div>) : null}
                       {artists}
                     </ul>
                     <ul className="search-results-albums" key="7">
+                      {albums ? (
                       <div className="search-result-header">
                         <h4>Albums</h4>
                         <p>SEE ALL</p>
-                      </div>
+                      </div>) : null }
                       {albums}
                     </ul>
                   </div>
