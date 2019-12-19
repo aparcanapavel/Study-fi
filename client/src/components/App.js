@@ -31,7 +31,7 @@ const App = () => {
             <div className="splash-page-container">
               <Nav />
               <Splash />
-              <MusicPlayer />
+              {/* <MusicPlayer /> */}
             </div>
           );
         }

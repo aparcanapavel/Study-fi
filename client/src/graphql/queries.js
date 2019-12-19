@@ -11,6 +11,38 @@ export default {
       currentUserId @client
     }
   `,
+  FETCH_USER_PLAYLISTS: gql`
+    query fetchUser($id: ID!){
+      user(_id: $id){
+        _id
+        playlists{
+          _id
+        }
+      }
+    }
+  `,
+  FETCH_ALL: gql`
+    query fetchAll{
+      songs{
+        _id
+        name
+        artists{
+          name
+        }
+      }
+      artists{
+        _id
+        name
+      }
+      albums{
+        _id
+        name
+        artists{
+          name
+        }
+      }
+    }
+  `,
   FETCH_ARTISTS: gql`
     query fetchArtists {
       artists {
@@ -42,7 +74,6 @@ export default {
           songs {
             name
             duration
-
           }
         }
         songs {
@@ -53,12 +84,12 @@ export default {
     }
   `,
   FETCH_ALBUMS: gql`
-    query fetchAlbums{
-      albums{
+    query fetchAlbums {
+      albums {
         _id
         name
         year
-        artists{
+        artists {
           _id
           name
         }
@@ -66,20 +97,20 @@ export default {
     }
   `,
   FETCH_ALBUM: gql`
-    query fetchAlbum($id: ID!){
-      album(_id: $id){
+    query fetchAlbum($id: ID!) {
+      album(_id: $id) {
         _id
         name
         year
-        artists{
+        artists {
           _id
           name
         }
-        songs{
+        songs {
           _id
           name
           duration
-          artists{
+          artists {
             _id
             name
           }
@@ -87,15 +118,4 @@ export default {
       }
     }
   `,
-  FETCH_USER_PLAYLISTS: gql`
-    query fetchUser($id: ID!){
-      user(_id: $id){
-        _id
-        playlists{
-          _id
-          name
-        }
-      }
-    }
-  `,
-};
+}
