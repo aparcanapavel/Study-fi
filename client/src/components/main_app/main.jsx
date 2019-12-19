@@ -29,7 +29,7 @@ class MainComponent extends Component {
 
   handleSubmit(e){
     e.preventDefault();
-    this.child.addToQueue(this.state.newQueue);
+    this.musicPlayer.addToQueue(this.state.newQueue);
   }
 
   render(){
@@ -72,17 +72,17 @@ class MainComponent extends Component {
             <Route path="/album/:albumId" component={AlbumShow} />
             <Route path="/" component={HomeComponent} />
           </Switch>
-          <form onSubmit={this.handleSubmit} id="testInput">
+          {/* <form onSubmit={this.handleSubmit} id="testInput">
             <input
               type="text"
               value={this.state.newQueue}
               onChange={this.update("newQueue")}
             />
             <button>go</button>
-          </form>
+          </form> */}
         </section>
         <div className="music-player">
-          <MusicPlayer onRef={ref => (this.child = ref)} />
+          <MusicPlayer onRef={ref => (this.musicPlayer = ref)} />
         </div>
       </main>
     );
