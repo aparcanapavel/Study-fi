@@ -5,14 +5,19 @@
   margin-right: 5px;
 }
 
-.search-container > .search-bar{
+.search-container > .search-component{
+  display: block;
+  position: relative;
+}
+
+.search-container .search-bar{
   position: relative;
   max-width: 300px;
   top: -30px;
   margin-left: 30px;
 }
 
-.search-container > .search-bar input {
+.search-container .search-bar input {
   background-color: whitesmoke;
   border-radius: 20px;
   width: 300px;
@@ -23,14 +28,14 @@
   font-size: 14px;
   position: relative;
 }
-.search-container > .search-bar label:first-child{
+.search-container .search-bar label:first-child{
   color: black;
   position: absolute;
   padding: 10px;
   z-index: 1;
 }
 
-.search-container > .search-bar label:last-child{
+.search-container .search-bar label:last-child{
   color: rgb(100, 100, 100);
   position: absolute;
   padding: 5px;
@@ -41,4 +46,18 @@
 .empty-search{
   text-align: center;
   padding: 200px 300px;
+}
+.search-results{
+  overflow-y: auto;
+}
+
+.search-results .search-results-songs{
+  background-color: red;
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.search-results .search-results-songs h4{
+  font-size: 25px;
 }

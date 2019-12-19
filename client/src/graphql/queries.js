@@ -86,6 +86,9 @@ export default {
       songs{
         _id
         name
+        artists{
+          name
+        }
       }
       artists{
         _id
