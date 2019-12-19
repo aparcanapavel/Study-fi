@@ -1,0 +1,36 @@
+.album-index{
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 100px;
+  margin: 10px;
+}
+
+.album-list {
+  display: flex;
+  flex-direction: row;
+  overflow: scroll;
+}
+
+.album-list-item {
+  margin: 20px;
+}
+
+.album-list-icon {
+  width: 150px;
+  height: 150px;
+}
+
+.album-list-name {
+  margin: 10px;
+  text-align: center;
+}
+
+.album-list-name:hover {
+  text-underline-position: below;
+}
+
+.album-index-header {
+  font-size: 24px;
+  padding: 10px;
+  border-bottom: 1px solid   rgba(255, 255, 255, 0.082);
+}

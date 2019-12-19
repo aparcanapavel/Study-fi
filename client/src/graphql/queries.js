@@ -35,5 +35,40 @@ export default {
         }
       }
     }
+  `,
+  FETCH_ALBUMS: gql`
+    query fetchAlbums{
+      albums{
+        _id
+        name
+        year
+        artists{
+          _id
+          name
+        }
+      }
+    }
+  `,
+  FETCH_ALBUM: gql`
+    query fetchAlbum($id: ID!){
+      album(_id: $id){
+        _id
+        name
+        year
+        artists{
+          _id
+          name
+        }
+        songs{
+          _id
+          name
+          duration
+          artists{
+            _id
+            name
+          }
+        }
+      }
+    }
   `
 };

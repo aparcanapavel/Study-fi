@@ -5,4 +5,6 @@
 @import url("./stylesheets/nav.css");
 @import url("./stylesheets/main.css");
 @import url("./stylesheets/artist-index.css");
-@import url("./stylesheets/artist-show.css")
+@import url("./stylesheets/artist-show.css");
+@import url("./stylesheets/album-index.css");
+@import url("./stylesheets/album_show.css");

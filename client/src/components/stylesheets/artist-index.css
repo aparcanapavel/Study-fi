@@ -6,7 +6,7 @@
   font-size: 24px;
   padding: 10px;
   border-bottom: 1px solid   rgba(255, 255, 255, 0.082);
-;
+
 }
 
 .artist-list{
@@ -14,6 +14,10 @@
   flex-direction: row;
   overflow-x: auto;
   height: 300px;
+}
+
+.artist-list::-webkit-scrollbar {
+    display: none;
 }
 
 .artist-list-item{

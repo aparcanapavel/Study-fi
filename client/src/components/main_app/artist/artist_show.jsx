@@ -1,6 +1,7 @@
 import React from "react";
 import { Query } from "react-apollo";
 import Queries from "../../../graphql/queries";
+import { Link } from "react-router-dom";
 const { FETCH_ARTIST } = Queries;
 
 class ArtistShow extends React.Component {
@@ -53,7 +54,7 @@ class ArtistShow extends React.Component {
                     <img className="album-icon" src="https://study-fi-public.s3.amazonaws.com/3.jpg" />
                     <div className="artist-show-album-header-name">
                       <h1 className="artist-show-album-year">{album.year}</h1>
-                      <h1 className="artist-show-album-name">{album.name}</h1>
+                      <Link to={`/album/${album._id}`}><h1 className="artist-show-album-name">{album.name}</h1></Link>
                     </div>
                   </div>
                     <div className="artist-show-album-songs">

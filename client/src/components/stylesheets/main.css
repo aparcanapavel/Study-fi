@@ -105,3 +105,8 @@
   background-color: white;
   color:black;
 }
+
+.home-container {
+  height: 95vh;
+  overflow: scroll;
+}
