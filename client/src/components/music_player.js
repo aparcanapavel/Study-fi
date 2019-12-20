@@ -96,6 +96,17 @@ class MusicPlayer extends React.Component {
     this.setState({ queue: newQueue, currentSongIdx: 0, isPlaying: true });
   }
 
+  playAlbumNow(albumSongs){
+    const newQueue = Object.values(albumSongs);
+    this.timeout = setTimeout(() => {
+      const song = this.state.queue[this.state.currentSongIdx];
+      this.props.setCurrentSong(song);
+      const player = document.getElementById("music-player");
+      player.play();
+    }, 1);
+    this.setState({ queue: newQueue, currentSongIdx: 0, isPlaying: true });
+  }
+
   addToQueue(song) {
     console.log("old queue: " + this.state.queue);
     const newQueue = this.state.queue;

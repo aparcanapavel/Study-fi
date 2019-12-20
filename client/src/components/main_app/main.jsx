@@ -16,12 +16,13 @@ class MainComponent extends Component {
   constructor(props){
     super(props);
     this.state = {
-      newQueue: ""
+      currentSong: null
     }
     this.toPage = this.toPage.bind(this);
     this.update = this.update.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.setCurrentSong = this.setCurrentSong.bind(this);
     this.playSongNow = this.playSongNow.bind(this);
+    this.playAlbumNow = this.playAlbumNow.bind(this);
   }
 
   toPage(page){
@@ -32,13 +33,16 @@ class MainComponent extends Component {
     return e => this.setState({ [field]: e.target.value });
   }
 
-  handleSubmit(e){
-    e.preventDefault();
-    this.musicPlayer.addToQueue(this.state.newQueue);
+  setCurrentSong(song){
+    this.setState({ currentSong: song });
   }
 
   playSongNow(song){
     this.musicPlayer.playSongNow(song);
+  }
+
+  playAlbumNow(albumSongs){
+    this.musicPlayer.playAlbumNow(albumSongs);
   }
 
   render(){
@@ -83,7 +87,10 @@ class MainComponent extends Component {
                   />
                   <Route 
                     path="/album/:albumId" 
-                    render={props => <AlbumShow {...props} playSongNow={this.playSongNow}/>} 
+                    render={props => <AlbumShow {...props} playSongNow={this.playSongNow}
+                    playAlbumNow={this.playAlbumNow}
+                    currentSong={this.state.currentSong}
+                    />} 
                   />
                   <Route
                     path="/search"
@@ -93,7 +100,7 @@ class MainComponent extends Component {
                 </Switch>
               </section>
               <div className="music-player">
-                <MusicPlayer onRef={ref => (this.musicPlayer = ref)} />
+                <MusicPlayer onRef={ref => (this.musicPlayer = ref)} setCurrentSong={this.setCurrentSong} />
               </div>
             </main>
           );
