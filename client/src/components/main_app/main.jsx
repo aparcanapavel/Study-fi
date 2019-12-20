@@ -99,6 +99,10 @@ class MainComponent extends Component {
                     path="/search"
                     render={props => <Search playSongNow={this.playSongNow} />}
                   />
+                  <Route 
+                    path="/playlist/:playlistId"
+                    component={PlaylistShow}
+                  />
                   <Route path="/" component={HomeComponent} />
                 </Switch>
               </section>
