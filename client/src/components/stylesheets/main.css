@@ -117,3 +117,12 @@
   height: 95vh;
   overflow: auto;
 }
+
+#modal-outter-container{
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.432);
+  z-index: 10;
+  top: 0px;
+}
