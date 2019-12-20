@@ -98,29 +98,8 @@ class MainComponent extends Component {
               <div className="music-player">
                 <MusicPlayer onRef={ref => (this.musicPlayer = ref)} />
               </div>
-            </main>
-          )
-              <section className="main-container">
-                <Switch>
-                  <Route 
-                    path="/artist/:artistId" 
-                    render={props => <ArtistShow {...props} playSongNow={this.playSongNow}/>}
-                  />
-                  <Route 
-                    path="/album/:albumId" 
-                    render={props => <AlbumShow {...props} playSongNow={this.playSongNow}/>} 
-                  />
-                  <Route
-                    path="/search"
-                    render={props => <Search playSongNow={this.playSongNow} />}
-                  />
-                  <Route path="/" component={HomeComponent} />
-                </Switch>
-              </section>
-              <div className="music-player">
-                <MusicPlayer onRef={ref => (this.musicPlayer = ref)} />
-              </div>
-            </main>
+          </main>
+
           );
         }}
         </Query>
