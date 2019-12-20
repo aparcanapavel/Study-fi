@@ -25,6 +25,13 @@ const Mutations = {
       }
     }
   `,
-  
+  CREATE_PLAYLIST: gql`
+    mutation CreatePlaylist($name: String!, $userId: ID!) {
+      createPlaylist(name: $name, userId: $userId){
+        _id
+        name
+      }
+    }
+  `
 };
 export default Mutations;

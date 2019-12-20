@@ -10,6 +10,8 @@ import AlbumShow from "./album/album_show";
 import PlaylistIndex from "./playlist/playlist_index";
 import { Query } from "react-apollo";
 import Queries from "../../graphql/queries";
+import PlaylistShow from "./playlist/playlist_show";
+import CreatePlaylist from "./playlist/create_playlist";
 const {CURRENT_USER_ID} = Queries;
 
 class MainComponent extends Component {
@@ -69,10 +71,11 @@ class MainComponent extends Component {
               </li>
             </ul>
             <h3>PLAYLISTS</h3>
-              <PlaylistIndex  />
+              <PlaylistIndex currentUserId={data.currentUserId} />
             <div className="new-playlist">
               <i className="fas fa-plus-square"></i>
               <p>Create Playlist</p>
+                  <CreatePlaylist currentUserId={data.currentUserId} />
             </div>
           </aside>
           <section className="main-container">
@@ -82,6 +85,7 @@ class MainComponent extends Component {
                 render={props => <Search playNow={this.playNow} />}
               />              <Route path="/artist/:artistId" component={ArtistShow} />
               <Route path="/album/:albumId" component={AlbumShow} />
+              <Route path="/playlist/:playlistId" component={PlaylistShow} />
               <Route path="/" component={HomeComponent} />
             </Switch>
             <form onSubmit={this.handleSubmit} id="testInput">
