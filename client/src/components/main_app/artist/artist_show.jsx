@@ -36,7 +36,11 @@ class ArtistShow extends React.Component {
 
               <ul className="artist-show-songs">
                 {data.artist.songs.map((song, i) => (
-                  <li className="artist-show-song" key={song._id}>
+                  <li 
+                    className="artist-show-song" 
+                    key={song._id} 
+                    onClick={() => this.props.playSongNow(song)}
+                  >
                     <img className="song-album-icon" src="https://study-fi-public.s3.amazonaws.com/3.jpg"/>
                     <h1 className="song-index">{i + 1}</h1>
                     <i className="far fa-play-circle"></i>
@@ -60,7 +64,7 @@ class ArtistShow extends React.Component {
                     <div className="artist-show-album-songs">
                       <ul className="artist-show-album-songs-list">
                       {album.songs.map((song, i) => (
-                        <li className="artist-show-album-song">
+                        <li className="artist-show-album-song" onClick={() => this.props.playSongNow(song)}>
                           <div className="artist-show-album-song-header">
                             <h1 className="artist-show-album-index">{i + 1}</h1>
                             <h1 className="artist-show-album-song-name">{song.name}</h1>

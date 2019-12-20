@@ -12,33 +12,33 @@ export default {
     }
   `,
   FETCH_USER_PLAYLISTS: gql`
-    query fetchUser($id: ID!){
-      user(_id: $id){
+    query fetchUser($id: ID!) {
+      user(_id: $id) {
         _id
-        playlists{
+        playlists {
           _id
         }
       }
     }
   `,
   FETCH_ALL: gql`
-    query fetchAll{
-      songs{
+    query fetchAll {
+      songs {
         _id
         name
         songUrl
-        artists{
+        artists {
           name
         }
       }
-      artists{
+      artists {
         _id
         name
       }
-      albums{
+      albums {
         _id
         name
-        artists{
+        artists {
           name
         }
       }
@@ -73,13 +73,24 @@ export default {
           name
           year
           songs {
+            _id
             name
             duration
+            songUrl
+            artists {
+              _id
+              name
+            }
           }
         }
         songs {
           _id
           name
+          songUrl
+          artists {
+            _id
+            name
+          }
         }
       }
     }
@@ -119,5 +130,5 @@ export default {
         }
       }
     }
-  `,
-}
+  `
+};

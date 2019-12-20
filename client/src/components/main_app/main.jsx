@@ -77,7 +77,10 @@ class MainComponent extends Component {
               </aside>
               <section className="main-container">
                 <Switch>
-                  <Route path="/artist/:artistId" component={ArtistShow} />
+                  <Route 
+                    path="/artist/:artistId" 
+                    render={props => <ArtistShow {...props} playSongNow={this.playSongNow}/>}
+                  />
                   <Route 
                     path="/album/:albumId" 
                     render={props => <AlbumShow {...props} playSongNow={this.playSongNow}/>} 
