@@ -117,3 +117,20 @@
   height: 95vh;
   overflow: auto;
 }
+
+#modal-outter-container{
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  z-index: 10;
+  top: 0px;
+}
+
+#modal-innder-container{
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* background-color: white; */
+}

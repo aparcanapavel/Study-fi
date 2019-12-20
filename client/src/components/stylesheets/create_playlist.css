@@ -1,0 +1,198 @@
+.create-playlist-container{
+  padding: 50px;
+  background-color: rgb(51, 51, 51);
+  z-index: 11;
+  box-sizing: border-box;
+  border-radius: 5px;
+  transition: 0.3s;
+  width: auto;
+}
+
+#create-playlist-container.start-transition{
+  will-change: width, padding;
+  padding: 20px;
+  width: 600px;
+}
+
+.create-playlist-form{
+  position: relative;
+  opacity: 1;
+  transition: opacity 0.4s;
+}
+
+#create-playlist-form.hide-form{
+  opacity: 0;
+}
+
+.create-playlist-form input{
+  background-color: whitesmoke;
+  padding: 10px 15px;
+  border-radius: 20px;
+  color: black;
+  width: 100%;
+}
+
+.create-playlist-form button {
+  background-color: #1db954;
+  padding: 10px 40px;
+  border-radius: 20px;
+  margin-top: 10px;
+  width: 100%;
+}
+
+#add-songs-modal{
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+#add-songs-modal.show-search{
+  opacity: 1;
+}
+
+#add-songs-modal > h4{
+  margin: 0px;
+  border-bottom: 1px solid gray;
+  padding: 5px 0px;
+  padding-bottom: 10px;
+}
+
+#playlist{
+  /* background-color: red; */
+  max-height: 500px;
+  height: 500px;
+  position: relative;
+  display: block;
+  padding-top: 10px;
+  box-sizing: border-box;
+}
+
+#playlist-search-bar {
+  background-color: whitesmoke;
+  border-radius: 20px;
+  width: 100%;
+  height: 35px;
+  padding: 10px;
+  color: black;
+  font-size: 13px;
+  position: relative;
+}
+
+#playlist .playlist-search-results{
+  box-sizing: border-box;
+  overflow-y: auto;
+  max-height: 450px;
+  margin-top: 10px;
+}
+
+.playlist-search-results::-webkit-scrollbar {
+    display: none;
+}
+
+.playlist-search-results .playlist-results-songs li{
+  padding: 3px 0px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.playlist-search-results .playlist-results-songs li:hover{
+  background-color: rgba(128, 128, 128, 0.219);
+}
+
+.playlist-search-results .playlist-results-songs .song-item > button {
+  float: right;
+  padding: 3px 15px;
+  border: 1px solid white;
+  border-radius: 15px;
+  font-size: 13px;
+  margin-top: 14px;
+  margin-right: 10px;
+  transition: background-color 0.3s;
+}
+
+.playlist-search-results .playlist-results-songs .song-item > button:hover{
+  color: black;
+  background-color: white;
+}
+
+.playlist-search-results .playlist-results-albums li.playlist-search-album-item{
+  display: block;
+  width: 100%;
+  /* height: 250px; */
+  background-color: #282828;
+  /* vertical-align: middle; */
+  margin: 10px 0px;
+  border-radius: 10px;
+  padding: 20px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.playlist-search-results .playlist-results-albums li.playlist-search-album-item .playlist-search-album-detail {
+  width: 100%;
+  position: relative;
+  display: block;
+}
+
+.playlist-search-results .playlist-results-albums li.playlist-search-album-item .playlist-search-album-detail img{
+  width: 140px;
+  height: 140px;
+  background-color: gray;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.playlist-search-results .playlist-results-albums li.playlist-search-album-item .playlist-search-album-detail .album-detail-text {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 20px;
+}
+
+.playlist-search-results .playlist-results-albums li.playlist-search-album-item .playlist-search-album-detail > button{
+  position: absolute;
+  bottom: 5px;
+  left: 160px;
+  background-color: #1db954;
+  padding: 6px 30px;
+  border-radius: 15px;
+  font-size: 14px;
+}
+
+.playlist-search-album-songs{
+  display: block;
+  /* background-color: red; */
+  padding-top: 10px;
+  box-sizing: border-box;
+}
+
+.playlist-search-album-songs li{
+  width: 100%;
+  padding: 10px 5px;
+  border-top: 1px solid whitesmoke;
+}
+
+.playlist-search-album-songs li > p,
+.playlist-search-album-songs li > button{
+  display: inline-block;
+  font-size: 14px;
+}
+
+.playlist-search-album-songs li > p:first-child{
+  padding-right: 10px;
+  text-align: right;
+}
+
+.playlist-search-album-songs li > button{
+  float: right;
+  padding: 3px 15px;
+  border: 1px solid white;
+  border-radius: 15px;
+  font-size: 12px;
+  margin-right: 10px;
+  transition: background-color 0.3s;
+}
+
+.playlist-search-album-songs li > button:hover{
+  color: black;
+  background-color: white;
+}
