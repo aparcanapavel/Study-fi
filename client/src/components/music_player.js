@@ -53,12 +53,11 @@ class MusicPlayer extends React.Component {
     this.timeout = setTimeout(() => {
       const player = document.getElementById("music-player");
       player.play();
-    }, 100);
+    }, 1);
     this.setState({ currentSongIdx: songIdx, isPlaying: true });
   }
 
   playpause(){
-    console.log("playpause");
     const player = document.getElementById("music-player");
     if (this.state.isPlaying) {
       player.pause();
@@ -75,17 +74,26 @@ class MusicPlayer extends React.Component {
     const currentQueue = this.state.queue;
     let songIdx = this.state.currentSongIdx + 1;
     currentHist.push(currentSong);
-    // currentQueue.shift();
+
     this.timeout = setTimeout(() => {
       const player = document.getElementById("music-player");
       player.play();
-    }, 100);
+    }, 1);
     this.setState({
       queue: currentQueue,
       history: currentHist,
       currentSongIdx: songIdx,
       isPlaying: true
     });
+  }
+
+  playSongNow(song){
+    const newQueue = [song].concat(this.state.queue);
+    this.timeout = setTimeout(() => {
+      const player = document.getElementById("music-player");
+      player.play();
+    }, 1);
+    this.setState({ queue: newQueue, currentSongIdx: 0, isPlaying: true });
   }
 
   addToQueue(song) {
@@ -111,9 +119,7 @@ class MusicPlayer extends React.Component {
             }
 
             const songs = this.state.queue;
-            // .map(song => {
-            //   return <source key={song._id} src={song.songUrl}/>
-            // })
+
             let song = songs[this.state.currentSongIdx];
             console.log(song);
             let artists = "";

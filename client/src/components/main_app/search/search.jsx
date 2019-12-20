@@ -1,5 +1,6 @@
 import React from "react";
 import { Query } from 'react-apollo';
+import { withRouter } from "react-router";
 import Queries from '../../../graphql/queries';
 const { FETCH_ALL } = Queries;
 
@@ -14,6 +15,16 @@ class Search extends React.Component {
       data: null
     };
     this.updateSearch = this.updateSearch.bind(this);
+    this.toArtist = this.toArtist.bind(this);
+    this.toAlbum = this.toAlbum.bind(this);
+  }
+
+  toArtist(artistId){
+    return this.props.history.push(`/artist/${artistId}`)
+  }
+
+  toAlbum(albumId){
+    return this.props.history.push(`/album/${albumId}`);
   }
 
   doesMatch(search, data) {
@@ -40,7 +51,11 @@ class Search extends React.Component {
             }
           });
           return (
-            <li key={song._id} className="song-item">
+            <li
+              key={song._id}
+              className="song-item"
+              onClick={() => this.props.playSongNow(song)}
+            >
               <img alt="" />
               <div className="song-item-details">
                 <p>{song.name}</p>
@@ -62,7 +77,7 @@ class Search extends React.Component {
             }
           });
           return (
-            <li key={album._id} className="album-item">
+            <li key={album._id} className="album-item" onClick={() => this.toAlbum(album._id)}>
               <img alt="" />
               <p>{album.name}</p>
               <p>{albumArtists}</p>
@@ -74,7 +89,7 @@ class Search extends React.Component {
       let artists = Object.values(data.artists).map(artist => {
         if (this.doesMatch(search, artist)) {
           return (
-            <li key={artist._id} className="artist-item">
+            <li key={artist._id} className="artist-item" onClick={() => this.toArtist(artist._id)}>
               <img alt="" />
               <p>{artist.name}</p>
               <p>Artist</p>
@@ -82,12 +97,10 @@ class Search extends React.Component {
           );
         }
       });
-      // console.log(songs);
+
       songs = Object.values(songs).filter(Boolean);
       albums = Object.values(albums).filter(Boolean);
       artists = Object.values(artists).filter(Boolean);
-      
-      this.props.playNow(search);
       
       this.setState({ 
         search: search, 
@@ -101,7 +114,6 @@ class Search extends React.Component {
   render() {
     let songs, artists, albums;
     if (this.state.songs && this.state.songs.length > 0) {
-      // console.log(this.state.songs);
       songs = this.state.songs.slice(0, 6);
     }
     if (this.state.artists && this.state.artists.length > 0) {
@@ -138,8 +150,7 @@ class Search extends React.Component {
               </div>
             );
             if (error) return <p>Error</p>;
-
-            
+       
             return (
               <div className="search-component">
                 <form className="search-bar">
@@ -198,4 +209,4 @@ class Search extends React.Component {
   }
 }
 
-export default Search
+export default withRouter(Search);

@@ -23,7 +23,7 @@ class MainComponent extends Component {
     this.toPage = this.toPage.bind(this);
     this.update = this.update.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.playNow = this.playNow.bind(this);
+    this.playSongNow = this.playSongNow.bind(this);
   }
 
   toPage(page){
@@ -39,8 +39,8 @@ class MainComponent extends Component {
     this.musicPlayer.addToQueue(this.state.newQueue);
   }
 
-  playNow(song){
-    console.log("from main component: " + song);
+  playSongNow(song){
+    this.musicPlayer.playSongNow(song);
   }
 
   render(){
@@ -79,30 +79,49 @@ class MainComponent extends Component {
             </div>
           </aside>
           <section className="main-container">
-            <Switch>
-              <Route
-                path="/search"
-                render={props => <Search playNow={this.playNow} />}
-              />              <Route path="/artist/:artistId" component={ArtistShow} />
-              <Route path="/album/:albumId" component={AlbumShow} />
-              <Route path="/playlist/:playlistId" component={PlaylistShow} />
-              <Route path="/" component={HomeComponent} />
-            </Switch>
-            <form onSubmit={this.handleSubmit} id="testInput">
-              <input
-                type="text"
-                value={this.state.newQueue}
-                onChange={this.update("newQueue")}
-              />
-              <button>go</button>
-            </form>
-          </section>
-          <div className="music-player">
-            <MusicPlayer onRef={ref => (this.musicPlayer = ref)} />
-          </div>
-
-        </main>
+                <Switch>
+                  <Route 
+                    path="/artist/:artistId" 
+                    render={props => <ArtistShow {...props} playSongNow={this.playSongNow}/>}
+                  />
+                  <Route 
+                    path="/album/:albumId" 
+                    render={props => <AlbumShow {...props} playSongNow={this.playSongNow}/>} 
+                  />
+                  <Route
+                    path="/search"
+                    render={props => <Search playSongNow={this.playSongNow} />}
+                  />
+                  <Route path="/" component={HomeComponent} />
+                </Switch>
+              </section>
+              <div className="music-player">
+                <MusicPlayer onRef={ref => (this.musicPlayer = ref)} />
+              </div>
+            </main>
           )
+              <section className="main-container">
+                <Switch>
+                  <Route 
+                    path="/artist/:artistId" 
+                    render={props => <ArtistShow {...props} playSongNow={this.playSongNow}/>}
+                  />
+                  <Route 
+                    path="/album/:albumId" 
+                    render={props => <AlbumShow {...props} playSongNow={this.playSongNow}/>} 
+                  />
+                  <Route
+                    path="/search"
+                    render={props => <Search playSongNow={this.playSongNow} />}
+                  />
+                  <Route path="/" component={HomeComponent} />
+                </Switch>
+              </section>
+              <div className="music-player">
+                <MusicPlayer onRef={ref => (this.musicPlayer = ref)} />
+              </div>
+            </main>
+          );
         }}
         </Query>
     );
