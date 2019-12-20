@@ -1,0 +1,27 @@
+.create-playlist-container{
+  padding: 50px;
+  background-color: rgb(51, 51, 51);
+  z-index: 11;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+.create-playlist-form{
+  position: relative;
+}
+
+.create-playlist-form input{
+  background-color: whitesmoke;
+  padding: 10px 15px;
+  border-radius: 20px;
+  color: black;
+  width: 100%;
+}
+
+.create-playlist-form button {
+  background-color: #1db954;
+  padding: 10px 40px;
+  border-radius: 20px;
+  margin-top: 10px;
+  width: 100%;
+}

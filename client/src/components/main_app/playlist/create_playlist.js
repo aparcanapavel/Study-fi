@@ -59,18 +59,19 @@ class CreatePlaylist extends React.Component {
         update={(cache, data) => this.updateCache(cache, data)}
       >
         {(createPlaylist, { data }) => (
-          <div>
-            <form onSubmit={e => this.handleSubmit(e, createPlaylist)}>
+          <section className="create-playlist-container">
+            <form onSubmit={e => this.handleSubmit(e, createPlaylist)} className="create-playlist-form">
               <input
                 onChange={this.update("name")}
                 value={this.state.name}
                 placeholder="Name"
               />
-              
+              <br/>
               <button type="submit">Create Playlist</button>
             </form>
             <p>{this.state.message}</p>
-          </div>
+            {/* render search component uppon finish */}
+          </section>
         )}
       </Mutation>
     );

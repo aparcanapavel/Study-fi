@@ -89,9 +89,11 @@ class MainComponent extends Component {
                 <h3>PLAYLISTS</h3>
                 <PlaylistIndex currentUserId={data.currentUserId} />
                 <div className="new-playlist">
-                  <i className="fas fa-plus-square" onClick={this.openModal}></i>
+                  <i
+                    className="fas fa-plus-square"
+                    onClick={this.openModal}
+                  ></i>
                   <p>Create Playlist</p>
-                  <CreatePlaylist currentUserId={data.currentUserId} />
                 </div>
               </aside>
               <section className="main-container">
@@ -128,7 +130,12 @@ class MainComponent extends Component {
               </div>
               {this.state.modal ? (
                 <div id="modal-outter-container" onClick={this.closeModal}>
-                  <div id="modal-innder-container">modal</div>
+                  <div
+                    id="modal-innder-container"
+                    onClick={e => e.stopPropagation()}
+                  >
+                    <CreatePlaylist currentUserId={data.currentUserId} />
+                  </div>
                 </div>
               ) : null}
             </main>
