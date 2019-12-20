@@ -8,7 +8,11 @@
 .album-list {
   display: flex;
   flex-direction: row;
-  overflow: scroll;
+  overflow-x: scroll;
+}
+
+.album-list::-webkit-scrollbar {
+    display: none;
 }
 
 .album-list-item {
