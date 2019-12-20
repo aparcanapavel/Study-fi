@@ -31,6 +31,16 @@
   font-size: 36px;
 }
 
+.play-album-button{
+  padding: 12px 40px;
+  /* make the following green standard. */
+  background-color: #1db954;
+  border-radius: 50px;
+  letter-spacing: 2px;
+  margin: 40px 5px 0px 5px;
+  font-size: 13px;
+}
+
 .album-show-songs {
   padding-bottom: 300px;
 }
@@ -47,6 +57,9 @@
   background-color: rgba(255, 255, 255, 0.075);
 }
 
+#current-song-playing{
+  color: #1db954;
+}
 
 .album-show-song-start{
   width: 500px;

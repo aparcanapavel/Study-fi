@@ -21,7 +21,7 @@ class AlbumIndex extends React.Component {
             if (error) return <p>Error</p>;
 
             return data.albums.map(({ _id, name, icon }) => (
-              <Link to={`/album/${_id}`}>
+              <Link to={`/album/${_id}`} key={_id}>
                 <li className="album-list-item" key={_id}>
                   <img className="album-list-icon" src="https://study-fi-public.s3.amazonaws.com/3.jpg" />
                   <h1 className="album-list-name">{name}</h1>

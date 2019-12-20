@@ -43,6 +43,7 @@ class ArtistShow extends React.Component {
                       ))}
                     </div>
                   )}
+                  <button className="play-album-button" onClick={() => this.props.playAlbumNow(data.album.songs)}>Play</button>
                 </div>
               </div>
 
