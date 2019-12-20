@@ -45,6 +45,29 @@ export default {
       }
     }
   `,
+  FETCH_FOR_PLAYLIST: gql`
+    query fetchAll {
+      songs {
+        _id
+        name
+        artists {
+          name
+        }
+      }
+      albums {
+        _id
+        name
+        artists {
+          name
+        }
+        songs{
+          _id
+          name
+        }
+      }
+    }
+  `
+  ,
   FETCH_ARTISTS: gql`
     query fetchArtists {
       artists {
