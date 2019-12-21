@@ -56,14 +56,19 @@ PlaylistSchema.statics.addSong = function(playlistId, songId) {
   const Song = mongoose.model("songs");
   const Playlist = mongoose.model("playlists");
 
+  let playlist;
   return Playlist.findById(playlistId)
-    .then(playlist => {
+    .then(result => {
+      playlist = result;
+
       Song.findById(songId)
         .then(song => {
           playlist.songs.push(song);
           song.playlists.push(playlist);
+
           return Promise.all([playlist.save(), song.save()])
-            .then(([playlist, song]) => playlist);
+            .then(([playlist, song]) => playlist)
+            .catch(err => {console.log(err)});
         })
     });
 };

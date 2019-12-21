@@ -196,3 +196,29 @@
   color: black;
   background-color: white;
 }
+
+.modal-options{
+  margin-top: 20px;
+  position: relative;
+  text-align: right;
+}
+
+.modal-options p,
+.modal-options button{
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.modal-options p:hover{
+  text-decoration: underline;
+}
+
+.modal-options button{
+  padding: 5px 15px;
+  background-color: #1db954;
+  border-radius: 15px;
+  margin-left: 10px;
+}

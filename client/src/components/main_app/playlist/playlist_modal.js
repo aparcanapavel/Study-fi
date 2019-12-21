@@ -1,7 +1,10 @@
 import React from "react";
-import { Query } from "react-apollo";
+import { Query, Mutation } from "react-apollo";
 import Queries from '../../../graphql/queries';
+import Mutations from "../../../graphql/mutations";
+const { ADD_SONG_TO_PLAYLIST } = Mutations;
 const { FETCH_FOR_PLAYLIST } = Queries;
+
 
 class PlaylistModal extends React.Component {
   constructor(props) {
@@ -9,9 +12,12 @@ class PlaylistModal extends React.Component {
     this.state = {
       search: "",
       albums: null,
-      songs: null
+      songs: null,
+      playlistSongs: []
     };
     this.updateSearch = this.updateSearch.bind(this);
+    this.addSongToPlaylist = this.addSongToPlaylist.bind(this);
+    this.addAlbumToPlaylist = this.addAlbumToPlaylist.bind(this);
   }
 
   doesMatch(search, data) {
@@ -30,8 +36,8 @@ class PlaylistModal extends React.Component {
       let songs = Object.values(data.songs).map(song => {
         if (this.doesMatch(search, song)) {
           let artists = "";
-          if(Object.values(song.artists).length > 2){
-            artists = "Various Artists"
+          if (Object.values(song.artists).length > 2) {
+            artists = "Various Artists";
           } else {
             song.artists.map((artist, i) => {
               if (i === 0) {
@@ -45,11 +51,13 @@ class PlaylistModal extends React.Component {
             <li key={song._id} className="song-item">
               <img alt="" />
               <div className="song-item-details">
-                <p>{song.name}</p>
-                <p>{artists}</p>
+                <p key="8">{song.name}</p>
+                <p key="9">{artists}</p>
               </div>
 
-              <button>ADD</button>
+              <button onClick={() => this.addSongToPlaylist(song._id)}>
+                ADD
+              </button>
             </li>
           );
         }
@@ -58,7 +66,7 @@ class PlaylistModal extends React.Component {
       let albums = Object.values(data.albums).map(album => {
         if (this.doesMatch(search, album)) {
           let albumArtists = "";
-          if(Object.values(album.artists).length > 2){
+          if (Object.values(album.artists).length > 2) {
             albumArtists = "Various Artists";
           } else {
             album.artists.map((artist, i) => {
@@ -77,7 +85,7 @@ class PlaylistModal extends React.Component {
                   <p>{album.name}</p>
                   <p>{albumArtists}</p>
                 </div>
-                <button>Add All</button>
+                <button onClick={() => this.addAlbumToPlaylist(album.songs)}>Add All</button>
               </div>
               <ul className="playlist-search-album-songs">
                 {album.songs.map((song, i) => {
@@ -87,7 +95,7 @@ class PlaylistModal extends React.Component {
                       <p>{song.name}</p>
                       <button>ADD</button>
                     </li>
-                  )
+                  );
                 })}
               </ul>
             </li>
@@ -106,6 +114,22 @@ class PlaylistModal extends React.Component {
     };
   }
 
+  addAlbumToPlaylist(songs){
+    songs.map(song => {
+      this.addSongToPlaylist(song._id)
+    })
+  }
+
+  addSongToPlaylist(songId) {
+    const playlistId = this.props.playlistId;
+    this.props.addSongToPlaylist({
+      variables: {
+        playlistId,
+        songId
+      }
+    });
+  }
+
   render() {
     let songs, albums;
     if (this.state.songs && this.state.songs.length > 0) {
@@ -114,7 +138,7 @@ class PlaylistModal extends React.Component {
     if (this.state.albums && this.state.albums.length > 0) {
       albums = this.state.albums.slice(0, 6);
     }
-    
+
     return (
       <div id="playlist">
         <Query query={FETCH_FOR_PLAYLIST}>
@@ -126,9 +150,11 @@ class PlaylistModal extends React.Component {
                     type="text"
                     id="playlist-search-bar"
                     placeholder="Search For Songs, Albums, Or Artists To Add To Your Playlist"
+                    value={this.state.search}
+                    onChange={e => console.log(e.target.value)}
                     disabled
                   />
-                  <h3>Loading...</h3>
+                  <p>Loading...</p>
                 </form>
               );
 

@@ -113,16 +113,20 @@ const mutation = new GraphQLObjectType({
       },
       resolve(_, args) {
         return new Playlist({ name: args.name, user: args.userId }).save()
-          .then((playlist) => Playlist.addPlaylistToUser(playlist._id, playlist.user));
+          .then((playlist) => {
+            Playlist.addPlaylistToUser(playlist._id, playlist.user);
+            return playlist;
+          });
       }
     },
     addSongToPlaylist: {
       type: PlaylistType,
       args: {
-        playlistId : { type: GraphQLID },
+        playlistId: { type: GraphQLID },
         songId: { type: GraphQLID }
       },
       resolve(_, args) {
+        debugger
         return Playlist.addSong(args.playlistId, args.songId);
       }
     }

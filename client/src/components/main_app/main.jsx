@@ -87,7 +87,7 @@ class MainComponent extends Component {
                   </li>
                 </ul>
                 <h3>PLAYLISTS</h3>
-                <PlaylistIndex currentUserId={data.currentUserId} />
+
                 <div className="new-playlist">
                   <i
                     className="fas fa-plus-square"
@@ -95,6 +95,8 @@ class MainComponent extends Component {
                   ></i>
                   <p>Create Playlist</p>
                 </div>
+
+                <PlaylistIndex currentUserId={data.currentUserId} />
               </aside>
               <section className="main-container">
                 <Switch>
@@ -119,7 +121,7 @@ class MainComponent extends Component {
                     path="/search"
                     render={props => <Search playSongNow={this.playSongNow} />}
                   />
-                  <Route 
+                  <Route
                     path="/playlist/:playlistId"
                     component={PlaylistShow}
                   />
@@ -138,7 +140,10 @@ class MainComponent extends Component {
                     id="modal-innder-container"
                     onClick={e => e.stopPropagation()}
                   >
-                    <CreatePlaylist currentUserId={data.currentUserId} />
+                    <CreatePlaylist
+                      currentUserId={data.currentUserId}
+                      closeModal={this.closeModal}
+                    />
                   </div>
                 </div>
               ) : null}
