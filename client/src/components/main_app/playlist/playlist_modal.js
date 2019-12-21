@@ -54,7 +54,7 @@ class PlaylistModal extends React.Component {
                 <p key="8">{song.name}</p>
                 <p key="9">{artists}</p>
               </div>
-
+            
               <button onClick={() => this.addSongToPlaylist(song._id)}>
                 ADD
               </button>
@@ -93,7 +93,9 @@ class PlaylistModal extends React.Component {
                     <li key={song._id}>
                       <p>{i + 1}</p>
                       <p>{song.name}</p>
-                      <button>ADD</button>
+                      <button onClick={() => this.addSongToPlaylist(song._id)}>
+                        ADD
+                      </button>
                     </li>
                   );
                 })}
@@ -127,10 +129,15 @@ class PlaylistModal extends React.Component {
         playlistId,
         songId
       }
+    }).then(() => {
+      const songs = this.state.playlistSongs;
+      songs.push(songId);
+      this.setState({ playlistSongs: songs })
     });
   }
 
   render() {
+    console.log(this.state.playlistSongs);
     let songs, albums;
     if (this.state.songs && this.state.songs.length > 0) {
       songs = this.state.songs.slice(0, 6);
