@@ -3,7 +3,8 @@ import { Mutation } from "react-apollo";
 import Mutations from "../../../graphql/mutations";
 import Queries from "../../../graphql/queries";
 import PlaylistModal from './playlist_modal';
-const { CREATE_PLAYLIST } = Mutations;
+import { withRouter } from "react-router";
+const { CREATE_PLAYLIST, ADD_SONG_TO_PLAYLIST } = Mutations;
 const { FETCH_USER_PLAYLISTS } = Queries;
 
 class CreatePlaylist extends React.Component {
@@ -11,11 +12,21 @@ class CreatePlaylist extends React.Component {
     super(props)
     this.state = {
       name: "",
-      created: false
+      created: false,
+      playlistId: null
     }
     this.updateCache = this.updateCache.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.startTransition = this.startTransition.bind(this);
+    this.toPlaylist = this.toPlaylist.bind(this);
+  }
+
+  toPlaylist(){
+    const playlistId = this.state.playlistId;
+    if(playlistId){
+      this.props.history.push(`/playlist/${playlistId}`);
+      this.props.closeModal();
+    }
   }
 
   update(field) {
@@ -60,12 +71,15 @@ class CreatePlaylist extends React.Component {
         userId: user
       }
     }).then(data => {
+      const playlistId = data.data.createPlaylist._id;
       const formTitle = document.getElementById("create-playlist-form");
       formTitle.classList.add("hide-form");
+         
       this.timer2 = setTimeout(() => {
         this.setState({
             message: `New Playlist "${name}" created successfully`,
-            created: true
+            created: true,
+            playlistId: playlistId
           },
           this.startTransition
         );
@@ -92,7 +106,21 @@ class CreatePlaylist extends React.Component {
               <div id="add-songs-modal">
                 <h4>{this.state.name}</h4>
                 <div className="add-songs-search">
-                  <PlaylistModal />
+                  <Mutation
+                    mutation={ADD_SONG_TO_PLAYLIST}
+                    update={(cache, data) => this.updateCache(cache, data)}
+                  >
+                    {(addSongToPlaylist, { data }) => (
+                      <PlaylistModal
+                        playlistId={this.state.playlistId}
+                        addSongToPlaylist={addSongToPlaylist}
+                      />
+                    )}
+                  </Mutation>
+                </div>
+                <div className="modal-options">
+                  <p onClick={this.toPlaylist}>Skip</p>
+                  <button onClick={this.toPlaylist}>Done</button>
                 </div>
               </div>
             ) : (
@@ -118,4 +146,4 @@ class CreatePlaylist extends React.Component {
   }
 }
 
-export default CreatePlaylist;
+export default withRouter(CreatePlaylist);

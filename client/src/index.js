@@ -33,7 +33,7 @@ async function setupClient() {
   });
 
   client = new ApolloClient({
-    link: httpLink,
+    link: ApolloLink.from([errorLink, httpLink]),
     cache,
     onError: ({ networkError, graphQLErrors }) => {
       console.log("graphQLErrors", graphQLErrors);

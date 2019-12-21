@@ -32,6 +32,14 @@ const Mutations = {
         name
       }
     }
+  `,
+  ADD_SONG_TO_PLAYLIST: gql`
+    mutation AddSongToPlaylist($playlistId: ID, $songId: ID){
+      addSongToPlaylist(playlistId: $playlistId, songId: $songId){
+        _id
+        name
+      }
+    }
   `
 };
 export default Mutations;

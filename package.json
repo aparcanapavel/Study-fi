@@ -22,7 +22,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "client-install": "npm install --prefix client",
     "client": "npm start --prefix client",
-    "server": "nodemon index.js",
+    "server": "nodemon --inspect index.js",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {

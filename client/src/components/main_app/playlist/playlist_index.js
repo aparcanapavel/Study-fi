@@ -17,11 +17,11 @@ class PlaylistIndex extends React.Component{
           } else if (error) {
             return <h1>error</h1>;
           } else {
-            console.log(data);
+            // console.log(data);
             return (
               <div>
                 <ul>
-                {data.user.playlists.map((playlist) => {
+                {data.user.playlists.reverse().map((playlist) => {
                   return (
                   <Link to={`/playlist/${playlist._id}`}>
                     <h1>{playlist.name}</h1>
