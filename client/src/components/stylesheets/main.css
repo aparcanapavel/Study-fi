@@ -49,11 +49,11 @@
 }
 
 .main-nav .main-links li{
-  border-left: 5px solid #1db954;
+  border-left: 5px solid transparent;
   margin: 5px 0px;
   margin-left: 1px;
-  height: 30px;
-  padding-top: 10px;
+  height: 35px;
+  padding-top: 5px;
   list-style: none;
   position: relative;
   cursor: pointer;
@@ -138,7 +138,10 @@
   transition: border-left-color 0.4s;
 }
 
-.playlist-index-container li.active{
+li.active,
+#home.active,
+#search.active,
+#library.active {
   border-left-color: #1db954;
   color: whitesmoke;
 }

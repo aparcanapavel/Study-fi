@@ -25,6 +25,10 @@ class CreatePlaylist extends React.Component {
     const playlistId = this.state.playlistId;
     if(playlistId){
       this.props.history.push(`/playlist/${playlistId}`);
+      this.props.removeActive();
+      const currentPlaylist = document.getElementById(`${playlistId}`);
+      currentPlaylist.classList.add("active");
+
       this.props.closeModal();
     }
   }

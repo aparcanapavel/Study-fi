@@ -11,18 +11,9 @@ class PlaylistIndex extends React.Component{
   toPlaylist(playlistId){
     this.props.history.push(`/playlist/${playlistId}`);
 
-    this.removeActive();
+    this.props.removeActive();
     const currentPlaylist = document.getElementById(`${playlistId}`);
     currentPlaylist.classList.add("active");
-  }
-
-  removeActive(){
-    let playlistItems = document.getElementsByClassName("playlist-name-item");
-
-    for (let i = 0; i < playlistItems.length; i++) {
-      let playlist = playlistItems[i];
-      playlist.classList.remove("active");
-    }
   }
   
   render() {
@@ -32,7 +23,7 @@ class PlaylistIndex extends React.Component{
           key={playlist._id}
           onClick={() => this.toPlaylist(playlist._id)}
           id={playlist._id}
-          className="playlist-name-item"
+          className="nav-name-item"
         >
           {playlist.name}
         </li>
