@@ -33,20 +33,25 @@ class CreatePlaylist extends React.Component {
     return e => this.setState({ [field]: e.target.value });
   }
 
-  updateCache(cache, { data }) {
+  updateCache(cache, data) {
     let playlists;
     try {
-      playlists = cache.readQuery({ query: FETCH_USER_PLAYLISTS });
+      playlists = cache.readQuery({ query: FETCH_USER_PLAYLISTS, variables: { id: this.props.currentUserId} });
     } catch (err) {
       return;
     }
 
     if (playlists) {
-      let playlistArray = playlists.playlists;
-      let newPlaylist = data.newPlaylist;
+      let playlistArray = playlists.user.playlists;
+      let newPlaylist = data.data.createPlaylist;
+      // debugger;
       cache.writeQuery({
         query: FETCH_USER_PLAYLISTS,
-        data: { playlists: playlistArray.concat(newPlaylist) }
+        data: { 
+          user: {
+            _id: this.props.currentUserId,
+            playlists: playlistArray.concat(newPlaylist) }
+          }
       });
     }
   }

@@ -36,6 +36,8 @@
 .main-nav h2{
   font-size: 30px;
   padding-left: 25px;
+  font-family: 'Raleway', sans-serif;
+  /* font-weight: 700; */
 }
 
 .main-nav .main-links{
@@ -43,10 +45,11 @@
   position: relative;
   left: 0px;
   padding-left: 0px;
+  margin-top: 18px;
 }
 
 .main-nav .main-links li{
-  border-left: 5px solid green;
+  border-left: 5px solid #1db954;
   margin: 5px 0px;
   margin-left: 1px;
   height: 30px;
@@ -54,6 +57,12 @@
   list-style: none;
   position: relative;
   cursor: pointer;
+  color: rgb(155, 155, 155);
+  transition: color 0.3s;
+}
+
+.main-nav .main-links li:hover{
+  color: whitesmoke;
 }
 
 .main-nav .main-links li i,
@@ -63,29 +72,39 @@
   display: inline-block;
   margin-left: 15px;
   vertical-align: middle;
-  color: white
 }
 
 .main-nav .main-links li i{
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .main-nav .main-links li p{
-  font-size: 15px;
+  font-size: 14px;
+  font-family: 'Overpass', sans-serif;
 }
 
 .main-nav h3 {
-  font-size: 15px;
+  font-size: 11px;
   margin-top: 30px;
   position: relative;
-  margin-left: 20px;
-  margin-bottom: 0px;
+  margin-left: 18px;
+  margin-bottom: 10px;
+  color: rgb(155, 155, 155);
+  letter-spacing: 2px;
 }
 
 .new-playlist {
   display: block;
   position: relative;
   margin-left: 20px;
+  color: rgb(155, 155, 155);
+  transition: color 0.3s;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.new-playlist:hover{
+  color: whitesmoke
 }
 
 .new-playlist i,
@@ -100,6 +119,32 @@
 
 .new-playlist p{
   margin-left: 10px;
+}
+
+.playlist-index-container{
+  box-sizing: border-box;
+  /* padding-left: 20px; */
+  color: rgb(155, 155, 155);
+  font-size: 15px;
+}
+
+.playlist-index-container li{
+  /* margin: 1px 0px; */
+  padding: 10px 0px;
+  border-left: 5px solid transparent;
+  padding-left: 15px;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: border-left-color 0.4s;
+}
+
+.playlist-index-container li.active{
+  border-left-color: #1db954;
+  color: whitesmoke;
+}
+
+.playlist-index-container li:hover{
+  color: whitesmoke;
 }
 
 .main-container {

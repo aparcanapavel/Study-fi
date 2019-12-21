@@ -12,7 +12,7 @@ import { Query } from "react-apollo";
 import Queries from "../../graphql/queries";
 import PlaylistShow from "./playlist/playlist_show";
 import CreatePlaylist from "./playlist/create_playlist";
-const {CURRENT_USER_ID} = Queries;
+const { CURRENT_USER_ID, FETCH_USER_PLAYLISTS } = Queries;
 
 class MainComponent extends Component {
   constructor(props) {
@@ -51,7 +51,6 @@ class MainComponent extends Component {
   }
 
   openModal() {
-    console.log("show modal")
     this.setState({ modal: true });
   }
 
@@ -88,15 +87,23 @@ class MainComponent extends Component {
                 </ul>
                 <h3>PLAYLISTS</h3>
 
-                <div className="new-playlist">
-                  <i
-                    className="fas fa-plus-square"
-                    onClick={this.openModal}
-                  ></i>
+                <div className="new-playlist" onClick={this.openModal}>
+                  <i className="fas fa-plus-square"></i>
                   <p>Create Playlist</p>
                 </div>
+                <Query
+                  query={FETCH_USER_PLAYLISTS}
+                  variables={{id: data.currentUserId}}
+                >
+                  {({ loading, error, data }) => {
+                    if(loading) return null;
+                    if (error) return <p>error</p>
 
-                <PlaylistIndex currentUserId={data.currentUserId} />
+                    let userPlaylists = Object.values(data.user.playlists).reverse();
+
+                    return <PlaylistIndex currentUserId={data.currentUserId} playlists={userPlaylists}/>
+                  }}
+                </Query>
               </aside>
               <section className="main-container">
                 <Switch>
