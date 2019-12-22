@@ -154,7 +154,11 @@ class MainComponent extends Component {
                   <Route
                     path="/artist/:artistId"
                     render={props => (
-                      <ArtistShow {...props} playSongNow={this.playSongNow} />
+                      <ArtistShow
+                        {...props}
+                        playSongNow={this.playSongNow}
+                        currentSong={this.state.currentSong}
+                      />
                     )}
                   />
                   <Route
@@ -171,7 +175,12 @@ class MainComponent extends Component {
                   />
                   <Route
                     path="/search"
-                    render={props => <Search playSongNow={this.playSongNow} />}
+                    render={props => (
+                      <Search
+                        playSongNow={this.playSongNow}
+                        currentSong={this.state.currentSong}
+                      />
+                    )}
                   />
                   <Route
                     path="/playlist/:playlistId"
@@ -202,6 +211,7 @@ class MainComponent extends Component {
                       currentUserId={data.currentUserId}
                       closeModal={this.closeModal}
                       removeActive={this.removeActive}
+                      currentSong={this.state.currentSong}
                     />
                   </div>
                 </div>

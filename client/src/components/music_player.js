@@ -54,7 +54,7 @@ class MusicPlayer extends React.Component {
       const player = document.getElementById("music-player");
       player.play();
     }, 1);
-    this.setState({ currentSongIdx: songIdx, isPlaying: true });
+    this.setState({ currentSongIdx: songIdx, isPlaying: true }, this.props.setCurrentSong(this.state.queue[songIdx]))
   }
 
   playpause(){
@@ -79,12 +79,15 @@ class MusicPlayer extends React.Component {
       const player = document.getElementById("music-player");
       player.play();
     }, 1);
-    this.setState({
-      queue: currentQueue,
-      history: currentHist,
-      currentSongIdx: songIdx,
-      isPlaying: true
-    });
+    this.setState(
+      {
+        queue: currentQueue,
+        history: currentHist,
+        currentSongIdx: songIdx,
+        isPlaying: true
+      },
+      this.props.setCurrentSong(this.state.queue[songIdx])
+    );
   }
 
   playSongNow(song){

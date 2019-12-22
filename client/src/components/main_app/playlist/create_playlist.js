@@ -8,22 +8,23 @@ const { CREATE_PLAYLIST, ADD_SONG_TO_PLAYLIST } = Mutations;
 const { FETCH_USER_PLAYLISTS } = Queries;
 
 class CreatePlaylist extends React.Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
     this.state = {
       name: "",
       created: false,
       playlistId: null
-    }
+    };
     this.updateCache = this.updateCache.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.startTransition = this.startTransition.bind(this);
     this.toPlaylist = this.toPlaylist.bind(this);
+    this.updatePlaylistCache = this.updatePlaylistCache.bind(this);
   }
 
-  toPlaylist(){
+  toPlaylist() {
     const playlistId = this.state.playlistId;
-    if(playlistId){
+    if (playlistId) {
       this.props.history.push(`/playlist/${playlistId}`);
       this.props.removeActive();
       const currentPlaylist = document.getElementById(`${playlistId}`);
@@ -40,7 +41,10 @@ class CreatePlaylist extends React.Component {
   updateCache(cache, data) {
     let playlists;
     try {
-      playlists = cache.readQuery({ query: FETCH_USER_PLAYLISTS, variables: { id: this.props.currentUserId} });
+      playlists = cache.readQuery({
+        query: FETCH_USER_PLAYLISTS,
+        variables: { id: this.props.currentUserId }
+      });
     } catch (err) {
       return;
     }
@@ -48,24 +52,52 @@ class CreatePlaylist extends React.Component {
     if (playlists) {
       let playlistArray = playlists.user.playlists;
       let newPlaylist = data.data.createPlaylist;
-      // debugger;
+
       cache.writeQuery({
         query: FETCH_USER_PLAYLISTS,
-        data: { 
+        data: {
           user: {
             _id: this.props.currentUserId,
-            playlists: playlistArray.concat(newPlaylist) }
+            playlists: playlistArray.concat(newPlaylist)
           }
+        }
+      });
+    }
+  }
+
+  updatePlaylistCache(cache, data) {
+    let playlists;
+    try {
+      playlists = cache.readQuery({
+        query: FETCH_USER_PLAYLISTS,
+        variables: { id: this.props.currentUserId }
+      });
+    } catch (err) {
+      return;
+    }
+
+    if (playlists) {
+      let playlistArray = playlists.user.playlists;
+      let newPlaylist = data.data.createPlaylist;
+
+      cache.writeQuery({
+        query: FETCH_USER_PLAYLISTS,
+        data: {
+          user: {
+            _id: this.props.currentUserId,
+            playlists: playlistArray.concat(newPlaylist)
+          }
+        }
       });
     }
   }
 
   startTransition() {
     const formContainer = document.getElementById("create-playlist-container");
-    
+
     this.timer = setTimeout(() => {
       const songSearch = document.getElementById("add-songs-modal");
-      songSearch.classList.add("show-search")
+      songSearch.classList.add("show-search");
     }, 300);
     formContainer.classList.add("start-transition");
   }
@@ -73,7 +105,7 @@ class CreatePlaylist extends React.Component {
   handleSubmit(e, createPlaylist) {
     e.preventDefault();
     let name = this.state.name;
-    let user = this.props.currentUserId
+    let user = this.props.currentUserId;
     createPlaylist({
       variables: {
         name: name,
@@ -83,9 +115,10 @@ class CreatePlaylist extends React.Component {
       const playlistId = data.data.createPlaylist._id;
       const formTitle = document.getElementById("create-playlist-form");
       formTitle.classList.add("hide-form");
-         
+
       this.timer2 = setTimeout(() => {
-        this.setState({
+        this.setState(
+          {
             message: `New Playlist "${name}" created successfully`,
             created: true,
             playlistId: playlistId
@@ -96,8 +129,9 @@ class CreatePlaylist extends React.Component {
     });
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     clearTimeout(this.timer);
+    clearTimeout(this.timer2);
   }
 
   render() {
@@ -117,12 +151,15 @@ class CreatePlaylist extends React.Component {
                 <div className="add-songs-search">
                   <Mutation
                     mutation={ADD_SONG_TO_PLAYLIST}
-                    update={(cache, data) => this.updateCache(cache, data)}
+                    update={(cache, data) =>
+                      this.updatePlaylistCache(cache, data)
+                    }
                   >
                     {(addSongToPlaylist, { data }) => (
                       <PlaylistModal
                         playlistId={this.state.playlistId}
                         addSongToPlaylist={addSongToPlaylist}
+                        currentSong={this.props.currentSong}
                       />
                     )}
                   </Mutation>

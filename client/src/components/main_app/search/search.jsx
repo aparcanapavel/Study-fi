@@ -17,6 +17,7 @@ class Search extends React.Component {
     this.updateSearch = this.updateSearch.bind(this);
     this.toArtist = this.toArtist.bind(this);
     this.toAlbum = this.toAlbum.bind(this);
+    this.selectActive = this.selectActive.bind(this);
   }
 
   toArtist(artistId){
@@ -37,7 +38,7 @@ class Search extends React.Component {
     return false;
   }
 
-  updateSearch(data) {
+  updateSearch(data) { 
     return e => {
       const search = e.target.value;
       let songs = Object.values(data.songs).map(song => {
@@ -50,13 +51,14 @@ class Search extends React.Component {
               artists += ", " + artist.name;
             }
           });
+
           return (
             <li
               key={song._id}
               className="song-item"
               onClick={() => this.props.playSongNow(song)}
             >
-              <img alt="" />
+              <img alt="" src=""/>
               <div className="song-item-details">
                 <p>{song.name}</p>
                 <p>{artists}</p>
@@ -111,6 +113,33 @@ class Search extends React.Component {
     }
   }
 
+  selectActive(songs){
+    const currentSong = this.props.currentSong;
+    if(currentSong && songs){
+      songs = songs.map(song => {
+        if(song.key === currentSong._id){
+          return (
+            <li
+              id="current-song-element"
+              key={song.key}
+              className={song.props.className}
+              onClick={() => this.props.playSongNow(song)}
+            >
+              <img alt="" src={song.props.children[0].props.src} />
+              <div className="song-item-details">
+                <p>{song.props.children[1].props.children[0].props.children}</p>
+                <p>{song.props.children[1].props.children[1].props.children}</p>
+              </div>
+            </li>
+          );
+        } else {
+          return song;
+        }
+      })
+    }
+    return songs;
+  }
+
   render() {
     let songs, artists, albums;
     if (this.state.songs && this.state.songs.length > 0) {
@@ -122,6 +151,8 @@ class Search extends React.Component {
     if (this.state.albums && this.state.albums.length > 0) {
       albums = this.state.albums.slice(0, 4);
     }
+
+    songs = this.selectActive(songs);
     
     return (
       <section className="search-container">

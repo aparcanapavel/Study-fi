@@ -150,6 +150,10 @@ li.active,
   color: #1db954;
 }
 
+li.current-song-element{
+  color: #1db954;
+}
+
 .playlist-index-container li:hover{
   color: whitesmoke;
 }

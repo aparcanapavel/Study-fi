@@ -35,18 +35,33 @@ class ArtistShow extends React.Component {
               <h1 className="artist-show-songs-header">Popular</h1>
 
               <ul className="artist-show-songs">
-                {data.artist.songs.map((song, i) => (
-                  <li 
-                    className="artist-show-song" 
-                    key={song._id} 
-                    onClick={() => this.props.playSongNow(song)}
-                  >
-                    <img className="song-album-icon" src="https://study-fi-public.s3.amazonaws.com/3.jpg"/>
-                    <h1 className="song-index">{i + 1}</h1>
-                    <i className="far fa-play-circle"></i>
-                    <h1 className="artist-show-song-name">{song.name}</h1>
-                  </li>
-                ))}
+                {data.artist.songs.map((song, i) => {
+                  const currentSong = this.props.currentSong;
+                  let songElement;
+                  if (currentSong) {
+                    songElement =
+                      currentSong._id === song._id
+                        ? "current-song-element"
+                        : null;
+                  }
+                  
+                  return (
+                    <li
+                      id={songElement}
+                      className="artist-show-song"
+                      key={song._id}
+                      onClick={() => this.props.playSongNow(song)}
+                    >
+                      <img
+                        className="song-album-icon"
+                        src="https://study-fi-public.s3.amazonaws.com/3.jpg"
+                      />
+                      <h1 className="song-index">{i + 1}</h1>
+                      <i className="far fa-play-circle"></i>
+                      <h1 className="artist-show-song-name">{song.name}</h1>
+                    </li>
+                  );
+                })}
               </ul>
 
               <h1 className="artist-show-albums-header">Albums</h1>
@@ -63,15 +78,27 @@ class ArtistShow extends React.Component {
                   </div>
                     <div className="artist-show-album-songs">
                       <ul className="artist-show-album-songs-list">
-                      {album.songs.map((song, i) => (
-                        <li className="artist-show-album-song" onClick={() => this.props.playSongNow(song)}>
+                      {album.songs.map((song, i) => {
+                        const currentSong = this.props.currentSong;
+                        let songElement;
+                        if (currentSong) {
+                          songElement =
+                            currentSong._id === song._id
+                              ? "current-song-element"
+                              : null;
+                        }
+
+                        return <li 
+                        id={songElement}
+                        className="artist-show-album-song" 
+                        onClick={() => this.props.playSongNow(song)}>
                           <div className="artist-show-album-song-header">
                             <h1 className="artist-show-album-index">{i + 1}</h1>
                             <h1 className="artist-show-album-song-name">{song.name}</h1>
                           </div>
                           <h1 className="artist-show-album-song-duration">{this.parseTime(song.duration)}</h1>
                         </li>
-                      ))}
+                      })}
                       </ul>
                     </div>
                   
