@@ -57,6 +57,8 @@
   overflow-y: auto;
   z-index: 0;
   margin-bottom: 90px;
+  position: sticky;
+  /* margin-top: 200px; */
 }
 
 .search-results .search-results-songs,

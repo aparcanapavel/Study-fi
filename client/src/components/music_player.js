@@ -136,7 +136,7 @@ class MusicPlayer extends React.Component {
             const songs = this.state.queue;
 
             let song = songs[this.state.currentSongIdx];
-            console.log("music-player: ", song);
+            // console.log("music-player: ", song);
             let artists = "";
             song.artists.map((artist, i) => {
               if(i === 0){

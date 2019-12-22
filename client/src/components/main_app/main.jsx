@@ -83,7 +83,7 @@ class MainComponent extends Component {
   }
 
   render() {
-    console.log("main" , this.state.currentSong)
+    // console.log("main" , this.state.currentSong)
     return (
       <Query query={CURRENT_USER_ID}>
         {({ loading, error, data }) => {

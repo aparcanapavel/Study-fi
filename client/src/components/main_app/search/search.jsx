@@ -20,11 +20,11 @@ class Search extends React.Component {
     this.selectActive = this.selectActive.bind(this);
   }
 
-  toArtist(artistId){
-    return this.props.history.push(`/artist/${artistId}`)
+  toArtist(artistId) {
+    return this.props.history.push(`/artist/${artistId}`);
   }
 
-  toAlbum(albumId){
+  toAlbum(albumId) {
     return this.props.history.push(`/album/${albumId}`);
   }
 
@@ -38,11 +38,11 @@ class Search extends React.Component {
     return false;
   }
 
-  updateSearch(data) { 
+  updateSearch(data) {
     return e => {
       const search = e.target.value;
       let songs = Object.values(data.songs).map(song => {
-        if(this.doesMatch(search, song)){
+        if (this.doesMatch(search, song)) {
           let artists = "";
           song.artists.map((artist, i) => {
             if (i === 0) {
@@ -58,7 +58,7 @@ class Search extends React.Component {
               className="song-item"
               onClick={() => this.props.playSongNow(song)}
             >
-              <img alt="" src=""/>
+              <img alt="" src="" />
               <div className="song-item-details">
                 <p>{song.name}</p>
                 <p>{artists}</p>
@@ -74,12 +74,16 @@ class Search extends React.Component {
           album.artists.map((artist, i) => {
             if (i === 0) {
               albumArtists += artist.name;
-            } else if(i < 2){
+            } else if (i < 2) {
               albumArtists += ", " + artist.name;
             }
           });
           return (
-            <li key={album._id} className="album-item" onClick={() => this.toAlbum(album._id)}>
+            <li
+              key={album._id}
+              className="album-item"
+              onClick={() => this.toAlbum(album._id)}
+            >
               <img alt="" />
               <p>{album.name}</p>
               <p>{albumArtists}</p>
@@ -91,7 +95,11 @@ class Search extends React.Component {
       let artists = Object.values(data.artists).map(artist => {
         if (this.doesMatch(search, artist)) {
           return (
-            <li key={artist._id} className="artist-item" onClick={() => this.toArtist(artist._id)}>
+            <li
+              key={artist._id}
+              className="artist-item"
+              onClick={() => this.toArtist(artist._id)}
+            >
               <img alt="" />
               <p>{artist.name}</p>
               <p>Artist</p>
@@ -103,21 +111,21 @@ class Search extends React.Component {
       songs = Object.values(songs).filter(Boolean);
       albums = Object.values(albums).filter(Boolean);
       artists = Object.values(artists).filter(Boolean);
-      
-      this.setState({ 
-        search: search, 
-        songs: songs, 
-        albums: albums, 
-        artists: artists 
+
+      this.setState({
+        search: search,
+        songs: songs,
+        albums: albums,
+        artists: artists
       });
-    }
+    };
   }
 
-  selectActive(songs){
+  selectActive(songs) {
     const currentSong = this.props.currentSong;
-    if(currentSong && songs){
+    if (currentSong && songs) {
       songs = songs.map(song => {
-        if(song.key === currentSong._id){
+        if (song.key === currentSong._id) {
           return (
             <li
               id="current-song-element"
@@ -135,7 +143,7 @@ class Search extends React.Component {
         } else {
           return song;
         }
-      })
+      });
     }
     return songs;
   }
@@ -153,35 +161,36 @@ class Search extends React.Component {
     }
 
     songs = this.selectActive(songs);
-    
+
     return (
       <section className="search-container">
         <Query query={FETCH_ALL}>
           {({ loading, error, data }) => {
-            if (loading) return (
-              <div className="search-component">
-                <form className="search-bar">
-                  <label htmlFor="search-field" className="search-field-icon">
-                    <i className="fas fa-search"></i>
-                  </label>
-                  <input
-                    id="search-field"
-                    type="text"
-                    value={this.state.search}
-                    placeholder="Search for Artists, Songs, or Albums"
-                    disabled
-                  />
-                  <label htmlFor="search-field" className="search-field-x">
-                    X
-                  </label>
-                </form>
-                <div className="empty-search">
-                  <h3>Start typing to begin searching our library!</h3>
+            if (loading)
+              return (
+                <div className="search-component">
+                  <form className="search-bar">
+                    <label htmlFor="search-field" className="search-field-icon">
+                      <i className="fas fa-search"></i>
+                    </label>
+                    <input
+                      id="search-field"
+                      type="text"
+                      value={this.state.search}
+                      placeholder="Search for Artists, Songs, or Albums"
+                      disabled
+                    />
+                    <label htmlFor="search-field" className="search-field-x">
+                      X
+                    </label>
+                  </form>
+                  <div className="empty-search">
+                    <h3>Start typing to begin searching our library!</h3>
+                  </div>
                 </div>
-              </div>
-            );
+              );
             if (error) return <p>Error</p>;
-       
+
             return (
               <div className="search-component">
                 <form className="search-bar">
@@ -204,29 +213,32 @@ class Search extends React.Component {
                     <h3>Start typing to begin searching our library!</h3>
                   </div>
                 ) : (
-                  <div className="search-results">
+                  <div className="search-results" id="search-results">
                     <ul className="search-results-songs" key="5">
                       {songs ? (
-                      <div className="search-result-header">
-                        <h4>Songs</h4>
-                        <p>SEE ALL</p>
-                      </div>) : null}
+                        <div className="search-result-header">
+                          <h4>Songs</h4>
+                          <p>SEE ALL</p>
+                        </div>
+                      ) : null}
                       {songs}
                     </ul>
                     <ul className="search-results-artists" key="6">
                       {artists ? (
-                      <div className="search-result-header">
-                        <h4>Artists</h4>
-                        <p>SEE ALL</p>
-                      </div>) : null}
+                        <div className="search-result-header">
+                          <h4>Artists</h4>
+                          <p>SEE ALL</p>
+                        </div>
+                      ) : null}
                       {artists}
                     </ul>
                     <ul className="search-results-albums" key="7">
                       {albums ? (
-                      <div className="search-result-header">
-                        <h4>Albums</h4>
-                        <p>SEE ALL</p>
-                      </div>) : null }
+                        <div className="search-result-header">
+                          <h4>Albums</h4>
+                          <p>SEE ALL</p>
+                        </div>
+                      ) : null}
                       {albums}
                     </ul>
                   </div>

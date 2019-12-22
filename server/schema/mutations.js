@@ -126,7 +126,7 @@ const mutation = new GraphQLObjectType({
         songId: { type: GraphQLID }
       },
       resolve(_, args) {
-        debugger
+        // debugger
         return Playlist.addSong(args.playlistId, args.songId);
       }
     }
