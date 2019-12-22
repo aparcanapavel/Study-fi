@@ -83,6 +83,7 @@ class MainComponent extends Component {
   }
 
   render() {
+    console.log("main" , this.state.currentSong)
     return (
       <Query query={CURRENT_USER_ID}>
         {({ loading, error, data }) => {
@@ -114,11 +115,7 @@ class MainComponent extends Component {
                     <i className="fas fa-search"></i>
                     <p>Search</p>
                   </li>
-                  <li 
-                    key="3"
-                    className="nav-name-item"
-                    id="library"
-                  >
+                  <li key="3" className="nav-name-item" id="library">
                     <i className="fas fa-book"></i>
                     <p>Your Library</p>
                   </li>
@@ -168,6 +165,7 @@ class MainComponent extends Component {
                         playSongNow={this.playSongNow}
                         playAlbumNow={this.playAlbumNow}
                         currentSong={this.state.currentSong}
+                        onRef={ref => (this.albumShow = ref)}
                       />
                     )}
                   />
@@ -179,17 +177,13 @@ class MainComponent extends Component {
                     path="/playlist/:playlistId"
                     component={PlaylistShow}
                   />
-                  <Route 
-                    path="/" 
+                  <Route
+                    path="/"
                     render={props => (
-                      <HomeComponent
-                      {...props}
-                      setActive={this.setActive}
-                       />
-                      )}
-
+                      <HomeComponent {...props} setActive={this.setActive} />
+                    )}
                     setActive={this.setActive}
-                    />
+                  />
                 </Switch>
               </section>
               <div className="music-player">

@@ -93,7 +93,7 @@ class MusicPlayer extends React.Component {
       const player = document.getElementById("music-player");
       player.play();
     }, 1);
-    this.setState({ queue: newQueue, currentSongIdx: 0, isPlaying: true });
+    this.setState({ queue: newQueue, currentSongIdx: 0, isPlaying: true }, this.props.setCurrentSong(song));
   }
 
   playAlbumNow(albumSongs){
@@ -118,6 +118,7 @@ class MusicPlayer extends React.Component {
   }
 
   render() {
+    
     return (
       <div className="music-player-container">
         <Query query={FETCH_SONGS}>
@@ -132,7 +133,7 @@ class MusicPlayer extends React.Component {
             const songs = this.state.queue;
 
             let song = songs[this.state.currentSongIdx];
-            console.log(song);
+            console.log("music-player: ", song);
             let artists = "";
             song.artists.map((artist, i) => {
               if(i === 0){
