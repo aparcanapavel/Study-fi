@@ -2,6 +2,7 @@ import React from "react";
 import { Query } from 'react-apollo';
 import { withRouter } from "react-router";
 import Queries from '../../../graphql/queries';
+import Loader from "react-loader-spinner";
 const { FETCH_ALL } = Queries;
 
 class Search extends React.Component {
@@ -184,8 +185,13 @@ class Search extends React.Component {
                       X
                     </label>
                   </form>
-                  <div className="empty-search">
-                    <h3>Start typing to begin searching our library!</h3>
+                  <div className="search-loading-sym">
+                    <Loader
+                      type="Bars"
+                      color="#2F5451"
+                      height={100}
+                      width={100}
+                    />
                   </div>
                 </div>
               );

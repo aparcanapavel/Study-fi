@@ -189,3 +189,14 @@
 .album-item{
   height: 310px;
 }
+
+.search-loading-sym{
+  text-align: center;
+  width: 100%;
+  position: absolute;
+  margin-top: 280px;
+}
+
+.search-loading-sym div svg{
+  fill: #2F5451;
+}
