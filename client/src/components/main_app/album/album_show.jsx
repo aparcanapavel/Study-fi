@@ -11,13 +11,24 @@ class ArtistShow extends React.Component {
 
   parseTime(int) {
     let minutes = Math.floor(int / 60);
-    let seconds = (int % 60) < 10 ? `0${int % 60}` : (int % 60)
-    return `${minutes}:${seconds}`
+    let seconds = int % 60 < 10 ? `0${int % 60}` : int % 60;
+    return `${minutes}:${seconds}`;
+  }
+
+  componentDidMount() {
+    this.props.onRef(this);
+  }
+  componentWillUnmount() {
+    this.props.onRef(undefined);
   }
 
   render() {
+
     return (
-      <Query query={FETCH_ALBUM} variables={{ id: this.props.match.params.albumId }}>
+      <Query
+        query={FETCH_ALBUM}
+        variables={{ id: this.props.match.params.albumId }}
+      >
         {({ loading, error, data }) => {
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error</p>;
@@ -43,7 +54,12 @@ class ArtistShow extends React.Component {
                       ))}
                     </div>
                   )}
-                  <button className="play-album-button" onClick={() => this.props.playAlbumNow(data.album.songs)}>Play</button>
+                  <button
+                    className="play-album-button"
+                    onClick={() => this.props.playAlbumNow(data.album.songs)}
+                  >
+                    Play
+                  </button>
                 </div>
               </div>
 
@@ -53,42 +69,50 @@ class ArtistShow extends React.Component {
                   <h1 className="album-show-song-header-artist">Artist</h1>
                   <h1>Length</h1>
                 </li>
-                {data.album.songs.map((song, i) => (
-                  <li
-                    className="album-show-song"
-                    key={song._id}
-                    onClick={() => this.props.playSongNow(song)}
-                  >
-                    <div className="album-show-song-start">
-                      <h1 className="album-show-song-index">{i + 1}</h1>
-                      <h1 className="album-show-song-name">{song.name}</h1>
-                    </div>
-                    <div className="album-show-song-artists">
-                      {song.artists.map((artist, i) => {
-                        let comma = "";
-                        if (i === 0 && song.artists.length > 1) {
-                          comma = ",";
-                        }
-                        return (
-                          <Link to={`/artist/${artist._id}`} key={artist._id}>
-                            <h1 className="album-show-artist-name">
-                              {artist.name + comma}
-                            </h1>
-                          </Link>
-                        );
-                      })}
-                    </div>
-                    <h1 className="album-show-song-duration">
-                      {this.parseTime(song.duration)}
-                    </h1>
-                  </li>
-                ))}
+                {data.album.songs.map((song, i) => {
+                  const currentSong = this.props.currentSong;
+                  let songElement;
+                  if(currentSong){
+                    songElement = currentSong._id === song._id ? "current-song-element" : null;
+                  }
+                  return (
+                    <li
+                      id={songElement}
+                      className="album-show-song"
+                      key={song._id}
+                      onClick={() => this.props.playSongNow(song)}
+                    >
+                      <div className="album-show-song-start">
+                        <h1 className="album-show-song-index">{i + 1}</h1>
+                        <h1 className="album-show-song-name">{song.name}</h1>
+                      </div>
+                      <div className="album-show-song-artists">
+                        {song.artists.map((artist, i) => {
+                          let comma = "";
+                          if (i === 0 && song.artists.length > 1) {
+                            comma = ",";
+                          }
+                          return (
+                            <Link to={`/artist/${artist._id}`} key={artist._id}>
+                              <h1 className="album-show-artist-name">
+                                {artist.name + comma}
+                              </h1>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                      <h1 className="album-show-song-duration">
+                        {this.parseTime(song.duration)}
+                      </h1>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           );
         }}
       </Query>
-    )
+    );
   }
 }
 

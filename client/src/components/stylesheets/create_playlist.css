@@ -38,6 +38,7 @@
   border-radius: 20px;
   margin-top: 10px;
   width: 100%;
+  text-align: center;
 }
 
 #add-songs-modal{
@@ -54,6 +55,8 @@
   border-bottom: 1px solid gray;
   padding: 5px 0px;
   padding-bottom: 10px;
+  font-family: 'Raleway', sans-serif;
+  font-size: 23px;
 }
 
 #playlist{
@@ -221,4 +224,22 @@
   background-color: #1db954;
   border-radius: 15px;
   margin-left: 10px;
+}
+
+.loading-sym {
+  position: absolute;
+  margin: 0 auto;
+  text-align: center;
+  width: 100%;
+  top: 40%;
+}
+
+.loading-sym div svg{
+  fill: #2F5451;
+}
+
+.playlist-nosearch h3{
+  text-align: center;
+  padding: 120px;
+  box-sizing: border-box;
 }

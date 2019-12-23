@@ -14,6 +14,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.8.1",
     "nodemon": "^2.0.2",
+    "react-fade-in": "^0.1.7",
+    "react-loader-spinner": "^3.1.5",
     "react-speech-recognition": "^2.0.4",
     "validator": "^12.1.0"
   },

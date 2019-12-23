@@ -4,9 +4,9 @@ import Queries from "../../../graphql/queries";
 const { FETCH_PLAYLIST } = Queries;
 
 class PlaylistShow extends React.Component{
-constructor(props){
-  super(props)
-}
+  constructor(props){
+    super(props)
+  }
 
   render(){
     return (

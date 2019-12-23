@@ -7,7 +7,7 @@ class HomeComponent extends Component{
   constructor(props){
     super(props);
   }
-
+  
   render(){
     return(
       <div className="home-container">

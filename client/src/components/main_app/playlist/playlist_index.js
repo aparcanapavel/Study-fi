@@ -1,41 +1,40 @@
 import React from "react";
-import { Query } from "react-apollo";
-import { Link } from "react-router-dom";
-import Queries from "../../../graphql/queries";
-const { FETCH_USER_PLAYLISTS } = Queries;
+import { withRouter } from "react-router";
+import FadeIn from "react-fade-in";
 
 class PlaylistIndex extends React.Component{
   constructor(props){
     super(props);
+    this.toPlaylist = this.toPlaylist.bind(this);
   }
+
+  toPlaylist(playlistId){
+    this.props.history.push(`/playlist/${playlistId}`);
+
+    this.props.removeActive();
+    const currentPlaylist = document.getElementById(`${playlistId}`);
+    currentPlaylist.classList.add("active");
+  }
+  
   render() {
-    return(
-      <Query query={FETCH_USER_PLAYLISTS} variables={{id: this.props.currentUserId}}>
-        {({loading, error, data}) => {
-          if (loading) {
-            return <h1>loading</h1>;
-          } else if (error) {
-            return <h1>error</h1>;
-          } else {
-            // console.log(data);
-            return (
-              <div>
-                <ul>
-                {data.user.playlists.reverse().map((playlist) => {
-                  return (
-                  <Link to={`/playlist/${playlist._id}`}>
-                    <h1>{playlist.name}</h1>
-                  </Link>
-                  )
-                })}
-                </ul>
-              </div>
-            )
-          }
-        }}
-      </Query>
-    )
+    let playlists = this.props.playlists.map(playlist => {
+      return (
+        <li
+          key={playlist._id}
+          onClick={() => this.toPlaylist(playlist._id)}
+          id={playlist._id}
+          className="nav-name-item"
+        >
+          {playlist.name}
+        </li>
+      );
+    });
+    return (
+        <ul className="playlist-index-container">
+          <FadeIn transitionDuration="300">{playlists}</FadeIn>
+        </ul>
+    );
   }
 }
 
-export default PlaylistIndex;
+export default withRouter(PlaylistIndex);
