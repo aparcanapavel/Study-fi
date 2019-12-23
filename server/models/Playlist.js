@@ -34,7 +34,7 @@ PlaylistSchema.statics.findSongs = function (id) {
 
 PlaylistSchema.statics.findUser = function (id) {
   return this.findById(id)
-    .populate("user")
+    .populate("users")
     .then(playlist => {
       const User = mongoose.model("users");
       return User.findById(playlist.user);
@@ -72,5 +72,13 @@ PlaylistSchema.statics.addSong = function(playlistId, songId) {
         })
     });
 };
+// make songs delete playlistId from playlists array
+
+// PlaylistSchema.statics.removeSongs = function(playlistId) {
+//   const Song = mongoose.model("songs");
+//   const Playlist = mongoose.model("playlists");
+
+//   return Playlist.remove({})
+// }
 
 module.exports = mongoose.model("playlists", PlaylistSchema);

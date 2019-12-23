@@ -12,7 +12,7 @@ const PlaylistType = new GraphQLObjectType({
     user: {
       type: require("./user_type"),
       resolve(parentValue) {
-        return Song.findUser(parentValue.id);
+        return Playlist.findUser(parentValue.id);
       }
     },
     songs: {
