@@ -184,8 +184,17 @@ class MainComponent extends Component {
                   />
                   <Route
                     path="/playlist/:playlistId"
-                    component={PlaylistShow}
+                    render={props => (
+                      <PlaylistShow
+                        {...props}
+                        playSongNow={this.playSongNow}
+                        playAlbumNow={this.playAlbumNow}
+                        currentSong={this.state.currentSong}
+                        onRef={ref => (this.albumShow = ref)}
+                      />
+                    )}
                   />
+
                   <Route
                     path="/"
                     render={props => (

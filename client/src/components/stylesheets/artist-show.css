@@ -50,17 +50,21 @@
 }
 
 .artist-show-song{
+  position: relative;
   display: flex;
-  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid rgba(255, 255, 255, 0.349);
 }
 
 .artist-show-song > i {
-  visibility: hidden;
-  font-size: 20px;
-  position: fixed;
+  padding: 10px;
+}
 
+.artist-show-song-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .artist-show-song:hover{
@@ -127,11 +131,16 @@
 }
 
 .artist-show-album-song{
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid rgba(255, 255, 255, 0.349);
   vertical-align: middle;
+}
+
+.artist-show-album-song > i {
+  padding: 10px;
 }
 
 .artist-show-album-song:hover{
@@ -141,6 +150,8 @@
 .artist-show-album-song-header{
   display: flex;
   flex-direction: row;
+  width: 400px;
+
 }
 
 .artist-show-album-index{
