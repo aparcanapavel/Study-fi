@@ -30,9 +30,9 @@ class PlaylistIndex extends React.Component{
       );
     });
     return (
-        <ul className="playlist-index-container">
-          <FadeIn transitionDuration="300">{playlists}</FadeIn>
-        </ul>
+      <ul className="playlist-index-container">
+        <FadeIn transitionDuration="300">{playlists}</FadeIn>
+      </ul>
     );
   }
 }
