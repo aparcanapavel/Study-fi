@@ -6,6 +6,7 @@ const UserType = require("./types/user_type");
 const MusicType = require("./types/song_type");
 const Song = require("../models/Song");
 const Album = require("../models/Album");
+const User = require("../models/User");
 const AlbumType = require("./types/album_type");
 const ArtistType = require("./types/artist_type");
 const Artist = require('../models/Artist');
@@ -128,6 +129,16 @@ const mutation = new GraphQLObjectType({
       resolve(_, args) {
         // debugger
         return Playlist.addSong(args.playlistId, args.songId);
+      }
+    },
+    removeUserPlaylist: {
+      type: UserType,
+      args: {
+        playlistId: { type: GraphQLID },
+        userId: { type: GraphQLID }
+      },
+      resolve(_, { playlistId, userId }) {
+        return User.removePlaylist(userId, playlistId);
       }
     }
   }
