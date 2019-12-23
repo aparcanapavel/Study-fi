@@ -190,7 +190,8 @@ class MainComponent extends Component {
                         playSongNow={this.playSongNow}
                         playAlbumNow={this.playAlbumNow}
                         currentSong={this.state.currentSong}
-                        onRef={ref => (this.albumShow = ref)}
+                        onRef={ref => (this.playlistShow = ref)}
+                        currentUserId={data.currentUserId}
                       />
                     )}
                   />
