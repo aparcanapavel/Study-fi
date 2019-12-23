@@ -144,11 +144,12 @@ class MusicPlayer extends React.Component {
               } else {
                 artists += ", " + artist.name;
               }
+              return artists;
             })
             return (
               <div className="controlls">
                 <div className="left-controlls">
-                  <img className="player-album-cover" />
+                  <img className="player-album-cover" alt="" />
                   <div className="player-song-details">
                     <p>{song.name}</p>
                     <p>{artists}</p>

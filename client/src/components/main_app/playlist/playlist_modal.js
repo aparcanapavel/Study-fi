@@ -2,6 +2,7 @@ import React from "react";
 import { Query, Mutation } from "react-apollo";
 import Queries from '../../../graphql/queries';
 import Mutations from "../../../graphql/mutations";
+import Loader from "react-loader-spinner";
 const { ADD_SONG_TO_PLAYLIST } = Mutations;
 const { FETCH_FOR_PLAYLIST } = Queries;
 
@@ -193,7 +194,14 @@ class PlaylistModal extends React.Component {
                       onChange={e => console.log(e.target.value)}
                       disabled
                     />
-                    <p>Loading...</p>
+                    <div className="loading-sym">
+                      <Loader
+                        type="Bars"
+                        color="#2F5451"
+                        height={100}
+                        width={100}
+                      />
+                    </div>
                   </form>
                 );
 
@@ -208,15 +216,17 @@ class PlaylistModal extends React.Component {
                     value={this.state.search}
                     onChange={this.updateSearch(data)}
                   />
+
+                  {this.state.search === "" ? (
+                    <div className="playlist-nosearch">
+                      <h3>Start Typing to begin searching our library!</h3>
+                    </div>
+                  ) : null}
                 </form>
               );
             }}
           </Query>
-          {this.state.search === "" ? (
-            <div className="playlist-nosearch">
-              <h3>Start Typing to begin searching our library!</h3>
-            </div>
-          ) : (
+          {this.state.search === "" ? null : (
             <div className="playlist-search-results">
               <ul className="playlist-results-songs" key="5">
                 {songs ? (
