@@ -215,16 +215,8 @@ class Search extends React.Component {
                   </label>
                 </form>
                 {this.state.search === "" ? (
-                  // <div className="empty-search">
-                  //   <h3>Start typing to begin searching our library!</h3>
-                  // </div>
-                  <div className="search-loading-sym">
-                    <Loader
-                      type="Bars"
-                      color="#2F5451"
-                      height={100}
-                      width={100}
-                    />
+                  <div className="empty-search">
+                    <h3>Start typing to begin searching our library!</h3>
                   </div>
                 ) : (
                   <div className="search-results" id="search-results">
