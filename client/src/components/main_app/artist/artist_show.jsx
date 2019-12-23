@@ -2,17 +2,25 @@ import React from "react";
 import { Query } from "react-apollo";
 import Queries from "../../../graphql/queries";
 import { Link } from "react-router-dom";
+import SongOptions from "../../song/song_options";
 const { FETCH_ARTIST } = Queries;
 
 class ArtistShow extends React.Component {
   constructor(props){
     super(props);
+    this.state = {options: null, section: null}
+    this.toggleSongOptions = this.toggleSongOptions.bind(this);
   }
 
   parseTime(int){
     let minutes = Math.floor(int/60);
     let seconds = (int%60) < 10 ? `0${int%60}` : (int%60)
     return `${minutes}:${seconds}`
+  }
+
+  toggleSongOptions(e, songId, section) {
+    e.stopPropagation();
+    this.state.options === songId ? this.setState({ options: null, section: null }) : this.setState({ options: songId, section: section });
   }
 
   render(){
@@ -52,13 +60,17 @@ class ArtistShow extends React.Component {
                       key={song._id}
                       onClick={() => this.props.playSongNow(song)}
                     >
+                      <div className="artist-show-song-header">
                       <img
                         className="song-album-icon"
                         src="https://study-fi-public.s3.amazonaws.com/3.jpg"
                       />
                       <h1 className="song-index">{i + 1}</h1>
-                      <i className="far fa-play-circle"></i>
+                      {/* <i className="far fa-play-circle"></i> */}
                       <h1 className="artist-show-song-name">{song.name}</h1>
+                      </div>
+                      <i onClick={(e) => this.toggleSongOptions(e, song._id, "popular")} className="fas fa-ellipsis-h"></i>
+                      {(this.state.options === song._id && this.state.section === "popular") && <SongOptions section={"popular-song-options-container"} songId={song._id} />}
                     </li>
                   );
                 })}
@@ -97,6 +109,8 @@ class ArtistShow extends React.Component {
                             <h1 className="artist-show-album-song-name">{song.name}</h1>
                           </div>
                           <h1 className="artist-show-album-song-duration">{this.parseTime(song.duration)}</h1>
+                          <i onClick={(e) => this.toggleSongOptions(e, song._id, "album")} className="fas fa-ellipsis-h"></i>
+                          {(this.state.options === song._id && this.state.section === "album") && <SongOptions section={"popular-song-options-container"} songId={song._id} />}
                         </li>
                       })}
                       </ul>

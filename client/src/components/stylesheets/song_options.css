@@ -1,0 +1,21 @@
+.popular-song-options-container {
+  position: absolute;
+  background-color: rgb(66, 66, 66);
+  margin-top: 40px;
+  padding: 20px;
+  right: 10px;
+  z-index: 10;
+}
+
+.popular-song-options{
+  margin: 10px;
+}
+
+.artist-album-song-options-container {
+  position: absolute;
+  background-color:rgb(66, 66, 66);
+  margin-top:40px;
+  padding: 20px;
+  right: 10px;
+  z-index:10;
+}
