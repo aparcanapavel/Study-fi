@@ -107,6 +107,7 @@
   background-color: rgb(74, 73, 73);
   cursor: pointer;
   overflow: hidden;
+  /* position: relative; */
 }
 
 .progress-bar .progress-bar-shell .progress-bar-filler{
@@ -116,8 +117,27 @@
   transition: width 0.1s ease-in;
   width: 100%;
   transform: translateX(-100%);
+  display: inline-block;
 }
 
 .progress-bar .progress-bar-shell:hover .progress-bar-filler{
   background-color: #1db954;
+}
+
+.progress-bar .progress-bar-shell .progress-seeker{
+  display: inline-block;
+  outline: none;
+  position: absolute;
+  padding: 5px;
+  background-color: white;
+  border-radius: 500px;
+  top: 2px;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.5);
+  opacity: 0;
+  /* transform: translateX(100%); */
+  /* left: 30px; */
+}
+
+.progress-bar .progress-bar-shell:hover .progress-seeker{
+  opacity: 1;
 }

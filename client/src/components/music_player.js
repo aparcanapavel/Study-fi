@@ -1,7 +1,7 @@
 import React from 'react';
 import Queries from "../graphql/queries";
 import { Query } from 'react-apollo';
-import ProgressFiller from "./progress_filler";
+import ProgressFiller from "./music_player/progress_filler";
 const { FETCH_SONGS } = Queries;
 
 class MusicPlayer extends React.Component {
@@ -12,7 +12,7 @@ class MusicPlayer extends React.Component {
       history: [],
       currentSongIdx: 0,
       isPlaying: false,
-      songPercentage: 100
+      songPercentage: 101
     };
     this.addToQueue = this.addToQueue.bind(this);
     this.populateQueue = this.populateQueue.bind(this);
@@ -81,7 +81,10 @@ class MusicPlayer extends React.Component {
       const player = document.getElementById("music-player");
       player.play();
     }, 1);
-    this.setState({ currentSongIdx: songIdx, isPlaying: true }, this.props.setCurrentSong(this.state.queue[songIdx]))
+    this.setState(
+      { currentSongIdx: songIdx, isPlaying: true, songPercentage: 101 },
+      this.props.setCurrentSong(this.state.queue[songIdx])
+    );
   }
 
   playpause(){
@@ -111,7 +114,8 @@ class MusicPlayer extends React.Component {
         queue: currentQueue,
         history: currentHist,
         currentSongIdx: songIdx,
-        isPlaying: true
+        isPlaying: true,
+        songPercentage: 101
       },
       this.props.setCurrentSong(this.state.queue[songIdx])
     );
@@ -148,7 +152,8 @@ class MusicPlayer extends React.Component {
   }
 
   render() {
-    
+    let circleSeeker = Math.floor(100 - this.state.songPercentage);
+    // console.log(circleSeeker)
     return (
       <div className="music-player-container">
         <Query query={FETCH_SONGS}>
@@ -208,6 +213,10 @@ class MusicPlayer extends React.Component {
                       <ProgressFiller
                         songPercentage={this.state.songPercentage}
                       />
+                      <button 
+                        className="progress-seeker" 
+                        style={{ left: `${circleSeeker}%`}}
+                      ></button>
                     </div>
                     <p id="song-duration"></p>
                   </div>
