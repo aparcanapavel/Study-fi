@@ -1,6 +1,7 @@
 import React from 'react';
 import Queries from "../graphql/queries";
 import { Query } from 'react-apollo';
+import ProgressFiller from "./progress_filler";
 const { FETCH_SONGS } = Queries;
 
 class MusicPlayer extends React.Component {
@@ -10,13 +11,16 @@ class MusicPlayer extends React.Component {
       queue: [],
       history: [],
       currentSongIdx: 0,
-      isPlaying: false
+      isPlaying: false,
+      songPercentage: 100
     };
     this.addToQueue = this.addToQueue.bind(this);
     this.populateQueue = this.populateQueue.bind(this);
     this.nextSong = this.nextSong.bind(this);
     this.previous = this.previous.bind(this);
     this.playpause = this.playpause.bind(this);
+    this.updateProgressBar = this.updateProgressBar.bind(this);
+    this.convertElapsedTime = this.convertElapsedTime.bind(this);
   }
 
   populateQueue(songs) {
@@ -41,6 +45,29 @@ class MusicPlayer extends React.Component {
   componentWillUnmount() {
     this.props.onRef(undefined);
     clearTimeout(this.timeout);
+  }
+
+  updateProgressBar(e) {
+    const audioEl = document.getElementById("music-player");
+    let currentTime = audioEl.currentTime;
+    let duration = audioEl.duration;
+    document.getElementById(
+      "song-current-time"
+    ).innerHTML = this.convertElapsedTime(currentTime);
+    const songPercentage = ((currentTime / duration) * 100);
+    let reversePercent = 100 - songPercentage;
+    // console.log(reversePercent);
+    this.setState({ songPercentage: reversePercent });
+  }
+
+  convertElapsedTime(inputSeconds){
+    let seconds = Math.floor(inputSeconds % 60);
+    if(seconds < 10){
+      seconds = "0" + seconds;
+    }
+
+    const minutes = Math.floor(inputSeconds / 60);
+    return minutes + ":" + seconds;
   }
 
   previous(){
@@ -136,7 +163,7 @@ class MusicPlayer extends React.Component {
             const songs = this.state.queue;
 
             let song = songs[this.state.currentSongIdx];
-            // console.log("music-player: ", song);
+
             let artists = "";
             song.artists.map((artist, i) => {
               if(i === 0){
@@ -155,18 +182,56 @@ class MusicPlayer extends React.Component {
                     <p>{artists}</p>
                   </div>
                 </div>
-                <div className="mind-controlls">
-                  <i className="fas fa-step-backward" onClick={this.previous}></i>
-                  <i className="far fa-play-circle" onClick={this.playpause}></i>
-                  <i className="fas fa-step-forward" onClick={this.nextSong}></i>
+                <div className="mid-controlls">
+                  <div className="main-controlls">
+                    <i
+                      className="fas fa-step-backward"
+                      onClick={this.previous}
+                    ></i>
+                    <i
+                      className={
+                        this.state.isPlaying
+                          ? "far fa-pause-circle"
+                          : "far fa-play-circle"
+                      }
+                      onClick={this.playpause}
+                    ></i>
+                    <i
+                      className="fas fa-step-forward"
+                      onClick={this.nextSong}
+                    ></i>
+                  </div>
+
+                  <div className="progress-bar">
+                    <p id="song-current-time"></p>
+                    <div className="progress-bar-shell">
+                      <ProgressFiller
+                        songPercentage={this.state.songPercentage}
+                      />
+                    </div>
+                    <p id="song-duration"></p>
+                  </div>
                   <audio
                     id="music-player"
                     className="music-player-container"
                     onEnded={this.nextSong}
                     src={song.songUrl}
+                    onTimeUpdate={this.updateProgressBar}
+                    onLoadedMetadata={e => {
+                      const audioEl = document.getElementById("music-player");
+                      let currentTime = audioEl.currentTime;
+                      let duration = audioEl.duration;
+                      document.getElementById(
+                        "song-current-time"
+                      ).innerHTML = this.convertElapsedTime(currentTime);
+
+                      document.getElementById(
+                        "song-duration"
+                      ).innerHTML = this.convertElapsedTime(duration);
+                    }}
                   ></audio>
                 </div>
-                <div className="right-controlls"></div>
+                <div className="right-controlls">queue</div>
               </div>
             );
           }}
