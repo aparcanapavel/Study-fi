@@ -22,6 +22,7 @@ class MusicPlayer extends React.Component {
     this.updateProgressBar = this.updateProgressBar.bind(this);
     this.convertElapsedTime = this.convertElapsedTime.bind(this);
     this.handleSeek = this.handleSeek.bind(this);
+    this.toggleButtonAnimation = this.toggleButtonAnimation.bind(this);
   }
 
   populateQueue(songs) {
@@ -46,6 +47,8 @@ class MusicPlayer extends React.Component {
   componentWillUnmount() {
     this.props.onRef(undefined);
     clearTimeout(this.timeout);
+    clearTimeout(this.timer);
+    clearTimeout(this.timer2);
   }
 
   updateProgressBar(e) {
@@ -57,7 +60,7 @@ class MusicPlayer extends React.Component {
     ).innerHTML = this.convertElapsedTime(currentTime);
     const songPercentage = (currentTime / duration) * 100;
     let reversePercent = 100 - songPercentage;
-    // console.log(reversePercent);
+
     this.setState({ songPercentage: reversePercent });
   }
 
@@ -110,11 +113,25 @@ class MusicPlayer extends React.Component {
     const player = document.getElementById("music-player");
     if (this.state.isPlaying) {
       player.pause();
-      this.setState({ isPlaying: false });
+      this.timer = setTimeout(() => {
+        this.setState({ isPlaying: false });
+      }, 200);
+      this.toggleButtonAnimation();
     } else {
       player.play();
-      this.setState({ isPlaying: true });
+      this.timer = setTimeout(() => {
+        this.setState({ isPlaying: true });
+      }, 200);
+      this.toggleButtonAnimation();
     }
+  }
+
+  toggleButtonAnimation() {
+    const player = document.getElementById("play-pause");
+    this.timer2 = setTimeout(() => {
+      player.classList.remove("button-down");
+    }, 100);
+    player.classList.add("button-down");
   }
 
   nextSong() {

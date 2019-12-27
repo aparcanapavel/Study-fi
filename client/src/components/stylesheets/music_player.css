@@ -63,6 +63,7 @@
   width: 100%;
   text-align: center;
   display: block;
+  min-height: 41px;
 }
 
 .mid-controlls .main-controlls i {
@@ -80,6 +81,18 @@
 
 .mid-controlls .main-controlls i:nth-child(2){
   font-size: 33px;
+  transition: 0.1s;
+  min-height: 33px;
+  padding: 0px;
+}
+
+#play-pause{
+  min-width: 33px;
+  min-height: 33px;
+}
+
+#play-pause.button-down{
+  font-size: 31px;
 }
 
 .mid-controlls .progress-bar{
