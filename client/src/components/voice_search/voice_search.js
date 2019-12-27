@@ -28,10 +28,10 @@ const SpeechRecognitionComponent = ({
 
   return (
     <div>
-      <button onClick={resetTranscript}>Reset</button>
-      <button onClick={startListening}>Start</button>
-      <button onClick={stopListening}>Stop</button>
-      <button onClick={abortListening}>Abort</button>
+      <button className="voice-reset-button" onClick={resetTranscript}>Reset</button>
+      <button className="voice-start-button" onClick={startListening}>Start</button>
+      <button className="voice-stop-button" onClick={stopListening}>Stop</button>
+      <button className="voice-abort-button" onClick={abortListening}>Abort</button>
       <br/>
       <span>{transcript}</span>
     </div>
