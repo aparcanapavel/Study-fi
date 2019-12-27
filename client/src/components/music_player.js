@@ -21,22 +21,23 @@ class MusicPlayer extends React.Component {
     this.playpause = this.playpause.bind(this);
     this.updateProgressBar = this.updateProgressBar.bind(this);
     this.convertElapsedTime = this.convertElapsedTime.bind(this);
+    this.handleSeek = this.handleSeek.bind(this);
   }
 
   populateQueue(songs) {
     const currentQueue = Object.values(this.state.queue);
     const songsObj = {};
-    
-    for(let i = currentQueue.length; i < 10; i++){
+
+    for (let i = currentQueue.length; i < 10; i++) {
       let song =
         songs[
           Math.floor(Math.random() * Math.floor(Object.keys(songs).length))
         ];
-      if(!Object.keys(songsObj).includes(song._id)){
+      if (!Object.keys(songsObj).includes(song._id)) {
         songsObj[song._id] = song;
       }
     }
-    Object.assign(this.state, { queue: Object.values(songsObj)});
+    Object.assign(this.state, { queue: Object.values(songsObj) });
   }
 
   componentDidMount() {
@@ -54,15 +55,15 @@ class MusicPlayer extends React.Component {
     document.getElementById(
       "song-current-time"
     ).innerHTML = this.convertElapsedTime(currentTime);
-    const songPercentage = ((currentTime / duration) * 100);
+    const songPercentage = (currentTime / duration) * 100;
     let reversePercent = 100 - songPercentage;
     // console.log(reversePercent);
     this.setState({ songPercentage: reversePercent });
   }
 
-  convertElapsedTime(inputSeconds){
+  convertElapsedTime(inputSeconds) {
     let seconds = Math.floor(inputSeconds % 60);
-    if(seconds < 10){
+    if (seconds < 10) {
       seconds = "0" + seconds;
     }
 
@@ -70,9 +71,27 @@ class MusicPlayer extends React.Component {
     return minutes + ":" + seconds;
   }
 
-  previous(){
+  handleSeek(e) {
+    const OSL = this.getOffsetLeft(e.target);
+    const clickedPos = e.clientX - OSL;
+    const audioEl = document.getElementById("music-player");
+
+    audioEl.currentTime = (clickedPos / e.target.offsetWidth) * audioEl.duration;
+  }
+
+  getOffsetLeft(elem) {
+    let offsetLeft = 0;
+    do {
+      if (!isNaN(elem.offsetLeft)) {
+        offsetLeft += elem.offsetLeft;
+      }
+    } while ((elem = elem.offsetParent));
+    return offsetLeft;
+  }
+
+  previous() {
     let songIdx = this.state.currentSongIdx;
-    if(songIdx <= 0){
+    if (songIdx <= 0) {
       songIdx = 0;
     } else {
       songIdx--;
@@ -87,7 +106,7 @@ class MusicPlayer extends React.Component {
     );
   }
 
-  playpause(){
+  playpause() {
     const player = document.getElementById("music-player");
     if (this.state.isPlaying) {
       player.pause();
@@ -98,7 +117,7 @@ class MusicPlayer extends React.Component {
     }
   }
 
-  nextSong(){
+  nextSong() {
     const currentSong = this.state.queue[0];
     const currentHist = this.state.history;
     const currentQueue = this.state.queue;
@@ -121,16 +140,19 @@ class MusicPlayer extends React.Component {
     );
   }
 
-  playSongNow(song){
+  playSongNow(song) {
     const newQueue = [song].concat(this.state.queue);
     this.timeout = setTimeout(() => {
       const player = document.getElementById("music-player");
       player.play();
     }, 1);
-    this.setState({ queue: newQueue, currentSongIdx: 0, isPlaying: true }, this.props.setCurrentSong(song));
+    this.setState(
+      { queue: newQueue, currentSongIdx: 0, isPlaying: true },
+      this.props.setCurrentSong(song)
+    );
   }
 
-  playAlbumNow(albumSongs){
+  playAlbumNow(albumSongs) {
     const newQueue = Object.values(albumSongs);
     this.timeout = setTimeout(() => {
       const song = this.state.queue[this.state.currentSongIdx];
@@ -161,7 +183,7 @@ class MusicPlayer extends React.Component {
             if (loading) return <p>Loading...</p>;
             if (error) return <p>Error</p>;
 
-            if(this.state.queue.length === 0){
+            if (this.state.queue.length === 0) {
               this.populateQueue(data.songs);
             }
 
@@ -171,13 +193,13 @@ class MusicPlayer extends React.Component {
 
             let artists = "";
             song.artists.map((artist, i) => {
-              if(i === 0){
+              if (i === 0) {
                 artists += artist.name;
               } else {
                 artists += ", " + artist.name;
               }
               return artists;
-            })
+            });
             return (
               <div className="controlls">
                 <div className="left-controlls">
@@ -194,6 +216,7 @@ class MusicPlayer extends React.Component {
                       onClick={this.previous}
                     ></i>
                     <i
+                      id="play-pause"
                       className={
                         this.state.isPlaying
                           ? "far fa-pause-circle"
@@ -209,14 +232,17 @@ class MusicPlayer extends React.Component {
 
                   <div className="progress-bar">
                     <p id="song-current-time"></p>
-                    <div className="progress-bar-shell">
+                    <div
+                      className="progress-bar-shell"
+                      onMouseDown={this.handleSeek}
+                    >
                       <ProgressFiller
                         songPercentage={this.state.songPercentage}
                       />
-                      <button 
-                        className="progress-seeker" 
-                        style={{ left: `${circleSeeker}%`}}
-                      ></button>
+                      {/* <button
+                        className="progress-seeker"
+                        style={{ left: `${circleSeeker}%` }}
+                      ></button> */}
                     </div>
                     <p id="song-duration"></p>
                   </div>
