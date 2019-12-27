@@ -1,9 +1,7 @@
 import React from "react";
-import { Query, Mutation } from "react-apollo";
+import { Query } from "react-apollo";
 import Queries from '../../../graphql/queries';
-import Mutations from "../../../graphql/mutations";
 import Loader from "react-loader-spinner";
-const { ADD_SONG_TO_PLAYLIST } = Mutations;
 const { FETCH_FOR_PLAYLIST } = Queries;
 
 
@@ -60,9 +58,9 @@ class PlaylistModal extends React.Component {
   }
 
   addAlbumToPlaylist(songs) {
-    songs.map(song => {
+    return songs.map(song => {
       if (!this.state.playlistSongs.includes(song._id)){
-        this.addSongToPlaylist(song._id);
+        return this.addSongToPlaylist(song._id);
       }
     });
   }

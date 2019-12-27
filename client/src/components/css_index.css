@@ -12,4 +12,6 @@
 @import url("./stylesheets/create_playlist.css");
 @import url("./stylesheets//playlist-show.css");
 @import url("./stylesheets/song_options.css");
+@import url('./stylesheets//queue_show.css');
 @import url("./stylesheets/voice_search.css");
+

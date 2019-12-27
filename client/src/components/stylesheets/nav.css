@@ -1,7 +1,23 @@
 .nav-auth {
   text-align: right;
   width: 100%;
-  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-flow: row-reverse;
+}
+
+.nav-auth li {
+  margin: 15px 5px;
+  box-sizing: border-box;
+}
+
+.nav-auth li:hover a{
+  color: #1db954;
+}
+
+.nav-auth li a {
+  padding: 10px;
+  transition: color 0.3s;
 }
 
 .nav-button {

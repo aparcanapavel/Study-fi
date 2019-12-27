@@ -5,10 +5,6 @@ import { Link } from "react-router-dom";
 const { FETCH_ALBUM } = Queries;
 
 class ArtistShow extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   parseTime(int) {
     let minutes = Math.floor(int / 60);
     let seconds = int % 60 < 10 ? `0${int % 60}` : int % 60;
@@ -38,6 +34,7 @@ class ArtistShow extends React.Component {
                 <img
                   className="album-show-icon"
                   src="https://study-fi-public.s3.amazonaws.com/3.jpg"
+                  alt="album-icon"
                 />
                 <div className="album-show-header-details">
                   <h1>Album</h1>

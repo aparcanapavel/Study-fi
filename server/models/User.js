@@ -42,4 +42,25 @@ UserSchema.statics.findPlaylists = function(id) {
     });
 };
 
+UserSchema.statics.removePlaylist = function(userId, playlistId){
+  const User = mongoose.model("users");
+  const Playlists = mongoose.model("playlists");
+
+  return User.findById(userId)
+    .then(user => {
+
+      return Playlists.findById(playlistId)
+        .then(playlist => {
+          user.playlists.pull(playlist);
+          return Promise.all([
+            user.save(),
+            Playlists.findByIdAndDelete({ _id: playlistId })
+          ]).then(([ user, playlist ]) => {
+            console.log("removed playlist successfully");
+            return playlist;
+          });
+        })
+    })
+}
+
 module.exports = mongoose.model("users", UserSchema);

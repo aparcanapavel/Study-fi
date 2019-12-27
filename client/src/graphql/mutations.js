@@ -27,15 +27,23 @@ const Mutations = {
   `,
   CREATE_PLAYLIST: gql`
     mutation CreatePlaylist($name: String!, $userId: ID!) {
-      createPlaylist(name: $name, userId: $userId){
+      createPlaylist(name: $name, userId: $userId) {
         _id
         name
       }
     }
   `,
   ADD_SONG_TO_PLAYLIST: gql`
-    mutation AddSongToPlaylist($playlistId: ID, $songId: ID){
-      addSongToPlaylist(playlistId: $playlistId, songId: $songId){
+    mutation AddSongToPlaylist($playlistId: ID, $songId: ID) {
+      addSongToPlaylist(playlistId: $playlistId, songId: $songId) {
+        _id
+        name
+      }
+    }
+  `,
+  REMOVE_USER_PLAYLIST: gql`
+    mutation removeUserPlaylist($userId: ID, $playlistId: ID) {
+      removeUserPlaylist(playlistId: $playlistId, userId: $userId) {
         _id
         name
       }

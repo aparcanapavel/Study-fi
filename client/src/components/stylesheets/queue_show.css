@@ -1,0 +1,58 @@
+.queue-container{
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-sizing: border-box;
+  padding: 20px;
+  width: 100%;
+  z-index: 0;
+}
+
+.queue-page-title{
+  font-size: 35px;
+  font-family: 'Raleway', sans-serif;
+}
+
+.queue-section{
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.queue-section h3{
+  color: white;
+  width: 100%;
+  border-bottom: 1px solid gray;
+  margin: 0px;
+  padding: 10px 0px;
+}
+
+.queue-section .queue-headers,
+.queue-section .curent-song-playing,
+.queue-section .next-up-queue li{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid gray;
+  font-size: 12px;
+  color: gray;
+}
+
+.queue-section .next-up-queue {
+  text-align: center;
+  flex-wrap: wrap;
+}
+
+.queue-section .next-up-queue li p:first-child{
+  /* width: 18px; */
+  overflow: visible;
+}
+
+.queue-section .curent-song-playing{
+  color: #1db954;
+  margin-bottom: 15px;
+  font-size: 14px;
+}

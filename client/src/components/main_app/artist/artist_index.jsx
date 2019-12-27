@@ -5,10 +5,6 @@ import Queries from "../../../graphql/queries";
 const { FETCH_ARTISTS } = Queries;
 
 class ArtistIndex extends React.Component{
-  constructor(props){
-    super(props)
-  }
-
   render(){
     return(
       <div className="artist-index">
@@ -22,7 +18,7 @@ class ArtistIndex extends React.Component{
             return data.artists.map(({ _id, name, icon }) => (
               <Link to={`/artist/${_id}`} key={_id}>
               <li className="artist-list-item" key={_id}>
-                <img className="artist-list-icon" src="https://study-fi-public.s3.amazonaws.com/default-profile.png" />
+                <img className="artist-list-icon" src="https://study-fi-public.s3.amazonaws.com/default-profile.png" alt="artist-icon" />
                 <h1 className="artist-list-name">{name}</h1>
               </li>
               </Link>

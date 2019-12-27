@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom'
 
 class SplashGraphic extends React.Component {
 
@@ -6,7 +7,8 @@ class SplashGraphic extends React.Component {
     return (
       <div className="splash-graphic">
         <h1 className="splash-graphic-header">Welcome to Studyfi</h1>
-        <p className="splash-graphic-p">This is a descriptive paragraph about our app</p>
+        <p className="splash-graphic-p">Register or Login to enjoy our library of Lo-Fi hip-hop songs</p>
+        <Link to="/learn-more">Learn More</Link>
       </div>
     )
   }

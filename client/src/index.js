@@ -14,6 +14,7 @@ const { VERIFY_USER } = Mutations;
 
 let cache;
 let client;
+let currentUserId;
 
 async function setupClient() {
   cache = new InMemoryCache({
@@ -29,7 +30,9 @@ async function setupClient() {
   });
 
   const errorLink = onError(({ graphQLErrors }) => {
+    //this is where the error happens. force reload to fix?
     if (graphQLErrors) graphQLErrors.map(({ message }) => console.log(message));
+    window.location.reload();
   });
 
   client = new ApolloClient({
@@ -55,6 +58,7 @@ async function populateCache() {
     await client
       .mutate({ mutation: VERIFY_USER, variables: { token } })
       .then(({ data }) => {
+        currentUserId = data.verifyUser._id
 
         cache.writeData({
           data: {
@@ -73,7 +77,7 @@ setupClient()
       return (
         <ApolloProvider client={client}>
           <HashRouter>
-            <App />
+            <App currentUserId={currentUserId} />
           </HashRouter>
         </ApolloProvider>
       );

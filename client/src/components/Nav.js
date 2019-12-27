@@ -27,10 +27,10 @@ const Nav = props => {
               );
             } else {
               return (
-                <div className="nav-auth">
-                  <Link to="/login"><h1 className="nav-link">Login</h1></Link>
-                  <Link to="/register"><h1 className="nav-link">Register</h1></Link>
-                </div>
+                <ul className="nav-auth">
+                  <li><Link to="/login" className="nav-link">Login</Link></li>
+                  <li><Link to="/register" className="nav-link">Register</Link></li>
+                </ul>
               );
             }
           }}
