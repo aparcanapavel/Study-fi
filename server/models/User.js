@@ -45,10 +45,10 @@ UserSchema.statics.findPlaylists = function(id) {
 UserSchema.statics.removePlaylist = function(userId, playlistId){
   const User = mongoose.model("users");
   const Playlists = mongoose.model("playlists");
-  // debugger
+
   return User.findById(userId)
     .then(user => {
-      // debugger
+
       return Playlists.findById(playlistId)
         .then(playlist => {
           user.playlists.pull(playlist);
@@ -57,7 +57,7 @@ UserSchema.statics.removePlaylist = function(userId, playlistId){
             Playlists.findByIdAndDelete({ _id: playlistId })
           ]).then(([ user, playlist ]) => {
             console.log("removed playlist successfully");
-            return user
+            return playlist;
           });
         })
     })

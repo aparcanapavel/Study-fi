@@ -82,6 +82,7 @@ export default {
         _id
         name
         songUrl
+        duration
         artists {
           name
         }
@@ -111,6 +112,7 @@ export default {
           _id
           name
           songUrl
+          duration
           artists {
             _id
             name

@@ -5,10 +5,6 @@ import Queries from "../../../graphql/queries";
 const { FETCH_ALBUMS } = Queries;
 
 class AlbumIndex extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-
   render() {
     return (
       
@@ -23,7 +19,7 @@ class AlbumIndex extends React.Component {
             return data.albums.map(({ _id, name, icon }) => (
               <Link to={`/album/${_id}`} key={_id}>
                 <li className="album-list-item" key={_id}>
-                  <img className="album-list-icon" src="https://study-fi-public.s3.amazonaws.com/3.jpg" />
+                  <img className="album-list-icon" src="https://study-fi-public.s3.amazonaws.com/3.jpg" alt="album-icon" />
                   <h1 className="album-list-name">{name}</h1>
                 </li>
               </Link>

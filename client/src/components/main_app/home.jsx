@@ -4,10 +4,6 @@ import AlbumIndex from "./album/album_index";
 import Speech from "../voice_search/voice_search";
 
 class HomeComponent extends Component{
-  constructor(props){
-    super(props);
-  }
-  
   render(){
     return(
       <div className="home-container">

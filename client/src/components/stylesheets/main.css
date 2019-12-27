@@ -17,7 +17,6 @@
 .top-nav{
   display: block;
   position: fixed;
-  /* background-color: black; */
   width: 100%;
   padding: 16px 24px;
   padding-left: 230px;
@@ -37,7 +36,6 @@
   font-size: 30px;
   padding-left: 25px;
   font-family: 'Raleway', sans-serif;
-  /* font-weight: 700; */
 }
 
 .main-nav .main-links{
@@ -123,13 +121,11 @@
 
 .playlist-index-container{
   box-sizing: border-box;
-  /* padding-left: 20px; */
   color: rgb(155, 155, 155);
   font-size: 15px;
 }
 
 .playlist-index-container li{
-  /* margin: 1px 0px; */
   padding: 10px 0px;
   border-left: 5px solid transparent;
   padding-left: 15px;
@@ -188,5 +184,4 @@ li.current-song-element{
   top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
-  /* background-color: white; */
 }

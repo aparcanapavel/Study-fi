@@ -13,6 +13,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: absolute;
+  top: 30%;
 }
 
 .splash-graphic-header {
@@ -23,4 +25,10 @@
 
 .splash-graphic-p {
   font-size: 18px;
+}
+
+.splash-graphic a {
+  margin: 10px;
+  text-decoration: underline;
+  font-size: 15px;
 }

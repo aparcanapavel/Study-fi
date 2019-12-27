@@ -12,6 +12,7 @@ import { Query } from "react-apollo";
 import Queries from "../../graphql/queries";
 import PlaylistShow from "./playlist/playlist_show";
 import CreatePlaylist from "./playlist/create_playlist";
+import QueueShow from '../music_player/queue_show';
 const { CURRENT_USER_ID, FETCH_USER_PLAYLISTS } = Queries;
 
 class MainComponent extends Component {
@@ -83,10 +84,14 @@ class MainComponent extends Component {
   }
 
   render() {
-    // console.log("main" , this.state.currentSong)
     return (
       <Query query={CURRENT_USER_ID}>
         {({ loading, error, data }) => {
+          if(loading) return <p>loading..</p>
+          if(error) {
+            //force refresh upon login to prevent error form displaying
+            return window.location.reload();
+          }
           return (
             <main className="overall-container">
               <nav className="top-nav">
@@ -190,7 +195,17 @@ class MainComponent extends Component {
                         playSongNow={this.playSongNow}
                         playAlbumNow={this.playAlbumNow}
                         currentSong={this.state.currentSong}
-                        onRef={ref => (this.albumShow = ref)}
+                        onRef={ref => (this.playlistShow = ref)}
+                        currentUserId={data.currentUserId}
+                      />
+                    )}
+                  />
+
+                  <Route
+                    path="/queue"
+                    render={props => (
+                      <QueueShow
+                        {...props}
                       />
                     )}
                   />
