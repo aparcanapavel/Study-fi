@@ -81,7 +81,7 @@
 
 .mid-controlls .main-controlls i:nth-child(2){
   font-size: 33px;
-  transition: 0.1s;
+  transition: 0.05s;
   min-height: 33px;
   padding: 0px;
 }
@@ -89,6 +89,11 @@
 #play-pause{
   min-width: 33px;
   min-height: 33px;
+}
+
+#play-pause:active{
+  color: gray;
+  font-size: 31px;
 }
 
 #play-pause.button-down{
