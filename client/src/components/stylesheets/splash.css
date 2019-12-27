@@ -26,3 +26,9 @@
 .splash-graphic-p {
   font-size: 18px;
 }
+
+.splash-graphic a {
+  margin: 10px;
+  text-decoration: underline;
+  font-size: 15px;
+}

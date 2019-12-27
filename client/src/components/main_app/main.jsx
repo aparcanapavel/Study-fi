@@ -83,10 +83,14 @@ class MainComponent extends Component {
   }
 
   render() {
-    // console.log("main" , this.state.currentSong)
     return (
       <Query query={CURRENT_USER_ID}>
         {({ loading, error, data }) => {
+          if(loading) return <p>loading..</p>
+          if(error) {
+            //force refresh upon login to prevent error form displaying
+            return window.location.reload();
+          }
           return (
             <main className="overall-container">
               <nav className="top-nav">
