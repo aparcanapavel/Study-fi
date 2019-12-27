@@ -128,7 +128,7 @@
   background-color: rgb(179, 179, 179);
   height: 100%;
   border-radius: inherit;
-  transition: width 0.1s ease-in;
+  transition: transform 0.1s ease-in;
   width: 100%;
   transform: translateX(-100%);
   display: inline-block;
