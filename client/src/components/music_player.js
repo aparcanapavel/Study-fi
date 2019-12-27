@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Queries from "../graphql/queries";
 import { Query } from 'react-apollo';
 import ProgressFiller from "./music_player/progress_filler";
@@ -256,10 +257,6 @@ class MusicPlayer extends React.Component {
                       <ProgressFiller
                         songPercentage={this.state.songPercentage}
                       />
-                      {/* <button
-                        className="progress-seeker"
-                        style={{ left: `${circleSeeker}%` }}
-                      ></button> */}
                     </div>
                     <p id="song-duration"></p>
                   </div>
@@ -283,7 +280,23 @@ class MusicPlayer extends React.Component {
                     }}
                   ></audio>
                 </div>
-                <div className="right-controlls">queue</div>
+                <div className="right-controlls">
+                  <Link
+                    to={{
+                      pathname: "/queue",
+                      state: {
+                        queue: this.state.queue,
+                        currentSongIdx: this.state.currentSongIdx,
+                        history: this.state.history
+                      }
+                    }}
+                    className="material-icons"
+                  >
+                    queue_music
+                  </Link>
+
+                  <i className="fas fa-volume-up"></i>
+                </div>
               </div>
             );
           }}

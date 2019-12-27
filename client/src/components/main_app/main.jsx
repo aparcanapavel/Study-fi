@@ -12,6 +12,7 @@ import { Query } from "react-apollo";
 import Queries from "../../graphql/queries";
 import PlaylistShow from "./playlist/playlist_show";
 import CreatePlaylist from "./playlist/create_playlist";
+import QueueShow from '../music_player/queue_show';
 const { CURRENT_USER_ID, FETCH_USER_PLAYLISTS } = Queries;
 
 class MainComponent extends Component {
@@ -196,6 +197,15 @@ class MainComponent extends Component {
                         currentSong={this.state.currentSong}
                         onRef={ref => (this.playlistShow = ref)}
                         currentUserId={data.currentUserId}
+                      />
+                    )}
+                  />
+
+                  <Route
+                    path="/queue"
+                    render={props => (
+                      <QueueShow
+                        {...props}
                       />
                     )}
                   />
