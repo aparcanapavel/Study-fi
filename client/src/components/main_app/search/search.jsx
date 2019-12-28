@@ -3,7 +3,20 @@ import { Query } from 'react-apollo';
 import { withRouter } from "react-router";
 import Queries from '../../../graphql/queries';
 import Loader from "react-loader-spinner";
-import VoiceSearch from "../../voice_search/voice_search";
+// import VoiceSearch from "../../voice_search/voice_search";
+import SpeechRecognition from "react-speech-recognition";
+import PropTypes from "prop-types";
+
+const propTypes = {
+  transcript: PropTypes.string,
+  resetTranscript: PropTypes.func,
+  browserSupportsSpeechRecognition: PropTypes.bool,
+  audioStart: PropTypes.bool
+};
+
+const options = {
+  autoStart: false,
+};
 const { FETCH_ALL } = Queries;
 
 class Search extends React.Component {
@@ -15,13 +28,18 @@ class Search extends React.Component {
       songs: null,
       artists: null,
       data: null,
-      voice: false
+      voice: false,
+      listening: false,
+      transcript: this.props.transcript,
+      voicePlaceholder: null
     };
     this.updateSearch = this.updateSearch.bind(this);
     this.toArtist = this.toArtist.bind(this);
     this.toAlbum = this.toAlbum.bind(this);
     this.selectActive = this.selectActive.bind(this);
     this.voiceUpdateSearch = this.voiceUpdateSearch.bind(this);
+    this.handleVoice = this.handleVoice.bind(this);
+    this.stopVoice = this.stopVoice.bind(this);
   }
 
   toArtist(artistId) {
@@ -234,6 +252,34 @@ class Search extends React.Component {
     return songs;
   }
 
+  componentDidUpdate(a, b) {
+  
+      if (this.state.transcript !== this.props.transcript) {
+        this.setState(
+          { transcript: this.props.transcript },
+        );
+        this.voiceUpdateSearch(this.state.data, this.props.transcript)
+      }
+    
+  }
+
+
+  handleVoice(data) {
+    if (this.state.voice ) {
+      this.setState({voicePlaceholder: "Click the Mic for Voice/X to Cancel!"})
+      this.props.stopListening();
+    } else {
+      this.setState({ voice: true, voicePlaceholder: "Start Speaking to Search!", data: data });
+      this.props.startListening();
+    }
+  }
+
+  stopVoice() {
+    this.props.resetTranscript();
+    this.props.stopListening(); 
+    this.setState({voice: false});
+  }
+
   render() {
     let songs, artists, albums;
     if (this.state.songs && this.state.songs.length > 0) {
@@ -266,9 +312,9 @@ class Search extends React.Component {
                       placeholder="Search for Artists, Songs, or Albums"
                       disabled
                     />
-                    <label htmlFor="search-field" className="search-field-x">
+                    {/* <label htmlFor="search-field" className="search-field-x">
                       X
-                    </label>
+                    </label> */}
                   </form>
                   <div className="search-loading-sym">
                     <Loader
@@ -297,20 +343,37 @@ class Search extends React.Component {
                       placeholder="Search for Artists, Songs, or Albums"
                     />
                   )}
+                  
                   {this.state.voice && (
-                    <VoiceSearch
-                      data={data}
-                      voiceUpdateSearch={this.voiceUpdateSearch}
-                    />
+                    <div className="voice-search">
+                      <input
+                        readOnly={true}
+                        className="voice-search-transcript"
+                        value={this.props.transcript}
+                        placeholder={this.state.voicePlaceholder}
+                      />
+                      
+                    </div>
                   )}
+
+                  <div className="voice-control-bar">
                   <button
                     id="mic-button"
                     className="fas fa-microphone"
-                    onClick={() => this.setState({ voice: !this.state.voice })}
+                    onClick={() => this.handleVoice(data)}
                   />
-                  <label htmlFor="search-field" className="search-field-x">
-                    X
-                  </label>
+                  <button
+                    className="fas fa-redo-alt"
+                    onClick={this.props.resetTranscript}
+                  />
+                  
+                  <button 
+                    onClick={this.stopVoice}
+                    className="fas fa-microphone-slash"
+                  />
+                  </div>
+                    
+                  
                 </form>
                 {this.state.search === "" ? (
                   <div className="empty-search">
@@ -356,4 +419,6 @@ class Search extends React.Component {
   }
 }
 
-export default withRouter(Search);
+Search.propTypes = propTypes;
+
+export default withRouter(SpeechRecognition(options)(Search));
