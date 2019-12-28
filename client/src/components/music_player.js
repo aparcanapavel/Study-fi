@@ -15,7 +15,8 @@ class MusicPlayer extends React.Component {
       currentSongIdx: 0,
       isPlaying: false,
       songPercentage: 101,
-      volShift: 0
+      volShift: 0,
+      isMuted: false
     };
     this.addToQueue = this.addToQueue.bind(this);
     this.populateQueue = this.populateQueue.bind(this);
@@ -27,6 +28,13 @@ class MusicPlayer extends React.Component {
     this.handleSeek = this.handleSeek.bind(this);
     this.toggleButtonAnimation = this.toggleButtonAnimation.bind(this);
     this.handleVol = this.handleVol.bind(this);
+    this.toggleMute = this.toggleMute.bind(this);
+  }
+
+  toggleMute(){
+    const isMuted = this.state.isMuted;
+
+    this.setState({ isMuted: !isMuted });
   }
 
   populateQueue(songs) {
@@ -291,6 +299,7 @@ class MusicPlayer extends React.Component {
                         "song-duration"
                       ).innerHTML = this.convertElapsedTime(duration);
                     }}
+                    muted={this.state.isMuted}
                   ></audio>
                 </div>
                 <div className="right-controlls">
@@ -308,7 +317,14 @@ class MusicPlayer extends React.Component {
                     queue_music
                   </Link>
 
-                  <i className="fas fa-volume-up"></i>
+                  <i
+                    className={
+                      this.state.isMuted
+                        ? "fas fa-volume-mute"
+                        : "fas fa-volume-up"
+                    }
+                    onClick={this.toggleMute}
+                  ></i>
                   <div
                     className="volume-seeker-shell"
                     onMouseDown={this.handleVol}
