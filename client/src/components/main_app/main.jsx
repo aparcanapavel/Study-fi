@@ -93,140 +93,143 @@ class MainComponent extends Component {
             return window.location.reload();
           }
           return (
-            <Query
-              query={FETCH_USER_PLAYLISTS}
-              variables={{ id: data.currentUserId }}
-            >
-              {({ loading, error, data }) => {
-                if (loading) return null;
-                if (error) return <p>error</p>;
+            <div className="app-container-with-modal">
+              <Query
+                query={FETCH_USER_PLAYLISTS}
+                variables={{ id: data.currentUserId }}
+              >
+                {({ loading, error, data }) => {
+                  if (loading) return null;
+                  if (error) return <p>error</p>;
 
-                let userPlaylists = Object.values(
-                  data.user.playlists
-                ).reverse();
+                  let userPlaylists = Object.values(
+                    data.user.playlists
+                  ).reverse();
 
-                return (
-            <main className="overall-container">
-              <nav className="top-nav">
-                <Nav />
-              </nav>
-              <aside className="main-nav">
-                <h2>
-                  <i className="fas fa-graduation-cap"></i> Study-fi
-                </h2>
-                <ul className="main-links">
-                  <li
-                    key="1"
-                    onClick={() => this.toPage("")}
-                    className="nav-name-item"
-                    id="home"
-                  >
-                    <i className="fas fa-university"></i>
-                    <p>Home</p>
-                  </li>
-                  <li
-                    key="2"
-                    onClick={() => this.toPage("search")}
-                    className="nav-name-item"
-                    id="search"
-                  >
-                    <i className="fas fa-search"></i>
-                    <p>Search</p>
-                  </li>
-                  <li key="3" className="nav-name-item" id="library">
-                    <i className="fas fa-book"></i>
-                    <p>Your Library</p>
-                  </li>
-                </ul>
-                <h3>PLAYLISTS</h3>
+                  return (
+                    <main className="overall-container">
+                      <nav className="top-nav">
+                        <Nav />
+                      </nav>
+                      <aside className="main-nav">
+                        <h2>
+                          <i className="fas fa-graduation-cap"></i> Study-fi
+                        </h2>
+                        <ul className="main-links">
+                          <li
+                            key="1"
+                            onClick={() => this.toPage("")}
+                            className="nav-name-item"
+                            id="home"
+                          >
+                            <i className="fas fa-university"></i>
+                            <p>Home</p>
+                          </li>
+                          <li
+                            key="2"
+                            onClick={() => this.toPage("search")}
+                            className="nav-name-item"
+                            id="search"
+                          >
+                            <i className="fas fa-search"></i>
+                            <p>Search</p>
+                          </li>
+                          <li key="3" className="nav-name-item" id="library">
+                            <i className="fas fa-book"></i>
+                            <p>Your Library</p>
+                          </li>
+                        </ul>
+                        <h3>PLAYLISTS</h3>
 
-                <div className="new-playlist" onClick={this.openModal}>
-                  <i className="fas fa-plus-square"></i>
-                  <p>Create Playlist</p>
-                </div>
-                
-                      <PlaylistIndex
-                        currentUserId={data.currentUserId}
-                        playlists={userPlaylists}
-                        removeActive={this.removeActive}
-                        setActive={this.setActive}
-                      />
-                    
-              </aside>
-              <section className="main-container">
-                <Switch>
-                  <Route
-                    path="/artist/:artistId"
-                    render={props => (
-                      <ArtistShow
-                        {...props}
-                        userPlaylists={userPlaylists}
-                        playSongNow={this.playSongNow}
-                        currentSong={this.state.currentSong}
-                      />
-                    )}
-                  />
-                  <Route
-                    path="/album/:albumId"
-                    render={props => (
-                      <AlbumShow
-                        {...props}
-                        userPlaylists={userPlaylists}
-                        playSongNow={this.playSongNow}
-                        playAlbumNow={this.playAlbumNow}
-                        currentSong={this.state.currentSong}
-                        onRef={ref => (this.albumShow = ref)}
-                      />
-                    )}
-                  />
-                  <Route
-                    path="/search"
-                    render={props => (
-                      <Search
-                        playSongNow={this.playSongNow}
-                        currentSong={this.state.currentSong}
-                      />
-                    )}
-                  />
-                  <Route
-                    path="/playlist/:playlistId"
-                    render={props => (
-                      <PlaylistShow
-                        {...props}
-                        userPlaylists={userPlaylists}
-                        playSongNow={this.playSongNow}
-                        playAlbumNow={this.playAlbumNow}
-                        currentSong={this.state.currentSong}
-                        onRef={ref => (this.playlistShow = ref)}
-                        currentUserId={data.currentUserId}
-                      />
-                    )}
-                  />
+                        <div className="new-playlist" onClick={this.openModal}>
+                          <i className="fas fa-plus-square"></i>
+                          <p>Create Playlist</p>
+                        </div>
 
-                  <Route
-                    path="/queue"
-                    render={props => (
-                      <QueueShow
-                        {...props}
-                      />
-                    )}
-                  />
+                        <PlaylistIndex
+                          currentUserId={data.currentUserId}
+                          playlists={userPlaylists}
+                          removeActive={this.removeActive}
+                          setActive={this.setActive}
+                        />
+                      </aside>
+                      <section className="main-container">
+                        <Switch>
+                          <Route
+                            path="/artist/:artistId"
+                            render={props => (
+                              <ArtistShow
+                                {...props}
+                                userPlaylists={userPlaylists}
+                                playSongNow={this.playSongNow}
+                                currentSong={this.state.currentSong}
+                              />
+                            )}
+                          />
+                          <Route
+                            path="/album/:albumId"
+                            render={props => (
+                              <AlbumShow
+                                {...props}
+                                userPlaylists={userPlaylists}
+                                playSongNow={this.playSongNow}
+                                playAlbumNow={this.playAlbumNow}
+                                currentSong={this.state.currentSong}
+                                onRef={ref => (this.albumShow = ref)}
+                              />
+                            )}
+                          />
+                          <Route
+                            path="/search"
+                            render={props => (
+                              <Search
+                                playSongNow={this.playSongNow}
+                                currentSong={this.state.currentSong}
+                              />
+                            )}
+                          />
+                          <Route
+                            path="/playlist/:playlistId"
+                            render={props => (
+                              <PlaylistShow
+                                {...props}
+                                userPlaylists={userPlaylists}
+                                playSongNow={this.playSongNow}
+                                playAlbumNow={this.playAlbumNow}
+                                currentSong={this.state.currentSong}
+                                onRef={ref => (this.playlistShow = ref)}
+                                currentUserId={data.currentUserId}
+                              />
+                            )}
+                          />
 
-                  <Route
-                    path="/"
-                    render={props => (
-                      <HomeComponent {...props} setActive={this.setActive} />
-                    )}
-                    setActive={this.setActive}
-                  />
-                </Switch>
-              </section>
-              <div className="music-player">
-                <MusicPlayer
-                  onRef={ref => (this.musicPlayer = ref)}
-                  setCurrentSong={this.setCurrentSong}
-                />
-              </div>
+                          <Route
+                            path="/queue"
+                            render={props => <QueueShow {...props} />}
+                          />
+
+                          <Route
+                            path="/"
+                            render={props => (
+                              <HomeComponent
+                                {...props}
+                                setActive={this.setActive}
+                              />
+                            )}
+                            setActive={this.setActive}
+                          />
+                        </Switch>
+                      </section>
+                      <div className="music-player">
+                        <MusicPlayer
+                          onRef={ref => (this.musicPlayer = ref)}
+                          setCurrentSong={this.setCurrentSong}
+                        />
+                      </div>
+                    </main>
+                  );
+                }}
+              </Query>
               {this.state.modal ? (
                 <div id="modal-outter-container" onClick={this.closeModal}>
                   <div
@@ -242,10 +245,7 @@ class MainComponent extends Component {
                   </div>
                 </div>
               ) : null}
-            </main>
-                );
-              }}
-            </Query>
+            </div>
           );
         }}
       </Query>

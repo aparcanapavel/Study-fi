@@ -12,6 +12,7 @@
   will-change: width, padding;
   padding: 20px;
   width: 600px;
+  color: whitesmoke;
 }
 
 .create-playlist-form{
@@ -39,6 +40,7 @@
   margin-top: 10px;
   width: 100%;
   text-align: center;
+  color: whitesmoke
 }
 
 #add-songs-modal{
