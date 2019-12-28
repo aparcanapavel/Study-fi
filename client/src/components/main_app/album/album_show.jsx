@@ -2,13 +2,24 @@ import React from "react";
 import { Query } from "react-apollo";
 import Queries from "../../../graphql/queries";
 import { Link } from "react-router-dom";
+import SongOptions from "../../song/song_options";
 const { FETCH_ALBUM } = Queries;
 
 class ArtistShow extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = { options: null, section: null }
+    this.toggleSongOptions = this.toggleSongOptions.bind(this);
+  }
   parseTime(int) {
     let minutes = Math.floor(int / 60);
     let seconds = int % 60 < 10 ? `0${int % 60}` : int % 60;
     return `${minutes}:${seconds}`;
+  }
+
+  toggleSongOptions(e, songId, section) {
+    e.stopPropagation();
+    this.state.options === songId ? this.setState({ options: null, section: null }) : this.setState({ options: songId, section: section });
   }
 
   componentDidMount() {
@@ -101,6 +112,14 @@ class ArtistShow extends React.Component {
                       <h1 className="album-show-song-duration">
                         {this.parseTime(song.duration)}
                       </h1>
+                      <i onClick={(e) => this.toggleSongOptions(e, song._id, "album")} className="fas fa-ellipsis-h"></i>
+                      {(this.state.options === song._id && this.state.section === "album") &&
+                        <SongOptions
+                          userPlaylists={this.props.userPlaylists}
+                          section={"popular-song-options-container"}
+                          songId={song._id}
+                          toggleSongOptions={this.toggleSongOptions}
+                        />}
                     </li>
                   );
                 })}

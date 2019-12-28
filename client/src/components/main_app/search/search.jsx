@@ -3,6 +3,7 @@ import { Query } from 'react-apollo';
 import { withRouter } from "react-router";
 import Queries from '../../../graphql/queries';
 import Loader from "react-loader-spinner";
+import VoiceSearch from "../../voice_search/voice_search";
 const { FETCH_ALL } = Queries;
 
 class Search extends React.Component {
@@ -13,12 +14,14 @@ class Search extends React.Component {
       albums: null,
       songs: null,
       artists: null,
-      data: null
+      data: null,
+      voice: false
     };
     this.updateSearch = this.updateSearch.bind(this);
     this.toArtist = this.toArtist.bind(this);
     this.toAlbum = this.toAlbum.bind(this);
     this.selectActive = this.selectActive.bind(this);
+    this.voiceUpdateSearch = this.voiceUpdateSearch.bind(this);
   }
 
   toArtist(artistId) {
@@ -122,6 +125,88 @@ class Search extends React.Component {
     };
   }
 
+  voiceUpdateSearch(data, searchTerm) {
+      const search = searchTerm;
+      let songs = Object.values(data.songs).map(song => {
+        if (this.doesMatch(search, song)) {
+          let artists = "";
+          song.artists.map((artist, i) => {
+            if (i === 0) {
+              artists += artist.name;
+            } else {
+              artists += ", " + artist.name;
+            }
+          });
+
+          return (
+            <li
+              key={song._id}
+              className="song-item"
+              onClick={() => this.props.playSongNow(song)}
+            >
+              <img alt="" src="" />
+              <div className="song-item-details">
+                <p>{song.name}</p>
+                <p>{artists}</p>
+              </div>
+            </li>
+          );
+        }
+      });
+
+      let albums = Object.values(data.albums).map(album => {
+        if (this.doesMatch(search, album)) {
+          let albumArtists = "";
+          album.artists.map((artist, i) => {
+            if (i === 0) {
+              albumArtists += artist.name;
+            } else if (i < 2) {
+              albumArtists += ", " + artist.name;
+            }
+          });
+          return (
+            <li
+              key={album._id}
+              className="album-item"
+              onClick={() => this.toAlbum(album._id)}
+            >
+              <img alt="" />
+              <p>{album.name}</p>
+              <p>{albumArtists}</p>
+            </li>
+          );
+        }
+      });
+
+      let artists = Object.values(data.artists).map(artist => {
+        if (this.doesMatch(search, artist)) {
+          return (
+            <li
+              key={artist._id}
+              className="artist-item"
+              onClick={() => this.toArtist(artist._id)}
+            >
+              <img alt="" />
+              <p>{artist.name}</p>
+              <p>Artist</p>
+            </li>
+          );
+        }
+      });
+
+      songs = Object.values(songs).filter(Boolean);
+      albums = Object.values(albums).filter(Boolean);
+      artists = Object.values(artists).filter(Boolean);
+
+      this.setState({
+        search: search,
+        songs: songs,
+        albums: albums,
+        artists: artists
+      });
+ 
+  }
+
   selectActive(songs) {
     const currentSong = this.props.currentSong;
     if (currentSong && songs) {
@@ -203,13 +288,15 @@ class Search extends React.Component {
                   <label htmlFor="search-field" className="search-field-icon">
                     <i className="fas fa-search"></i>
                   </label>
-                  <input
+                  {this.state.voice || <input
                     id="search-field"
                     type="text"
                     value={this.state.search}
                     onChange={this.updateSearch(data)}
                     placeholder="Search for Artists, Songs, or Albums"
-                  />
+                  />}
+                  {this.state.voice && <VoiceSearch data={data} voiceUpdateSearch={this.voiceUpdateSearch}/>}
+                  <button onClick={() => this.setState({voice: !this.state.voice})}>Voice</button>
                   <label htmlFor="search-field" className="search-field-x">
                     X
                   </label>
