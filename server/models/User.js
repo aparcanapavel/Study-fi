@@ -21,11 +21,17 @@ const UserSchema = new Schema({
     max: 32
   },
   playlists: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "playlists"
-      }
+    {
+      type: Schema.Types.ObjectId,
+      ref: "playlists"
+    }
   ],
+  likedSongs: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "likedSongs"
+    }
+  ]
 });
 
 UserSchema.statics.findPlaylists = function(id) {
