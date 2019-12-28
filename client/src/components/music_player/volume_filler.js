@@ -5,7 +5,7 @@ class VolumeFiller extends React.Component {
     return (
       <div
         className="vol-filler"
-        // style={{ transform: `translateX(-${this.props.volPercent}%)` }}
+        style={{ transform: `translateX(-${this.props.volShift}%)` }}
       ></div>
     );
   }

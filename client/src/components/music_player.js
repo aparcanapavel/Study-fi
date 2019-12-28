@@ -15,7 +15,7 @@ class MusicPlayer extends React.Component {
       currentSongIdx: 0,
       isPlaying: false,
       songPercentage: 101,
-      volPercent: 101
+      volShift: 0
     };
     this.addToQueue = this.addToQueue.bind(this);
     this.populateQueue = this.populateQueue.bind(this);
@@ -89,9 +89,13 @@ class MusicPlayer extends React.Component {
   handleVol(e) {
     const OSL = this.getOffsetLeft(e.target);
     const clickedPos = e.clientX - OSL;
-    const volPercent = (clickedPos / e.target.offsetWidth) * 100;
-    console.log(volPercent);
-    this.setState({  })
+    let volShift = (clickedPos / e.target.offsetWidth) * 100;
+
+    volShift = (100 - volShift);
+    
+    const audioEl = document.getElementById("music-player");
+    audioEl.volume = clickedPos / e.target.offsetWidth;
+    this.setState({ volShift })
   }
 
   getOffsetLeft(elem) {
@@ -309,7 +313,7 @@ class MusicPlayer extends React.Component {
                     className="volume-seeker-shell"
                     onMouseDown={this.handleVol}
                   >
-                    <VolumeFiller volPercent={this.state.volPercent} />
+                    <VolumeFiller volShift={this.state.volShift} />
                   </div>
                 </div>
               </div>
