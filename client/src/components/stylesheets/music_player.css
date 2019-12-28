@@ -15,13 +15,6 @@
   width: 100%;
   height: 100%;
 }
-/* .controlls .mid-controlls{
-  background-color: rgba(0, 0, 255, 0.219);
-}
-
-.controlls .right-controlls{
-  background-color: red;
-} */
 
 .controlls .left-controlls,
 .controlls .mid-controlls,
@@ -75,7 +68,9 @@
   transition: color 0.2s;
 }
 
-.mid-controlls .main-controlls i:hover{
+.mid-controlls .main-controlls i:hover,
+.right-controlls a:hover,
+.right-controlls i:hover{
   color: whitesmoke
 }
 
@@ -139,7 +134,8 @@
   display: inline-block;
 }
 
-.progress-bar .progress-bar-shell:hover .progress-bar-filler{
+.progress-bar .progress-bar-shell:hover .progress-bar-filler,
+.right-controlls .volume-seeker-shell:hover .vol-filler{
   background-color: #1db954;
 }
 
@@ -159,4 +155,39 @@
 
 .progress-bar .progress-bar-shell:hover .progress-seeker{
   opacity: 1;
+}
+
+.right-controlls{
+  text-align: right;
+  color: gray;
+  padding-top: 13px;
+}
+
+.right-controlls a,
+.right-controlls i,
+.right-controlls .volume-seeker-shell{
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 5px;
+}
+
+.right-controlls .volume-seeker-shell{
+  position: relative;
+  width: 100px;
+  height: 5px;
+  margin-left: 1px;
+  background-color: rgb(74, 73, 73);
+  border-radius: 50px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.right-controlls .volume-seeker-shell .vol-filler{
+  background-color: rgb(179, 179, 179);
+  height: 100%;
+  border-radius: inherit;
+  transition: transform 0.1s ease-in;
+  width: 100%;
+  transform: translateX(0%);
 }
