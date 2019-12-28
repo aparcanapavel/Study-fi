@@ -151,9 +151,9 @@ class CreatePlaylist extends React.Component {
                 <div className="add-songs-search">
                   <Mutation
                     mutation={ADD_SONG_TO_PLAYLIST}
-                    update={(cache, data) =>
-                      this.updatePlaylistCache(cache, data)
-                    }
+                    // update={(cache, data) =>
+                    //   this.updatePlaylistCache(cache, data)
+                    // }
                   >
                     {(addSongToPlaylist, { data }) => (
                       <PlaylistModal

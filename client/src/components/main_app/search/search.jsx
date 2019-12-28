@@ -288,15 +288,26 @@ class Search extends React.Component {
                   <label htmlFor="search-field" className="search-field-icon">
                     <i className="fas fa-search"></i>
                   </label>
-                  {this.state.voice || <input
-                    id="search-field"
-                    type="text"
-                    value={this.state.search}
-                    onChange={this.updateSearch(data)}
-                    placeholder="Search for Artists, Songs, or Albums"
-                  />}
-                  {this.state.voice && <VoiceSearch data={data} voiceUpdateSearch={this.voiceUpdateSearch}/>}
-                  <button onClick={() => this.setState({voice: !this.state.voice})}>Voice</button>
+                  {this.state.voice || (
+                    <input
+                      id="search-field"
+                      type="text"
+                      value={this.state.search}
+                      onChange={this.updateSearch(data)}
+                      placeholder="Search for Artists, Songs, or Albums"
+                    />
+                  )}
+                  {this.state.voice && (
+                    <VoiceSearch
+                      data={data}
+                      voiceUpdateSearch={this.voiceUpdateSearch}
+                    />
+                  )}
+                  <button
+                    id="mic-button"
+                    className="fas fa-microphone"
+                    onClick={() => this.setState({ voice: !this.state.voice })}
+                  />
                   <label htmlFor="search-field" className="search-field-x">
                     X
                   </label>

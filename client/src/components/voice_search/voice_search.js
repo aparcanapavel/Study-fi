@@ -42,16 +42,27 @@ const options = {
 class SpeechRecognitionComponent extends React.Component{
   constructor(props) {
     super(props);
-    this.state = {listening: false, transcript: this.props.transcript};
+    this.state = {
+      listening: false, 
+      transcript: this.props.transcript
+    };
     this.handleVoice = this.handleVoice.bind(this);
   }
 
-  componentDidUpdate() {
-    if (this.state.transcript !== this.props.transcript ) {
-      this.props.voiceUpdateSearch(this.props.data, this.props.transcript)
-      this.setState({transcript: this.props.transcript});
+  componentDidUpdate(a, b) {
+    if (this.state.listening) {
+      if (this.state.transcript !== this.props.transcript) {
+        this.setState(
+          { transcript: this.props.transcript },
+          this.props.voiceUpdateSearch(this.props.data, this.props.transcript)
+        );
+      }
     }
   }
+
+  componentWillUnmount() {
+    this.handleVoice();
+  }  
 
   handleVoice() {
     if (this.state.listening) {
@@ -65,7 +76,7 @@ class SpeechRecognitionComponent extends React.Component{
 
   update(e) {
     this.setState({transcript: this.props.transcript})
-    console.log(this.props.transcript);
+    // console.log(this.props.transcript);
   }
 
   render(){
