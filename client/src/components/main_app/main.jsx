@@ -93,6 +93,19 @@ class MainComponent extends Component {
             return window.location.reload();
           }
           return (
+            <Query
+              query={FETCH_USER_PLAYLISTS}
+              variables={{ id: data.currentUserId }}
+            >
+              {({ loading, error, data }) => {
+                if (loading) return null;
+                if (error) return <p>error</p>;
+
+                let userPlaylists = Object.values(
+                  data.user.playlists
+                ).reverse();
+
+                return (
             <main className="overall-container">
               <nav className="top-nav">
                 <Nav />
@@ -131,28 +144,14 @@ class MainComponent extends Component {
                   <i className="fas fa-plus-square"></i>
                   <p>Create Playlist</p>
                 </div>
-                <Query
-                  query={FETCH_USER_PLAYLISTS}
-                  variables={{ id: data.currentUserId }}
-                >
-                  {({ loading, error, data }) => {
-                    if (loading) return null;
-                    if (error) return <p>error</p>;
-
-                    let userPlaylists = Object.values(
-                      data.user.playlists
-                    ).reverse();
-
-                    return (
+                
                       <PlaylistIndex
                         currentUserId={data.currentUserId}
                         playlists={userPlaylists}
                         removeActive={this.removeActive}
                         setActive={this.setActive}
                       />
-                    );
-                  }}
-                </Query>
+                    
               </aside>
               <section className="main-container">
                 <Switch>
@@ -161,6 +160,7 @@ class MainComponent extends Component {
                     render={props => (
                       <ArtistShow
                         {...props}
+                        userPlaylists={userPlaylists}
                         playSongNow={this.playSongNow}
                         currentSong={this.state.currentSong}
                       />
@@ -171,6 +171,7 @@ class MainComponent extends Component {
                     render={props => (
                       <AlbumShow
                         {...props}
+                        userPlaylists={userPlaylists}
                         playSongNow={this.playSongNow}
                         playAlbumNow={this.playAlbumNow}
                         currentSong={this.state.currentSong}
@@ -192,6 +193,7 @@ class MainComponent extends Component {
                     render={props => (
                       <PlaylistShow
                         {...props}
+                        userPlaylists={userPlaylists}
                         playSongNow={this.playSongNow}
                         playAlbumNow={this.playAlbumNow}
                         currentSong={this.state.currentSong}
@@ -241,6 +243,9 @@ class MainComponent extends Component {
                 </div>
               ) : null}
             </main>
+                );
+              }}
+            </Query>
           );
         }}
       </Query>

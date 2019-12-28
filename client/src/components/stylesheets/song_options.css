@@ -19,3 +19,17 @@
   right: 10px;
   z-index:10;
 }
+
+.options-playlists-list {
+  position: absolute;
+  background-color: rgb(66, 66, 66);
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border: 1px solid black;
+}
+
+.options-playlists-name {
+  margin: 5px;
+}

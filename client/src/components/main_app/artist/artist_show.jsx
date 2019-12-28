@@ -52,7 +52,6 @@ class ArtistShow extends React.Component {
                         ? "current-song-element"
                         : null;
                   }
-                  
                   return (
                     <li
                       id={songElement}
@@ -71,7 +70,13 @@ class ArtistShow extends React.Component {
                       <h1 className="artist-show-song-name">{song.name}</h1>
                       </div>
                       <i onClick={(e) => this.toggleSongOptions(e, song._id, "popular")} className="fas fa-ellipsis-h"></i>
-                      {(this.state.options === song._id && this.state.section === "popular") && <SongOptions section={"popular-song-options-container"} songId={song._id} />}
+                      {(this.state.options === song._id && this.state.section === "popular") && 
+                      <SongOptions 
+                        userPlaylists={this.props.userPlaylists} 
+                        section={"popular-song-options-container"} 
+                        songId={song._id}
+                        toggleSongOptions={this.toggleSongOptions} 
+                      />}
                     </li>
                   );
                 })}
@@ -111,7 +116,13 @@ class ArtistShow extends React.Component {
                           </div>
                           <h1 className="artist-show-album-song-duration">{this.parseTime(song.duration)}</h1>
                           <i onClick={(e) => this.toggleSongOptions(e, song._id, "album")} className="fas fa-ellipsis-h"></i>
-                          {(this.state.options === song._id && this.state.section === "album") && <SongOptions section={"popular-song-options-container"} songId={song._id} />}
+                          {(this.state.options === song._id && this.state.section === "album") && 
+                          <SongOptions
+                            userPlaylists={this.props.userPlaylists} 
+                            section={"popular-song-options-container"} 
+                            songId={song._id} 
+                            toggleSongOptions={this.toggleSongOptions} 
+                          />}
                         </li>
                       })}
                       </ul>
