@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Queries from "../graphql/queries";
 import { Query } from 'react-apollo';
 import ProgressFiller from "./music_player/progress_filler";
+import VolumeFiller from "./music_player/volume_filler";
 const { FETCH_SONGS } = Queries;
 
 class MusicPlayer extends React.Component {
@@ -13,7 +14,8 @@ class MusicPlayer extends React.Component {
       history: [],
       currentSongIdx: 0,
       isPlaying: false,
-      songPercentage: 101
+      songPercentage: 101,
+      volPercent: 101
     };
     this.addToQueue = this.addToQueue.bind(this);
     this.populateQueue = this.populateQueue.bind(this);
@@ -24,6 +26,7 @@ class MusicPlayer extends React.Component {
     this.convertElapsedTime = this.convertElapsedTime.bind(this);
     this.handleSeek = this.handleSeek.bind(this);
     this.toggleButtonAnimation = this.toggleButtonAnimation.bind(this);
+    this.handleVol = this.handleVol.bind(this);
   }
 
   populateQueue(songs) {
@@ -81,6 +84,14 @@ class MusicPlayer extends React.Component {
     const audioEl = document.getElementById("music-player");
 
     audioEl.currentTime = (clickedPos / e.target.offsetWidth) * audioEl.duration;
+  }
+
+  handleVol(e) {
+    const OSL = this.getOffsetLeft(e.target);
+    const clickedPos = e.clientX - OSL;
+    const volPercent = (clickedPos / e.target.offsetWidth) * 100;
+    console.log(volPercent);
+    this.setState({  })
   }
 
   getOffsetLeft(elem) {
@@ -192,8 +203,6 @@ class MusicPlayer extends React.Component {
   }
 
   render() {
-    let circleSeeker = Math.floor(100 - this.state.songPercentage);
-    // console.log(circleSeeker)
     return (
       <div className="music-player-container">
         <Query query={FETCH_SONGS}>
@@ -296,6 +305,12 @@ class MusicPlayer extends React.Component {
                   </Link>
 
                   <i className="fas fa-volume-up"></i>
+                  <div
+                    className="volume-seeker-shell"
+                    onMouseDown={this.handleVol}
+                  >
+                    <VolumeFiller volPercent={this.state.volPercent} />
+                  </div>
                 </div>
               </div>
             );
