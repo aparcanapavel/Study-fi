@@ -72,8 +72,7 @@ class PlaylistShow extends React.Component {
         userId
       }
     }).then(() => {
-      this.props.history.push("/")
-      console.log("delete playlist successfully");
+      this.props.history.push("/");
     })
   }
 
@@ -96,16 +95,32 @@ class PlaylistShow extends React.Component {
                     mutation={REMOVE_USER_PLAYLIST}
                     update={(cache, data2) => this.updateCache(cache, data2)}
                   >
+
+                    {/* compute 4 album images to display */}
+
                     {(removeUserPlaylist, { data2 }) => {
                       return (
-                        <div className="playlist-show-name">
-                          <h2>{data.playlist.name}</h2>
-                          <i
-                            onClick={e =>
-                              this.togglePlaylistOptions(e, removeUserPlaylist)
-                            }
-                            className="fas fa-ellipsis-h"
-                          ></i>
+                        <div className="playlist-show-top">
+                          <div className="albums-window">
+                            <img src="" alt="albums" />
+                            <img src="" alt="albums" />
+                            <img src="" alt="albums" />
+                            <img src="" alt="albums" />
+                          </div>
+
+                          <div className="playlist-details">
+                            <h2>{data.playlist.name}</h2>
+                            
+                            <button
+                              className="play-playlist"
+                              onClick={() => this.props.playAlbumNow(data.playlist.songs)}
+                            >Play</button>
+
+                            <i
+                              onClick={e => this.togglePlaylistOptions(e, removeUserPlaylist)}
+                              className="fas fa-ellipsis-h"
+                            ></i>
+                          </div>
                         </div>
                       );
                     }}

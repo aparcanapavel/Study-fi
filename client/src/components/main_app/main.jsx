@@ -92,6 +92,9 @@ class MainComponent extends Component {
             //force refresh upon login to prevent error form displaying
             return window.location.reload();
           }
+
+          const userId = data.currentUserId;
+          
           return (
             <div className="app-container-with-modal">
               <Query
@@ -198,7 +201,7 @@ class MainComponent extends Component {
                                 playAlbumNow={this.playAlbumNow}
                                 currentSong={this.state.currentSong}
                                 onRef={ref => (this.playlistShow = ref)}
-                                currentUserId={data.currentUserId}
+                                currentUserId={userId}
                               />
                             )}
                           />

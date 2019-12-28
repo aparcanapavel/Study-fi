@@ -1,4 +1,71 @@
-.playlist-show-name{
-  font-size: 36px;
+.playlist-show-top{
+  display: block;
+  position: relative;
   margin: 20px;
+}
+
+.albums-window,
+.playlist-details{
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  max-width: 50%;
+}
+
+.albums-window {
+  height: 150px;
+  width: 150px;
+}
+
+.albums-window img{
+  display: inline-block;
+  width: 50%;
+  height: 50%;
+  position: relative;
+}
+
+.albums-window img:first-child{
+  background-color: rgb(95, 95, 95);
+}
+
+.albums-window img:nth-child(2){
+  background-color: gray;
+}
+
+.albums-window img:nth-child(3){
+  background-color: rgb(160, 158, 158);
+}
+
+.albums-window img:last-child{
+  background-color: gray;
+}
+
+.playlist-details{
+  padding-left: 10px;
+  box-sizing: border-box;
+}
+
+.playlist-details h2{
+  font-size: 36px;
+  font-family: 'Raleway', sans-serif;
+  margin-bottom: 0px;
+  display: block;
+}
+
+.play-playlist{
+  padding: 12px 40px;
+  /* make the following green standard. */
+  background-color: #1db954;
+  border-radius: 50px;
+  letter-spacing: 2px;
+  margin: 40px 5px 0px 5px;
+  font-size: 13px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.playlist-details i {
+  display: inline-block;
+  margin-top: 40px;
+  margin-left: 15px;
 }

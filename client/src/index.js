@@ -32,7 +32,7 @@ async function setupClient() {
   const errorLink = onError(({ graphQLErrors }) => {
     //this is where the error happens. force reload to fix?
     if (graphQLErrors) graphQLErrors.map(({ message }) => console.log(message));
-    window.location.reload();
+    // window.location.reload();
   });
 
   client = new ApolloClient({
