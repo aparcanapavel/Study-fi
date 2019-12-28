@@ -56,3 +56,22 @@
   margin-bottom: 15px;
   font-size: 14px;
 }
+
+.queue-song-name {
+  width: 160px;
+  text-align: left;
+
+}
+
+.queue-song-item {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
+}
+
+.queue-song-artist {
+  display: flex;
+  width: 200px;
+  justify-content: flex-start;
+  text-align: left;
+}

@@ -56,8 +56,8 @@ class QueueShow extends React.Component {
       if(song._id !== currentSong._id){
         return (
           <li className="queue-song-item" key={song._id}>
-            <p>{song.name}</p>
-            <p>{this.paresArtists(song)}</p>
+            <p className="queue-song-name">{song.name}</p>
+            <p className="queue-song-artist">{this.paresArtists(song)}</p>
             <p>{this.parseTime(song.duration)}</p>
           </li>
         );
