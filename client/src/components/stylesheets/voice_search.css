@@ -1,0 +1,19 @@
+.voice-control-bar {
+  display: flex;
+  flex-direction: row;
+  background-color: gray;
+  margin: 10px;
+  padding: 0px;
+  width: 100px;
+  justify-content: space-evenly;
+  border-radius: 10px
+}
+
+.voice-control-bar > button {
+  display: block;
+  font-size: 16px;
+  margin: 5px;
+  background-color: rgba(255, 255, 255, 0);
+  border-radius: 1000px;
+  color: black;
+}

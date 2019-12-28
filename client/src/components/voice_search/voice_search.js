@@ -74,26 +74,33 @@ class SpeechRecognitionComponent extends React.Component{
     }
   }
 
-  update(e) {
-    this.setState({transcript: this.props.transcript})
-    // console.log(this.props.transcript);
-  }
-
   render(){
     if (!this.props.browserSupportsSpeechRecognition) {
       return null;
     }
     return (
-      <div>
-        <br/>
-        <br/>
-        <button className="voice-reset-button" onClick={this.props.resetTranscript}>X</button>
+      <div className="voice-search">
+        <input 
+          className="voice-search-transcript"
+          value={this.props.transcript}
+          placeholder="Search for Artists, Songs, or Albums"
+        />
+
+        <button 
+          className="voice-reset-button" 
+          onClick={this.props.resetTranscript}
+        >
+          X
+        </button>
         {/* <button className="voice-start-button" onClick={this.props.startListening}>Start</button>
         <button className="voice-stop-button" onClick={this.props.stopListening}>Stop</button>
         <button className="voice-abort-button" onClick={this.props.abortListening}>Abort</button> */}
-        <button onClick={this.handleVoice}>Microphone</button>
-        <br/>
-        <input value={this.props.transcript}></input>
+        <button 
+          onClick={this.handleVoice}
+          className="voice-listen-button"
+        >
+            Microphone
+        </button>
       </div>
     );
 };
