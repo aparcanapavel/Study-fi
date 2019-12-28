@@ -303,8 +303,8 @@ class Search extends React.Component {
                       voiceUpdateSearch={this.voiceUpdateSearch}
                     />
                   )}
-                  {/* <i class="fas fa-microphone"></i> */}
                   <button
+                    id="mic-button"
                     className="fas fa-microphone"
                     onClick={() => this.setState({ voice: !this.state.voice })}
                   />

@@ -200,3 +200,15 @@
 .search-loading-sym div svg{
   fill: #2F5451;
 }
+
+#mic-button{
+  padding: 5px 8px;
+  background-color: white;
+  color: black;
+  border-radius: 20px;
+}
+
+#mic-button:active{
+  background-color: rgb(214, 213, 213);
+  color: black;
+}
