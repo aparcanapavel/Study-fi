@@ -69,4 +69,36 @@ UserSchema.statics.removePlaylist = function(userId, playlistId){
     })
 }
 
+UserSchema.statics.findLikedSongs = function(id) {
+  return this.findById(id)
+    .populate("likedSongs")
+    .then(user => {
+      const Song = mongoose.model("songs");
+      const likedSongsArr = user.likedSongs;
+      let returnArr = [];
+
+      likedSongsArr.forEach(playlist => {
+        returnArr.push(Song.findById(playlist));
+      });
+      return returnArr;
+    });
+};
+
+// UserSchema.statics.addLikedSong = function(userId, songId){
+//   const User = mongoose.model("users");
+//   const Song = mongoose.model("songs");
+
+//   let user;
+//   return User.findById(userId)
+//     .then(user => {
+//       user = user;
+//       return Song.findById(songId)
+//         .then(song => {
+//           user.likedSongs.push(song);
+
+//           return Promise.all([])
+//         })
+//     })
+// }
+
 module.exports = mongoose.model("users", UserSchema);

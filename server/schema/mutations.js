@@ -71,10 +71,12 @@ const mutation = new GraphQLObjectType({
           album: args.album,
           duration: args.duration,
           songUrl: args.songUrl
-        }).save().then(song => {
-          console.log(song)
-          Song.addSongToArtistAlbum(song.id, song.artists, song.album);
-        });
+        })
+          .save()
+          .then(song => {
+            console.log(song);
+            Song.addSongToArtistAlbum(song.id, song.artists, song.album);
+          });
       }
     },
     createAlbum: {
@@ -113,8 +115,9 @@ const mutation = new GraphQLObjectType({
         userId: { type: GraphQLID }
       },
       resolve(_, args) {
-        return new Playlist({ name: args.name, user: args.userId }).save()
-          .then((playlist) => {
+        return new Playlist({ name: args.name, user: args.userId })
+          .save()
+          .then(playlist => {
             Playlist.addPlaylistToUser(playlist._id, playlist.user);
             return playlist;
           });
@@ -139,6 +142,26 @@ const mutation = new GraphQLObjectType({
       },
       resolve(_, { playlistId, userId }) {
         return User.removePlaylist(userId, playlistId);
+      }
+    },
+    addLikedSong: {
+      type: MusicType,
+      args: {
+        userId: { type: GraphQLID },
+        songId: { type: GraphQLID }
+      },
+      resolve(_, { userId, songId }) {
+        return Song.addSongToUser(userId, songId);
+      }
+    },
+    removeLikedSong: {
+      type: MusicType,
+      args: {
+        userId: { type: GraphQLID },
+        songId: { type: GraphQLID }
+      },
+      resolve(_, { userId, songId }) {
+        return Song.removeSongFromUser(userId, songId);
       }
     }
   }
