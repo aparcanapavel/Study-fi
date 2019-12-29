@@ -1,8 +1,9 @@
 import React from "react";
-import { Query } from "react-apollo";
+import { Query, Mutation } from "react-apollo";
 import Queries from "../../../graphql/queries";
 import { Link } from "react-router-dom";
 import SongOptions from "../../song/song_options";
+import Mutations from "../../../graphql/mutations";
 const { FETCH_ALBUM } = Queries;
 
 class ArtistShow extends React.Component {
@@ -30,15 +31,22 @@ class ArtistShow extends React.Component {
   }
 
   render() {
-
+    console.log("albumshow userId", this.props.userId);
     return (
       <Query
         query={FETCH_ALBUM}
-        variables={{ id: this.props.match.params.albumId }}
+        variables={{ 
+          id: this.props.match.params.albumId,
+          userId: this.props.userId
+        }}
       >
         {({ loading, error, data }) => {
           if (loading) return <p>Loading...</p>;
-          if (error) return <p>Error</p>;
+          if (error) {
+            console.log(error);
+            return <p>Error</p>;
+          }
+          console.log(data);
           return (
             <div className="album-show">
               <div className="album-show-header">
