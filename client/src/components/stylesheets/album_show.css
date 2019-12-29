@@ -120,3 +120,15 @@
   margin-left: 10px;
 }
 
+
+.album-show-loading{
+  text-align: center;
+  width: 100%;
+  position: relative;
+  margin-top: 300px;
+}
+
+.album-show-loading div svg{
+  fill: #2F5451;
+}
+

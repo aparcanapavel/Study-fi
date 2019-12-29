@@ -135,7 +135,7 @@ export default {
     }
   `,
   FETCH_ALBUM: gql`
-    query fetchAlbum($id: ID!) {
+    query fetchAlbum($id: ID!, $userId: ID!) {
       album(_id: $id) {
         _id
         name
@@ -153,6 +153,12 @@ export default {
             _id
             name
           }
+        }
+      },
+      user(_id: $userId){
+        _id
+        likedSongs{
+          _id
         }
       }
     }

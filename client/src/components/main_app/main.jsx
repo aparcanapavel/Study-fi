@@ -94,7 +94,6 @@ class MainComponent extends Component {
           }
 
           const userId = data.currentUserId;
-          
           return (
             <div className="app-container-with-modal">
               <Query
@@ -179,6 +178,7 @@ class MainComponent extends Component {
                                 playAlbumNow={this.playAlbumNow}
                                 currentSong={this.state.currentSong}
                                 onRef={ref => (this.albumShow = ref)}
+                                userId={userId}
                               />
                             )}
                           />

@@ -81,7 +81,7 @@ SongSchema.statics.addSongToUser = function(userId, songId) {
   return User.findById(userId).then(user => {
     user.likedSongs.push(songId);
 
-    return user.save().then(user => user);
+    return user.save().then(() => songId);
   });
 };
 
@@ -96,7 +96,7 @@ SongSchema.statics.removeSongFromUser = function(userId, songId){
         .then(song => {
           user.likedSongs.pull(song);
 
-          return user.save().then(user => user);
+          return user.save().then(() => songId);
         })
     })
 }
