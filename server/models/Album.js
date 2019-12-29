@@ -15,7 +15,10 @@ const AlbumSchema = new Schema({
       type: Schema.Types.ObjectId,
       ref: "songs"
     }
-  ]
+  ],
+  imageUrl: {
+    type: String
+  }
 });
 
 AlbumSchema.statics.findArtists = function(id) {
@@ -35,6 +38,15 @@ AlbumSchema.statics.findSongs = function(id) {
         returnArr.push(Song.findById(albumSong));
       });
       return returnArr;
+    });
+};
+
+AlbumSchema.statics.addImage = function (id, imageUrl) {
+  return this.findById(id)
+    .then(album => {
+      album.imageUrl = imageUrl;
+      album.save();
+      return album;
     });
 };
 
