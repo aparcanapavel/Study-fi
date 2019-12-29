@@ -17,7 +17,10 @@ const ArtistSchema = new Schema({
       type: Schema.Types.ObjectId,
       ref: "songs"
     }
-  ]
+  ],
+  imageUrl: {
+    type: String,
+  }
 });
 
 ArtistSchema.statics.findAlbums = function(id) {
@@ -61,6 +64,17 @@ ArtistSchema.statics.addAlbum = (artistId, albumId) => {
         return Promise.all([artist.save(), album.save()])
           .then(([artist, album]) => artist);
       })
+    });
+}
+
+ArtistSchema.statics.addImage = (artistId, imageUrl) => {
+  const Artist = mongoose.model("artists");
+
+  return Artist.findById(artistId)
+    .then(artist => {
+          artist.imageUrl = imageUrl;
+          return Promise.all([artist.save()])
+            .then(([artist]) => artist);
     });
 }
 

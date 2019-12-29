@@ -20,7 +20,8 @@ const ArtistType = new GraphQLObjectType({
       resolve(parentValue) {
         return Artist.findSongs(parentValue.id);
       }
-    }
+    },
+    imageUrl: {type: GraphQLString}
   })
 });
 

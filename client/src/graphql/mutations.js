@@ -36,8 +36,17 @@ const Mutations = {
   ADD_SONG_TO_PLAYLIST: gql`
     mutation AddSongToPlaylist($playlistId: ID, $songId: ID) {
       addSongToPlaylist(playlistId: $playlistId, songId: $songId) {
-        _id
         name
+        songs{
+        _id
+        artists {
+          _id
+          name
+        }
+        duration
+        name
+        songUrl
+        }
       }
     }
   `,

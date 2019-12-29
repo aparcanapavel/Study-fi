@@ -60,14 +60,15 @@ PlaylistSchema.statics.addSong = function(playlistId, songId) {
   return Playlist.findById(playlistId)
     .then(result => {
       playlist = result;
-
-      Song.findById(songId)
+    
+      return Song.findById(songId)
         .then(song => {
           playlist.songs.push(song);
           song.playlists.push(playlist);
 
           return Promise.all([playlist.save(), song.save()])
-            .then(([playlist, song]) => playlist)
+            .then(([playlist, song]) => {
+              return playlist})
             .catch(err => {console.log(err)});
         })
     });

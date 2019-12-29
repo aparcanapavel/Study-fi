@@ -20,7 +20,8 @@ const AlbumType = new GraphQLObjectType({
       resolve(parentValue) {
         return Album.findSongs(parentValue.id);
       }
-    }
+    },
+    imageUrl: { type: GraphQLString }
   })
 });
 
