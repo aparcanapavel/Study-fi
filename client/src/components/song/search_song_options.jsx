@@ -6,6 +6,15 @@ class SearchSongOptions extends React.Component {
     super(props);
     this.state = { options: this.props.options, display: false, section: this.props.section, addToPlaylist: false };
     this.toggleAddToPlaylist = this.toggleAddToPlaylist.bind(this);
+    this.toggleSongOptions = this.toggleSongOptions.bind(this);
+  }
+
+  toggleSongOptions(e, songId) {
+    e.stopPropagation();
+    this.state.options === songId
+      ? this.setState({ options: null })
+      : this.setState({ options: songId });
+
   }
 
   toggleAddToPlaylist(e) {
@@ -16,7 +25,14 @@ class SearchSongOptions extends React.Component {
   render() {
     return (
       <div className="search-song-options">
-        <section className={this.state.section}>
+        <i
+          onClick={e =>
+            this.toggleSongOptions(e, this.props.songId)
+          }
+          className="fas fa-ellipsis-h"
+        ></i>
+        { this.state.options === this.props.songId &&
+        <section className="search-song-options-container">
           <button onClick={(e) => this.toggleAddToPlaylist(e)} className="song-options-button">
             Add To Playlist
 
@@ -27,10 +43,10 @@ class SearchSongOptions extends React.Component {
               userPlaylists={this.props.userPlaylists}
               currentUserId={this.props.currentUserId}
               toggleAddToPlaylist={this.toggleAddToPlaylist}
-              toggleSongOptions={this.props.toggleSongOptions}
+              toggleSongOptions={this.toggleSongOptions}
             />
           }
-        </section>
+        </section>}
       </div>
     ) 
   }
