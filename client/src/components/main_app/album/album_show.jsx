@@ -91,7 +91,7 @@ class ArtistShow extends React.Component {
                       onClick={() => this.props.playSongNow(song)}
                     >
                       <div className="album-show-song-start">
-                        <h1 className="album-show-song-index">{i + 1}</h1>
+                        <h1 key="song-heart" className="far fa-heart"></h1>
                         <h1 className="album-show-song-name">{song.name}</h1>
                       </div>
                       <div className="album-show-song-artists">
