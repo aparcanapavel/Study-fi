@@ -12,10 +12,17 @@ const UserType = new GraphQLObjectType({
     token: { type: GraphQLString },
     loggedIn: { type: GraphQLBoolean },
     playlists: {
-    type: new GraphQLList(require("./playlist_type")),
-    resolve(parentValue) {
-      return User.findPlaylists(parentValue.id);
-    }},
+      type: new GraphQLList(require("./playlist_type")),
+      resolve(parentValue) {
+        return User.findPlaylists(parentValue.id);
+      }
+    },
+    likedSongs: {
+      type: new GraphQLList(require("./song_type")),
+      resolve(parentValue) {
+        return User.findLikedSongs(parentValue._id);
+      }
+    }
   })
 });
 

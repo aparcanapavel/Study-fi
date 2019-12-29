@@ -48,6 +48,14 @@ const Mutations = {
         name
       }
     }
+  `,
+  LIKE_SONG: gql`
+    mutation addSongToUser($userId: ID!, $songId: ID!) {
+      addLikedSong(userId: $userId, songId: $songId) {
+        _id
+        name
+      }
+    }
   `
 };
 export default Mutations;
