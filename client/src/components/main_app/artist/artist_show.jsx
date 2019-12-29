@@ -60,6 +60,8 @@ class ArtistShow extends React.Component {
                       onClick={() => this.props.playSongNow(song)}
                     >
                       <div className="artist-show-song-header">
+                      <h1 key="song-heart" className="far fa-heart"></h1>
+
                       <img
                         className="song-album-icon"
                         src="https://study-fi-public.s3.amazonaws.com/3.jpg"
@@ -111,7 +113,7 @@ class ArtistShow extends React.Component {
                         className="artist-show-album-song" 
                         onClick={() => this.props.playSongNow(song)}>
                           <div className="artist-show-album-song-header">
-                            <h1 className="artist-show-album-index">{i + 1}</h1>
+                            <h1 key="song-heart" className="far fa-heart"></h1>
                             <h1 className="artist-show-album-song-name">{song.name}</h1>
                           </div>
                           <h1 className="artist-show-album-song-duration">{this.parseTime(song.duration)}</h1>
