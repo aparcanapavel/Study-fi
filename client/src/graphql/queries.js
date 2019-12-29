@@ -129,6 +129,7 @@ export default {
         _id
         name
         year
+        imageUrl
         artists {
           _id
           name
