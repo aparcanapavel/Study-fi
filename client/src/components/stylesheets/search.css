@@ -168,6 +168,7 @@
   background-color: gray;
   box-shadow: 0px 10px 15px 5px rgba(0, 0, 0, 0.137);
   border: 1px solid white;
+  object-fit: cover;
 }
 .artist-item p,
 .album-item p{

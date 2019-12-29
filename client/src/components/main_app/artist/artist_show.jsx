@@ -32,7 +32,7 @@ class ArtistShow extends React.Component {
           return (
             <div className="artist-show-div">
               <div className="artist-show-header">
-                <img className="artist-show-icon" alt={data.artist.name} src="https://study-fi-public.s3.amazonaws.com/default-profile.png" />
+                <img className="artist-show-icon" alt={data.artist.name} src={data.artist.imageUrl} />
                 <div className="artist-show-name-header">
                 <h1 className="artist-show-name-tag">ARTIST</h1>
                 <h1 className="artist-show-name">{data.artist.name}</h1>
@@ -64,7 +64,7 @@ class ArtistShow extends React.Component {
 
                       <img
                         className="song-album-icon"
-                        src="https://study-fi-public.s3.amazonaws.com/3.jpg"
+                        src={song.album.imageUrl}
                         alt="album"
                       />
                       <h1 className="song-index">{i + 1}</h1>
@@ -90,7 +90,7 @@ class ArtistShow extends React.Component {
               {data.artist.albums.map((album) =>(
                 <li className="artist-show-album" key={album._id}>
                   <div className="artist-show-album-header">
-                    <img className="album-icon" src="https://study-fi-public.s3.amazonaws.com/3.jpg" alt="album-icon" />
+                    <img className="album-icon" src={album.imageUrl} alt="album-icon" />
                     <div className="artist-show-album-header-name">
                       <h1 className="artist-show-album-year">{album.year}</h1>
                       <Link to={`/album/${album._id}`}><h1 className="artist-show-album-name">{album.name}</h1></Link>
