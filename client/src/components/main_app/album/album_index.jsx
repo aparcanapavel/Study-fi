@@ -16,10 +16,14 @@ class AlbumIndex extends React.Component {
             if (loading) return <p>Loading...</p>;
             if (error) return <p>Error</p>;
 
-            return data.albums.map(({ _id, name, icon }) => (
+            return data.albums.map(({ _id, name, icon, imageUrl }) => (
               <Link to={`/album/${_id}`} key={_id}>
                 <li className="album-list-item" key={_id}>
-                  <img className="album-list-icon" src="https://study-fi-public.s3.amazonaws.com/3.jpg" alt="album-icon" />
+                  <img
+                    className="album-list-icon"
+                    src={imageUrl}
+                    alt="album-icon"
+                  />
                   <h1 className="album-list-name">{name}</h1>
                 </li>
               </Link>

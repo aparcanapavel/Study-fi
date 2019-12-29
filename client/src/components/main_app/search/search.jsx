@@ -82,7 +82,7 @@ class Search extends React.Component {
               className="song-item"
               onClick={() => this.props.playSongNow(song)}
             >
-              <img alt="" src="" />
+              <img alt="" src={song.album.imageUrl} />
               <div className="song-item-details">
                 <p>{song.name}</p>
                 <p>{artists}</p>
@@ -117,7 +117,7 @@ class Search extends React.Component {
               className="album-item"
               onClick={() => this.toAlbum(album._id)}
             >
-              <img alt="" />
+              <img alt="" src={album.imageUrl} />
               <p>{album.name}</p>
               <p>{albumArtists}</p>
             </li>
@@ -133,7 +133,7 @@ class Search extends React.Component {
               className="artist-item"
               onClick={() => this.toArtist(artist._id)}
             >
-              <img alt="" />
+              <img alt="" src={artist.imageUrl}/>
               <p>{artist.name}</p>
               <p>Artist</p>
             </li>
