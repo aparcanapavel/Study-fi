@@ -1,7 +1,7 @@
 .voice-control-bar {
   display: flex;
   flex-direction: row;
-  background-color: gray;
+  background-color: rgb(31, 31, 31);
   margin: 10px;
   padding: 0px;
   width: 100px;
@@ -10,10 +10,23 @@
 }
 
 .voice-control-bar > button {
-  display: block;
+  position: relative;
   font-size: 16px;
   margin: 5px;
   background-color: rgba(255, 255, 255, 0);
-  border-radius: 1000px;
-  color: black;
+  color: white;
+}
+
+#mic-button:hover {
+  color: rgb(55, 226, 112);
+  bottom: 1px;
+}
+
+#mic-reset-button:hover {
+  bottom: 1px;
+}
+
+#mic-stop-button:hover {
+  color: rgb(204, 59, 59);
+  bottom: 1px;
 }

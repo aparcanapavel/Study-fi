@@ -33,3 +33,12 @@
 .options-playlists-name {
   margin: 5px;
 }
+
+.search-song-options-container {
+  position: absolute;
+  background-color: rgb(66, 66, 66);
+  margin-top: 0px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
