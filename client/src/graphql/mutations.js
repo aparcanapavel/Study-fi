@@ -56,6 +56,14 @@ const Mutations = {
         name
       }
     }
+  `,
+  UNLIKE_SONG: gql`
+    mutation removeSongFromUser($userId: ID!, $songId: ID!) {
+      removeLikedSong(userId: $userId, songId: $songId) {
+        _id
+        name
+      }
+    }
   `
 };
 export default Mutations;

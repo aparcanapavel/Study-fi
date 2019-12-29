@@ -252,7 +252,6 @@ class Search extends React.Component {
               id="current-song-element"
               key={song.key}
               className={song.props.className}
-              onClick={() => this.props.playSongNow(song)}
             >
               <img alt="" src={song.props.children[0].props.src} />
               <div className="song-item-details">
