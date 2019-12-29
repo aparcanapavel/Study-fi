@@ -33,8 +33,11 @@ class MusicPlayer extends React.Component {
 
   toggleMute(){
     const isMuted = this.state.isMuted;
-
-    this.setState({ isMuted: !isMuted });
+    if(isMuted){
+      this.setState({ isMuted: !isMuted, volShift: 0 });
+    } else {
+      this.setState({ isMuted: !isMuted, volShift: 100 });
+    }
   }
 
   populateQueue(songs) {
