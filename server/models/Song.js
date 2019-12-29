@@ -75,4 +75,30 @@ SongSchema.statics.addSongToArtistAlbum = (songId, artistArr, albumId) => {
   });
 };
 
+SongSchema.statics.addSongToUser = function(userId, songId) {
+  const User = mongoose.model("users");
+
+  return User.findById(userId).then(user => {
+    user.likedSongs.push(songId);
+
+    return user.save().then(user => user);
+  });
+};
+
+SongSchema.statics.removeSongFromUser = function(userId, songId){
+  const User = mongoose.model("users");
+  const Song = mongoose.model("songs");
+
+  return User.findById(userId)
+    .then( user => {
+
+      return Song.findById(songId)
+        .then(song => {
+          user.likedSongs.pull(song);
+
+          return user.save().then(user => user);
+        })
+    })
+}
+
 module.exports = mongoose.model("songs", SongSchema);
