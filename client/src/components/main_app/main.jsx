@@ -186,6 +186,8 @@ class MainComponent extends Component {
                             path="/search"
                             render={props => (
                               <Search
+                                currentUserId={userId}
+                                userPlaylists={userPlaylists}
                                 playSongNow={this.playSongNow}
                                 currentSong={this.state.currentSong}
                               />

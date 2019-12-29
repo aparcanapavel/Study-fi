@@ -179,6 +179,9 @@ class PlaylistShow extends React.Component {
                           {this.state.options === song._id &&
                             this.state.section === "popular" && (
                               <SongOptions
+                                toggleSongOptions={this.toggleSongOptions}
+                                currentUserId={this.props.currentUserId}
+                                userPlaylists={this.props.userPlaylists}
                                 section={"popular-song-options-container"}
                                 songId={song._id}
                               />

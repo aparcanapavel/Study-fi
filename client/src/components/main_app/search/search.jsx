@@ -6,7 +6,7 @@ import Loader from "react-loader-spinner";
 // import VoiceSearch from "../../voice_search/voice_search";
 import SpeechRecognition from "react-speech-recognition";
 import PropTypes from "prop-types";
-
+import SearchSongOptions from "../../song/search_song_options"
 const propTypes = {
   transcript: PropTypes.string,
   resetTranscript: PropTypes.func,
@@ -31,7 +31,9 @@ class Search extends React.Component {
       voice: false,
       listening: false,
       transcript: this.props.transcript,
-      voicePlaceholder: null
+      voicePlaceholder: null,
+      options: null, 
+      section: null,
     };
     this.updateSearch = this.updateSearch.bind(this);
     this.toArtist = this.toArtist.bind(this);
@@ -40,6 +42,7 @@ class Search extends React.Component {
     this.voiceUpdateSearch = this.voiceUpdateSearch.bind(this);
     this.handleVoice = this.handleVoice.bind(this);
     this.stopVoice = this.stopVoice.bind(this);
+    this.toggleSongOptions = this.toggleSongOptions.bind(this);
   }
 
   toArtist(artistId) {
@@ -60,6 +63,16 @@ class Search extends React.Component {
     return false;
   }
 
+  toggleSongOptions(e, songId) {
+    e.stopPropagation();
+    console.log("toggle function songId", songId)
+    console.log("toggle function", this.state.options);
+    this.state.options === songId
+      ? this.setState({ options: null })
+      : this.setState({ options: songId});
+    
+  }
+
   updateSearch(data) {
     return e => {
       const search = e.target.value;
@@ -73,7 +86,7 @@ class Search extends React.Component {
               artists += ", " + artist.name;
             }
           });
-
+          
           return (
             <li
               key={song._id}
@@ -84,6 +97,21 @@ class Search extends React.Component {
               <div className="song-item-details">
                 <p>{song.name}</p>
                 <p>{artists}</p>
+                
+                <i
+                  onClick={e =>
+                    this.toggleSongOptions(e, song._id)
+                  }
+                  className="fas fa-ellipsis-h"
+                ></i>
+                  <SearchSongOptions
+                    currentUserId={this.props.currentUserId}
+                    userPlaylists={this.props.userPlaylists}
+                    toggleSongOptions={this.toggleSongOptions}
+                    options={this.state.options}
+                    songId={song._id}
+                  />
+                
               </div>
             </li>
           );
@@ -166,6 +194,7 @@ class Search extends React.Component {
               <div className="song-item-details">
                 <p>{song.name}</p>
                 <p>{artists}</p>
+
               </div>
             </li>
           );
@@ -223,7 +252,7 @@ class Search extends React.Component {
         artists: artists
       });
  
-  }
+  };
 
   selectActive(songs) {
     const currentSong = this.props.currentSong;
@@ -257,19 +286,19 @@ class Search extends React.Component {
       if (this.state.transcript !== this.props.transcript) {
         this.setState(
           { transcript: this.props.transcript },
+          this.voiceUpdateSearch(this.state.data, this.props.transcript)
         );
-        this.voiceUpdateSearch(this.state.data, this.props.transcript)
-      }
+      } 
     
   }
 
 
   handleVoice(data) {
     if (this.state.voice ) {
-      this.setState({voicePlaceholder: "Click the Mic for Voice/X to Cancel!"})
+      this.setState({ voicePlaceholder: "Click the Mic for Voice/X to Cancel!", micColor: "white"})
       this.props.stopListening();
     } else {
-      this.setState({ voice: true, voicePlaceholder: "Start Speaking to Search!", data: data });
+      this.setState({ voice: true, voicePlaceholder: "Start Speaking to Search!", data: data, micColor: "rgb(55, 226, 112)" });
       this.props.startListening();
     }
   }
@@ -277,10 +306,11 @@ class Search extends React.Component {
   stopVoice() {
     this.props.resetTranscript();
     this.props.stopListening(); 
-    this.setState({voice: false});
+    this.setState({voice: false, micColor: "white"});
   }
 
   render() {
+    console.log("render", this.state.options)
     let songs, artists, albums;
     if (this.state.songs && this.state.songs.length > 0) {
       songs = this.state.songs.slice(0, 6);
@@ -359,15 +389,18 @@ class Search extends React.Component {
                   <div className="voice-control-bar">
                   <button
                     id="mic-button"
+                    style={{color: this.state.micColor}}
                     className="fas fa-microphone"
                     onClick={() => this.handleVoice(data)}
                   />
                   <button
+                    id="mic-reset-button"
                     className="fas fa-redo-alt"
                     onClick={this.props.resetTranscript}
                   />
                   
-                  <button 
+                  <button
+                    id="mic-stop-button" 
                     onClick={this.stopVoice}
                     className="fas fa-microphone-slash"
                   />
