@@ -150,7 +150,9 @@ const mutation = new GraphQLObjectType({
         songId: { type: GraphQLID }
       },
       resolve(_, { userId, songId }) {
-        return Song.addSongToUser(userId, songId);
+        return Song.addSongToUser(userId, songId).then(songId => {
+          return { _id: songId }
+        });
       }
     },
     removeLikedSong: {
@@ -160,7 +162,9 @@ const mutation = new GraphQLObjectType({
         songId: { type: GraphQLID }
       },
       resolve(_, { userId, songId }) {
-        return Song.removeSongFromUser(userId, songId);
+        return Song.removeSongFromUser(userId, songId).then(songId => {
+          return { _id: songId }
+        });
       }
     }
   }

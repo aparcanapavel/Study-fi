@@ -53,7 +53,6 @@ const Mutations = {
     mutation addSongToUser($userId: ID!, $songId: ID!) {
       addLikedSong(userId: $userId, songId: $songId) {
         _id
-        name
       }
     }
   `,
@@ -61,7 +60,6 @@ const Mutations = {
     mutation removeSongFromUser($userId: ID!, $songId: ID!) {
       removeLikedSong(userId: $userId, songId: $songId) {
         _id
-        name
       }
     }
   `

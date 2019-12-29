@@ -1,17 +1,29 @@
 import React from "react";
 import { Query, Mutation } from "react-apollo";
+import { useMutation } from "@apollo/react-hooks";
 import Queries from "../../../graphql/queries";
 import { Link } from "react-router-dom";
 import SongOptions from "../../song/song_options";
 import Mutations from "../../../graphql/mutations";
+import Loader from "react-loader-spinner";
+const { LIKE_SONG, UNLIKE_SONG } = Mutations;
 const { FETCH_ALBUM } = Queries;
 
 class ArtistShow extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state = { options: null, section: null }
+    this.state = {
+      options: null,
+      section: null,
+      bool: false
+    };
     this.toggleSongOptions = this.toggleSongOptions.bind(this);
+    this.updateLike = this.updateLike.bind(this);
+    this.updateUnlike = this.updateUnlike.bind(this);
+    this.isLiked = this.isLiked.bind(this);
+    this.handleLike = this.handleLike.bind(this);
   }
+
   parseTime(int) {
     let minutes = Math.floor(int / 60);
     let seconds = int % 60 < 10 ? `0${int % 60}` : int % 60;
@@ -20,7 +32,9 @@ class ArtistShow extends React.Component {
 
   toggleSongOptions(e, songId, section) {
     e.stopPropagation();
-    this.state.options === songId ? this.setState({ options: null, section: null }) : this.setState({ options: songId, section: section });
+    this.state.options === songId
+      ? this.setState({ options: null, section: null })
+      : this.setState({ options: songId, section: section });
   }
 
   componentDidMount() {
@@ -30,23 +44,127 @@ class ArtistShow extends React.Component {
     this.props.onRef(undefined);
   }
 
+  isLiked(songId, likedSongs){
+    for(let i = 0 ; i < likedSongs.length; i++){
+      let likedSong = likedSongs[i];
+      if(likedSong._id === songId) return true;
+    }
+
+    return false
+  }
+
+  updateLike(cache, data) {
+    let albumShow;
+    try {
+      albumShow = cache.readQuery({
+        query: FETCH_ALBUM,
+        variables: {
+          id: this.props.match.params.albumId,
+          userId: this.props.userId
+        }
+      });
+    } catch (err) {
+      return;
+    }
+    if (albumShow) {
+
+      let song = data.data.addLikedSong;
+      let likedSongs = albumShow.user.likedSongs;
+
+      cache.writeQuery({
+        query: FETCH_ALBUM,
+        variables: {
+          id: this.props.match.params.albumId,
+          userId: this.props.userId
+        },
+        data: {
+          album: albumShow.album,
+          user: {
+            _id: this.props.userId,
+            likedSongs: likedSongs.push(song),
+            __typename: "UserType"
+          }
+        }
+      });
+    }
+    this.setState({ bool: !this.state.bool });
+  }
+
+  updateUnlike(cache, data) {
+    let albumShow;
+    try {
+      albumShow = cache.readQuery({
+        query: FETCH_ALBUM,
+        variables: {
+          id: this.props.match.params.albumId,
+          userId: this.props.userId
+        }
+      });
+    } catch (err) {
+      return;
+    }
+
+    if (albumShow) {
+      let likedSongs = albumShow.user.likedSongs;
+      let removedSong = data.data.removeLikedSong;
+      let resArr = [];
+      likedSongs.forEach(song => {
+        if(song._id !== removedSong._id){
+          resArr.push(song);
+        }
+      });
+
+      cache.writeQuery({
+        query: FETCH_ALBUM,
+        variables: {
+          id: this.props.match.params.albumId,
+          userId: this.props.userId
+        },
+        data: {
+          album: albumShow.album,
+          user: {
+            _id: this.props.userId,
+            likedSongs: resArr,
+            __typename: "UserType"
+          }
+        }
+      });
+    }
+
+    this.setState({ bool: !this.state.bool });
+  }
+
+  handleLike(e, mutation, songId){
+    e.stopPropagation();
+
+    mutation({
+      variables: {
+        songId,
+        userId: this.props.userId
+      }
+    })
+  }
+
   render() {
-    console.log("albumshow userId", this.props.userId);
     return (
       <Query
         query={FETCH_ALBUM}
-        variables={{ 
+        variables={{
           id: this.props.match.params.albumId,
           userId: this.props.userId
         }}
       >
         {({ loading, error, data }) => {
-          if (loading) return <p>Loading...</p>;
-          if (error) {
-            console.log(error);
-            return <p>Error</p>;
-          }
-          console.log(data);
+          if (loading)
+            return (
+              <div className="album-show-loading">
+                <Loader type="Bars" color="#2F5451" height={100} width={100} />
+              </div>
+            );
+          if (error) return <p>Error</p>;
+
+          const likedSongs = data.user.likedSongs;
+
           return (
             <div className="album-show">
               <div className="album-show-header">
@@ -88,9 +206,13 @@ class ArtistShow extends React.Component {
                 {data.album.songs.map((song, i) => {
                   const currentSong = this.props.currentSong;
                   let songElement;
-                  if(currentSong){
-                    songElement = currentSong._id === song._id ? "current-song-element" : null;
+                  if (currentSong) {
+                    songElement =
+                      currentSong._id === song._id
+                        ? "current-song-element"
+                        : null;
                   }
+
                   return (
                     <li
                       id={songElement}
@@ -99,7 +221,41 @@ class ArtistShow extends React.Component {
                       onClick={() => this.props.playSongNow(song)}
                     >
                       <div className="album-show-song-start">
-                        <h1 key="song-heart" className="far fa-heart"></h1>
+                        {this.isLiked(song._id, likedSongs) ? (
+                          <Mutation
+                            mutation={UNLIKE_SONG}
+                            update={(cache, data) =>
+                              this.updateUnlike(cache, data)
+                            }
+                          >
+                            {(removeLikedSong, { data }) => (
+                              <i
+                                key="song-heart"
+                                className="fas fa-heart"
+                                onClick={e =>
+                                  this.handleLike(e, removeLikedSong, song._id)
+                                }
+                              ></i>
+                            )}
+                          </Mutation>
+                        ) : (
+                          <Mutation
+                            mutation={LIKE_SONG}
+                            update={(cache, data) =>
+                              this.updateLike(cache, data)
+                            }
+                          >
+                            {(addLikedSong, { data }) => (
+                              <i
+                                key="song-heart"
+                                className="far fa-heart"
+                                onClick={e =>
+                                  this.handleLike(e, addLikedSong, song._id)
+                                }
+                              ></i>
+                            )}
+                          </Mutation>
+                        )}
                         <h1 className="album-show-song-name">{song.name}</h1>
                       </div>
                       <div className="album-show-song-artists">
@@ -120,14 +276,21 @@ class ArtistShow extends React.Component {
                       <h1 className="album-show-song-duration">
                         {this.parseTime(song.duration)}
                       </h1>
-                      <i onClick={(e) => this.toggleSongOptions(e, song._id, "album")} className="fas fa-ellipsis-h"></i>
-                      {(this.state.options === song._id && this.state.section === "album") &&
-                        <SongOptions
-                          userPlaylists={this.props.userPlaylists}
-                          section={"popular-song-options-container"}
-                          songId={song._id}
-                          toggleSongOptions={this.toggleSongOptions}
-                        />}
+                      <i
+                        onClick={e =>
+                          this.toggleSongOptions(e, song._id, "album")
+                        }
+                        className="fas fa-ellipsis-h"
+                      ></i>
+                      {this.state.options === song._id &&
+                        this.state.section === "album" && (
+                          <SongOptions
+                            userPlaylists={this.props.userPlaylists}
+                            section={"popular-song-options-container"}
+                            songId={song._id}
+                            toggleSongOptions={this.toggleSongOptions}
+                          />
+                        )}
                     </li>
                   );
                 })}

@@ -94,7 +94,6 @@ class MainComponent extends Component {
           }
 
           const userId = data.currentUserId;
-          console.log("main userId", userId);
           return (
             <div className="app-container-with-modal">
               <Query
