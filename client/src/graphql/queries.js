@@ -73,6 +73,7 @@ export default {
       artists {
         name
         _id
+        imageUrl
       }
     }
   `,
@@ -93,6 +94,7 @@ export default {
     query fetchArtist($id: ID!) {
       artist(_id: $id) {
         name
+        imageUrl
         albums {
           _id
           name

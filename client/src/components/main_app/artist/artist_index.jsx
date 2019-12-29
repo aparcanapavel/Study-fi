@@ -15,10 +15,10 @@ class ArtistIndex extends React.Component{
             if (loading) return <p>Loading...</p>;
             if (error) return <p>Error</p>;
 
-            return data.artists.map(({ _id, name, icon }) => (
+            return data.artists.map(({ _id, name, imageUrl }) => (
               <Link to={`/artist/${_id}`} key={_id}>
               <li className="artist-list-item" key={_id}>
-                <img className="artist-list-icon" src="https://study-fi-public.s3.amazonaws.com/default-profile.png" alt="artist-icon" />
+                  <img className="artist-list-icon" src={imageUrl} alt="artist-icon" />
                 <h1 className="artist-list-name">{name}</h1>
               </li>
               </Link>
