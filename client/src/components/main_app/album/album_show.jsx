@@ -170,7 +170,7 @@ class ArtistShow extends React.Component {
               <div className="album-show-header">
                 <img
                   className="album-show-icon"
-                  src="https://study-fi-public.s3.amazonaws.com/3.jpg"
+                  src={data.album.imageUrl}
                   alt="album-icon"
                 />
                 <div className="album-show-header-details">
