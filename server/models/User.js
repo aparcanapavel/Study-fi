@@ -29,7 +29,7 @@ const UserSchema = new Schema({
   likedSongs: [
     {
       type: Schema.Types.ObjectId,
-      ref: "likedSongs"
+      ref: "songs"
     }
   ]
 });
@@ -71,7 +71,7 @@ UserSchema.statics.removePlaylist = function(userId, playlistId){
 
 UserSchema.statics.findLikedSongs = function(id) {
   return this.findById(id)
-    .populate("likedSongs")
+    .populate("songs")
     .then(user => {
       const Song = mongoose.model("songs");
       const likedSongsArr = user.likedSongs;
