@@ -1,8 +1,11 @@
 import React from "react";
-import { Query } from "react-apollo";
+import { Query, Mutation } from "react-apollo";
 import Queries from "../../../graphql/queries";
 import { Link } from "react-router-dom";
 import SongOptions from "../../song/song_options";
+import Mutations from "../../../graphql/mutations";
+import Loader from "react-loader-spinner";
+const { LIKE_SONG, UNLIKE_SONG } = Mutations;
 const { FETCH_ARTIST } = Queries;
 
 class ArtistShow extends React.Component {
@@ -42,9 +45,9 @@ class ArtistShow extends React.Component {
   }
 
   updateLike(cache, data) {
-    let albumShow;
+    let artistShow;
     try {
-      albumShow = cache.readQuery({
+      artistShow = cache.readQuery({
         query: FETCH_ARTIST,
         variables: {
           id: this.props.match.params.artistId,
@@ -55,9 +58,9 @@ class ArtistShow extends React.Component {
       return;
     }
 
-    if (albumShow) {
+    if (artistShow) {
       let song = data.data.addLikedSong;
-      let likedSongs = albumShow.user.likedSongs.concat(song);
+      let likedSongs = artistShow.user.likedSongs.concat(song);
 
       cache.writeQuery({
         query: FETCH_ARTIST,
@@ -66,7 +69,7 @@ class ArtistShow extends React.Component {
           userId: this.props.userId
         },
         data: {
-          album: albumShow.album,
+          artist: artistShow.artist,
           user: {
             _id: this.props.userId,
             likedSongs,
@@ -79,9 +82,9 @@ class ArtistShow extends React.Component {
   }
 
   updateUnlike(cache, data) {
-    let albumShow;
+    let artistShow;
     try {
-      albumShow = cache.readQuery({
+      artistShow = cache.readQuery({
         query: FETCH_ARTIST,
         variables: {
           id: this.props.match.params.artistId,
@@ -92,8 +95,8 @@ class ArtistShow extends React.Component {
       return;
     }
 
-    if (albumShow) {
-      let likedSongs = albumShow.user.likedSongs;
+    if (artistShow) {
+      let likedSongs = artistShow.user.likedSongs;
       let removedSong = data.data.removeLikedSong;
       let resArr = [];
       likedSongs.forEach(song => {
@@ -109,7 +112,7 @@ class ArtistShow extends React.Component {
           userId: this.props.userId
         },
         data: {
-          album: albumShow.album,
+          artist: artistShow.artist,
           user: {
             _id: this.props.userId,
             likedSongs: resArr,
@@ -143,8 +146,20 @@ class ArtistShow extends React.Component {
         }}
       >
         {({ loading, error, data }) => {
-          if (loading) return <p>Loading...</p>;
+          if (loading) return (
+            <div className="album-show-loading">
+              <Loader
+                type="Bars"
+                color="#2F5451"
+                height={100}
+                width={100}
+              />
+            </div>
+          );
           if (error) return <p>Error</p>;
+
+          const likedSongs = data.user.likedSongs;
+          
           return (
             <div className="artist-show-div">
               <div className="artist-show-header">
@@ -179,7 +194,42 @@ class ArtistShow extends React.Component {
                       onClick={() => this.props.playSongNow(song)}
                     >
                       <div className="artist-show-song-header">
-                        <h1 key="song-heart" className="far fa-heart"></h1>
+
+                        {this.isLiked(song._id, likedSongs) ? (
+                          <Mutation
+                            mutation={UNLIKE_SONG}
+                            update={(cache, data) =>
+                              this.updateUnlike(cache, data)
+                            }
+                          >
+                            {(removeLikedSong, { data }) => (
+                              <i
+                                key="song-heart"
+                                className="fas fa-heart"
+                                onClick={e =>
+                                  this.handleLike(e, removeLikedSong, song._id)
+                                }
+                              ></i>
+                            )}
+                          </Mutation>
+                        ) : (
+                          <Mutation
+                            mutation={LIKE_SONG}
+                            update={(cache, data) =>
+                              this.updateLike(cache, data)
+                            }
+                          >
+                            {(addLikedSong, { data }) => (
+                              <i
+                                key="song-heart"
+                                className="far fa-heart"
+                                onClick={e =>
+                                  this.handleLike(e, addLikedSong, song._id)
+                                }
+                              ></i>
+                            )}
+                          </Mutation>
+                        )}
 
                         <img
                           className="song-album-icon"
@@ -243,15 +293,59 @@ class ArtistShow extends React.Component {
 
                           return (
                             <li
+                              key={song._id}
                               id={songElement}
                               className="artist-show-album-song"
                               onClick={() => this.props.playSongNow(song)}
                             >
                               <div className="artist-show-album-song-header">
-                                <h1
+                                {/* <h1
                                   key="song-heart"
                                   className="far fa-heart"
-                                ></h1>
+                                ></h1> */}
+                                {this.isLiked(song._id, likedSongs) ? (
+                                  <Mutation
+                                    mutation={UNLIKE_SONG}
+                                    update={(cache, data) =>
+                                      this.updateUnlike(cache, data)
+                                    }
+                                  >
+                                    {(removeLikedSong, { data }) => (
+                                      <i
+                                        key="song-heart"
+                                        className="fas fa-heart"
+                                        onClick={e =>
+                                          this.handleLike(
+                                            e,
+                                            removeLikedSong,
+                                            song._id
+                                          )
+                                        }
+                                      ></i>
+                                    )}
+                                  </Mutation>
+                                ) : (
+                                  <Mutation
+                                    mutation={LIKE_SONG}
+                                    update={(cache, data) =>
+                                      this.updateLike(cache, data)
+                                    }
+                                  >
+                                    {(addLikedSong, { data }) => (
+                                      <i
+                                        key="song-heart"
+                                        className="far fa-heart"
+                                        onClick={e =>
+                                          this.handleLike(
+                                            e,
+                                            addLikedSong,
+                                            song._id
+                                          )
+                                        }
+                                      ></i>
+                                    )}
+                                  </Mutation>
+                                )}
                                 <h1 className="artist-show-album-song-name">
                                   {song.name}
                                 </h1>
