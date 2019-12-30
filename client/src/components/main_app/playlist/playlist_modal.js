@@ -98,7 +98,7 @@ class PlaylistModal extends React.Component {
 
       return (
         <li key={song._id} className="song-item">
-          <img alt="" />
+          <img alt="" src={song.album.imageUrl}/>
           <div className="song-item-details">
             <p key="8">{song.name}</p>
             <p key="9">{artists}</p>
@@ -135,7 +135,7 @@ class PlaylistModal extends React.Component {
       return (
         <li key={album._id} className="playlist-search-album-item">
           <div className="playlist-search-album-detail">
-            <img alt="" />
+            <img alt="" src={album.imageUrl}/>
             <div className="album-detail-text">
               <p>{album.name}</p>
               <p>{albumArtists}</p>

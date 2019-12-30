@@ -245,7 +245,7 @@ class MusicPlayer extends React.Component {
             return (
               <div className="controlls">
                 <div className="left-controlls">
-                  <img className="player-album-cover" alt="" />
+                  <img className="player-album-cover" alt="" src={song.album.imageUrl}/>
                   <div className="player-song-details">
                     <p>{song.name}</p>
                     <p>{artists}</p>

@@ -85,6 +85,7 @@ class MainComponent extends Component {
   }
 
   render() {
+    console.log(this.state.currentSong);
     return (
       <Query query={CURRENT_USER_ID}>
         {({ loading, error, data }) => {
@@ -170,6 +171,7 @@ class MainComponent extends Component {
                                 userPlaylists={userPlaylists}
                                 playSongNow={this.playSongNow}
                                 currentSong={this.state.currentSong}
+                                userId={userId}
                               />
                             )}
                           />

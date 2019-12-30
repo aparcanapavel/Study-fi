@@ -31,7 +31,7 @@ export default {
         artists {
           name
         }
-        album{
+        album {
           imageUrl
         }
       }
@@ -58,10 +58,14 @@ export default {
         artists {
           name
         }
+        album {
+          imageUrl
+        }
       }
       albums {
         _id
         name
+        imageUrl
         artists {
           name
         }
@@ -91,11 +95,14 @@ export default {
         artists {
           name
         }
+        album {
+          imageUrl
+        }
       }
     }
   `,
   FETCH_ARTIST: gql`
-    query fetchArtist($id: ID!) {
+    query fetchArtist($id: ID!, $userId: ID!) {
       artist(_id: $id) {
         name
         imageUrl
@@ -127,6 +134,12 @@ export default {
           album {
             imageUrl
           }
+        }
+      }
+      user(_id: $userId) {
+        _id
+        likedSongs {
+          _id
         }
       }
     }
@@ -165,6 +178,9 @@ export default {
             _id
             name
           }
+          album {
+            imageUrl
+          }
         }
       }
       user(_id: $userId) {
@@ -176,7 +192,7 @@ export default {
     }
   `,
   FETCH_PLAYLIST: gql`
-    query fetchPlaylist($id: ID!) {
+    query fetchPlaylist($id: ID!, $userId: ID!) {
       playlist(_id: $id) {
         name
         songs {
@@ -188,6 +204,15 @@ export default {
             _id
           }
           songUrl
+          album {
+            imageUrl
+          }
+        }
+      }
+      user(_id: $userId) {
+        _id
+        likedSongs {
+          _id
         }
       }
     }

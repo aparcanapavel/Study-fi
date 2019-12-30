@@ -5,16 +5,23 @@ import Queries from "../../../graphql/queries";
 import {Link} from "react-router-dom";
 import { withRouter } from "react-router";
 import SongOptions from "../../song/song_options";
-const { REMOVE_USER_PLAYLIST } = Mutations
+const { REMOVE_USER_PLAYLIST, LIKE_SONG, UNLIKE_SONG } = Mutations;
 const { FETCH_PLAYLIST, FETCH_USER_PLAYLISTS } = Queries;
 
 class PlaylistShow extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { options: null, section: null };
+    this.state = {
+      options: null,
+      section: null,
+      bool: false
+    };
     this.toggleSongOptions = this.toggleSongOptions.bind(this);
     this.updateCache = this.updateCache.bind(this);
     this.togglePlaylistOptions = this.togglePlaylistOptions.bind(this);
+    this.updateLike = this.updateLike.bind(this);
+    this.updateUnlike = this.updateUnlike.bind(this);
+    this.handleLike = this.handleLike.bind(this);
   }
 
   toggleSongOptions(e, songId, section) {
@@ -46,7 +53,7 @@ class PlaylistShow extends React.Component {
       let deletedPlaylist = data.data.removeUserPlaylist;
       let newPlaylistArray = [];
       playlistArray.forEach((playlist, i) => {
-        if(playlist._id !== deletedPlaylist._id){
+        if (playlist._id !== deletedPlaylist._id) {
           newPlaylistArray.push(playlist);
         }
       });
@@ -63,7 +70,7 @@ class PlaylistShow extends React.Component {
     }
   }
 
-  togglePlaylistOptions(e, mutation){
+  togglePlaylistOptions(e, mutation) {
     const playlistId = this.props.match.params.playlistId;
     const userId = this.props.currentUserId;
     mutation({
@@ -73,7 +80,108 @@ class PlaylistShow extends React.Component {
       }
     }).then(() => {
       this.props.history.push("/");
-    })
+    });
+  }
+
+  isLiked(songId, likedSongs) {
+    for (let i = 0; i < likedSongs.length; i++) {
+      let likedSong = likedSongs[i];
+      if (likedSong._id === songId) return true;
+    }
+
+    return false;
+  }
+
+  updateLike(cache, data) {
+    let playlistShow;
+    try {
+      playlistShow = cache.readQuery({
+        query: FETCH_PLAYLIST,
+        variables: {
+          id: this.props.match.params.playlistId,
+          userId: this.props.currentUserId
+        }
+      });
+    } catch (err) {
+      return;
+    }
+
+    if (playlistShow) {
+      let song = data.data.addLikedSong;
+      let likedSongs = playlistShow.user.likedSongs.concat(song);
+
+      cache.writeQuery({
+        query: FETCH_PLAYLIST,
+        variables: {
+          songId: this.props.match.params.playlistId,
+          userId: this.props.currentUserId
+        },
+        data: {
+          playlist: playlistShow.playlist,
+          user: {
+            _id: this.props.currentUserId,
+            likedSongs,
+            __typename: "UserType"
+          }
+        }
+      });
+    }
+    this.setState({ bool: !this.state.bool });
+  }
+
+  updateUnlike(cache, data) {
+    let playlistShow;
+    try {
+      playlistShow = cache.readQuery({
+        query: FETCH_PLAYLIST,
+        variables: {
+          id: this.props.match.params.playlistId,
+          userId: this.props.currentUserId
+        }
+      });
+    } catch (err) {
+      return;
+    }
+
+    if (playlistShow) {
+      let likedSongs = playlistShow.user.likedSongs;
+      let removedSong = data.data.removeLikedSong;
+      let resArr = [];
+      likedSongs.forEach(song => {
+        if (song._id !== removedSong._id) {
+          resArr.push(song);
+        }
+      });
+
+      cache.writeQuery({
+        query: FETCH_PLAYLIST,
+        variables: {
+          id: this.props.match.params.playlistId,
+          userId: this.props.currentUserId
+        },
+        data: {
+          playlist: playlistShow.playlist,
+          user: {
+            _id: this.props.currentUserId,
+            likedSongs: resArr,
+            __typename: "UserType"
+          }
+        }
+      });
+    }
+
+    this.setState({ bool: !this.state.bool });
+  }
+
+  handleLike(e, mutation, songId) {
+    e.stopPropagation();
+
+    mutation({
+      variables: {
+        songId,
+        userId: this.props.currentUserId
+      }
+    });
   }
 
   render() {
@@ -81,7 +189,10 @@ class PlaylistShow extends React.Component {
       <div>
         <Query
           query={FETCH_PLAYLIST}
-          variables={{ id: this.props.match.params.playlistId }}
+          variables={{ 
+            id: this.props.match.params.playlistId,
+            userId: this.props.currentUserId
+          }}
         >
           {({ loading, error, data }) => {
             if (loading) {
@@ -89,35 +200,46 @@ class PlaylistShow extends React.Component {
             } else if (error) {
               return <h1>error</h1>;
             } else {
+              let images = data.playlist.songs.map((song, i) => {
+                if (i < 4) {
+                  return (
+                    <img src={song.album.imageUrl} alt="" key={song._id} />
+                  );
+                }
+              });
+
+              const likedSongs = data.user.likedSongs;
+              console.log("render: ", likedSongs);
               return (
                 <div className="playlist-show">
                   <Mutation
                     mutation={REMOVE_USER_PLAYLIST}
                     update={(cache, data2) => this.updateCache(cache, data2)}
                   >
-
-                    {/* compute 4 album images to display */}
-
                     {(removeUserPlaylist, { data2 }) => {
                       return (
                         <div className="playlist-show-top">
-                          <div className="albums-window">
-                            <img src="" alt="albums" />
-                            <img src="" alt="albums" />
-                            <img src="" alt="albums" />
-                            <img src="" alt="albums" />
-                          </div>
+                          <div className="albums-window">{images}</div>
 
                           <div className="playlist-details">
                             <h2>{data.playlist.name}</h2>
-                            
+
                             <button
                               className="play-playlist"
-                              onClick={() => this.props.playAlbumNow(data.playlist.songs)}
-                            >Play</button>
+                              onClick={() =>
+                                this.props.playAlbumNow(data.playlist.songs)
+                              }
+                            >
+                              Play
+                            </button>
 
                             <i
-                              onClick={e => this.togglePlaylistOptions(e, removeUserPlaylist)}
+                              onClick={e =>
+                                this.togglePlaylistOptions(
+                                  e,
+                                  removeUserPlaylist
+                                )
+                              }
                               className="fas fa-ellipsis-h"
                             ></i>
                           </div>
@@ -143,7 +265,47 @@ class PlaylistShow extends React.Component {
                           onClick={() => this.props.playSongNow(song)}
                         >
                           <div className="album-show-song-start">
-                            <h1 key="song-heart" className="far fa-heart"></h1>
+                            {/* <h1 key="song-heart" className="far fa-heart"></h1> */}
+                            {this.isLiked(song._id, likedSongs) ? (
+                              <Mutation
+                                mutation={UNLIKE_SONG}
+                                update={(cache, data) =>
+                                  this.updateUnlike(cache, data)
+                                }
+                              >
+                                {(removeLikedSong, { data }) => (
+                                  <i
+                                    key="song-heart"
+                                    className="fas fa-heart"
+                                    onClick={e =>
+                                      this.handleLike(
+                                        e,
+                                        removeLikedSong,
+                                        song._id
+                                      )
+                                    }
+                                  ></i>
+                                )}
+                              </Mutation>
+                            ) : (
+                              <Mutation
+                                mutation={LIKE_SONG}
+                                update={(cache, data) =>
+                                  this.updateLike(cache, data)
+                                }
+                              >
+                                {(addLikedSong, { data }) => (
+                                  <i
+                                    key="song-heart"
+                                    className="far fa-heart"
+                                    onClick={e =>
+                                      this.handleLike(e, addLikedSong, song._id)
+                                    }
+                                  ></i>
+                                )}
+                              </Mutation>
+                            )}
+
                             <h1 className="album-show-song-name">
                               {song.name}
                             </h1>
