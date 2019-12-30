@@ -36,13 +36,10 @@ class AddToPlaylist extends React.Component {
     }
 
     if (playlist) {
-      console.log("playlist",playlist)
       let songs = playlist.playlist.songs;
-      console.log(playlist.playlist.songs);
-      console.log("data.data.addSongToPlaylist", data.data.addSongToPlaylist);
       let lastSongIndex = data.data.addSongToPlaylist.songs.length
       let newSong = data.data.addSongToPlaylist.songs[lastSongIndex - 1]
-      console.log(newSong);
+
       let newSongsArr = songs.push(newSong)
       cache.writeQuery({
         query: FETCH_PLAYLIST,

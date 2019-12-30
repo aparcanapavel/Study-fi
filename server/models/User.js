@@ -62,7 +62,6 @@ UserSchema.statics.removePlaylist = function(userId, playlistId){
             user.save(),
             Playlists.findByIdAndDelete({ _id: playlistId })
           ]).then(([ user, playlist ]) => {
-            console.log("removed playlist successfully");
             return playlist;
           });
         })

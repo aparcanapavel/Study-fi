@@ -74,7 +74,6 @@ const mutation = new GraphQLObjectType({
         })
           .save()
           .then(song => {
-            console.log(song);
             Song.addSongToArtistAlbum(song.id, song.artists, song.album);
           });
       }
