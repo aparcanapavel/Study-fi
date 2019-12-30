@@ -13,6 +13,7 @@ import Queries from "../../graphql/queries";
 import PlaylistShow from "./playlist/playlist_show";
 import CreatePlaylist from "./playlist/create_playlist";
 import QueueShow from '../music_player/queue_show';
+import Library from "./library/library";
 const { CURRENT_USER_ID, FETCH_USER_PLAYLISTS } = Queries;
 
 class MainComponent extends Component {
@@ -136,7 +137,11 @@ class MainComponent extends Component {
                             <i className="fas fa-search"></i>
                             <p>Search</p>
                           </li>
-                          <li key="3" className="nav-name-item" id="library">
+                          <li key="3" 
+                            onClick={() => this.toPage("library")}
+                            className="nav-name-item" 
+                            id="library"
+                          >
                             <i className="fas fa-book"></i>
                             <p>Your Library</p>
                           </li>
@@ -211,6 +216,11 @@ class MainComponent extends Component {
                           <Route
                             path="/queue"
                             render={props => <QueueShow {...props} />}
+                          />
+
+                          <Route
+                            path="/library"
+                            render={props => <Library {...props} />}
                           />
 
                           <Route
