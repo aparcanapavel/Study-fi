@@ -49,6 +49,11 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.253);
 }
 
+.album-show-song > i {
+  padding: 3px 5px;
+  margin-left: 5px;
+}
+
 .album-show-song:hover {
   background-color: rgba(255, 255, 255, 0.075);
 }
@@ -61,6 +66,11 @@
   width: 500px;
   display: flex;
   flex-direction: row;
+}
+
+.album-show-song-start > i {
+  margin-top: 3px;
+  margin-right: 10px;
 }
 
 .album-show-song-name {
