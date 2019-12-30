@@ -192,7 +192,7 @@ export default {
     }
   `,
   FETCH_PLAYLIST: gql`
-    query fetchPlaylist($id: ID!) {
+    query fetchPlaylist($id: ID!, $userId: ID!) {
       playlist(_id: $id) {
         name
         songs {
@@ -207,6 +207,12 @@ export default {
           album {
             imageUrl
           }
+        }
+      }
+      user(_id: $userId) {
+        _id
+        likedSongs {
+          _id
         }
       }
     }
