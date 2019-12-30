@@ -58,7 +58,7 @@ class LikedSongs extends React.Component {
       <ul>
         <Query query={ FIND_LIKED_SONGS } 
           variables={{id: this.props.currentUserId}}
-          options={{"fetchPolicy": "no-cache"}}
+          fetchPolicy="no-cache"
         >
           {({ loading, error, data }) => {
             if (loading) {
