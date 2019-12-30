@@ -10,6 +10,7 @@ class Library extends React.Component {
   render() {
     return (
     <div>
+      <h1 className="liked-songs-header">Liked Songs</h1>
       <LikedSongs 
         currentUserId={this.props.currentUserId}
         userPlaylists={this.props.userPlaylists}
@@ -17,7 +18,7 @@ class Library extends React.Component {
         playSongNow={this.props.playSongNow}
       />
 
-      <Playlists />
+      {/* <Playlists /> */}
     </div>
     )
   }

@@ -156,7 +156,11 @@ class ArtistShow extends React.Component {
               />
             </div>
           );
-          if (error) return <p>Error</p>;
+          if (error) {
+            console.log(error);
+            debugger;
+            return <p>Error</p>;
+          }
 
           const likedSongs = data.user.likedSongs;
           

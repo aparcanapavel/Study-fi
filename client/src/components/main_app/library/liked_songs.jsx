@@ -3,6 +3,7 @@ import Queries from "../../../graphql/queries";
 import Mutations from "../../../graphql/mutations";
 import { Query, Mutation } from "react-apollo";
 import SongOptions from "../../song/song_options";
+import Loader from "react-loader-spinner";
 // import SongOptions from "../../song/song_options";
 const { FIND_LIKED_SONGS } = Queries;
 const { UNLIKE_SONG, LIKE_SONG } = Mutations;
@@ -55,13 +56,26 @@ class LikedSongs extends React.Component {
   render() {
     return (
       <ul>
-        <h1></h1>
         <Query query={ FIND_LIKED_SONGS } 
           variables={{id: this.props.currentUserId}}
         >
           {({ loading, error, data }) => {
-            if (loading) return <p>Loading...</p>;
-            if (error) return <p>error</p>;
+            if (loading) {
+              return (
+              <div className="album-show-loading">
+                <Loader
+                  type="Bars"
+                  color="#2F5451"
+                  height={100}
+                  width={100}
+                />
+              </div>
+              )
+            };
+            if (error) {
+              console.log(error);
+            return <p>error</p>
+          };
 
 
               return data.user.likedSongs.map((song, i) => {
