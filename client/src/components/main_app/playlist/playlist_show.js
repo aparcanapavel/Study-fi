@@ -5,6 +5,7 @@ import Queries from "../../../graphql/queries";
 import {Link} from "react-router-dom";
 import { withRouter } from "react-router";
 import SongOptions from "../../song/song_options";
+import Loader from "react-loader-spinner";
 const { REMOVE_USER_PLAYLIST, LIKE_SONG, UNLIKE_SONG } = Mutations;
 const { FETCH_PLAYLIST, FETCH_USER_PLAYLISTS } = Queries;
 
@@ -196,7 +197,16 @@ class PlaylistShow extends React.Component {
         >
           {({ loading, error, data }) => {
             if (loading) {
-              return <h1>loading</h1>;
+              return (
+                <div className="album-show-loading">
+                  <Loader
+                    type="Bars"
+                    color="#2F5451"
+                    height={100}
+                    width={100}
+                  />
+                </div>
+              );
             } else if (error) {
               return <h1>error</h1>;
             } else {
