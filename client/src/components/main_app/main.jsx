@@ -166,6 +166,7 @@ class MainComponent extends Component {
                                 userPlaylists={userPlaylists}
                                 playSongNow={this.playSongNow}
                                 currentSong={this.state.currentSong}
+                                userId={userId}
                               />
                             )}
                           />
