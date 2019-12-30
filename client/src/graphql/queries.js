@@ -191,5 +191,19 @@ export default {
         }
       }
     }
+  `,
+  FIND_LIKED_SONGS: gql`
+    query findLikedSongs($id: ID!) {
+      user(_id: $id) {
+        likedSongs{
+          _id
+          name
+          artists{
+            _id
+            name
+          }
+        }
+      }
+    }
   `
 };
