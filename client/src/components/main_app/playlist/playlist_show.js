@@ -5,7 +5,8 @@ import Queries from "../../../graphql/queries";
 import {Link} from "react-router-dom";
 import { withRouter } from "react-router";
 import SongOptions from "../../song/song_options";
-import Loader from "react-loader-spinner";
+import Loader from "react-loader-spinner"
+
 const { REMOVE_USER_PLAYLIST, LIKE_SONG, UNLIKE_SONG } = Mutations;
 const { FETCH_PLAYLIST, FETCH_USER_PLAYLISTS } = Queries;
 
@@ -208,12 +209,13 @@ class PlaylistShow extends React.Component {
                 </div>
               );
             } else if (error) {
+              console.log(error);
               return <h1>error</h1>;
             } else {
               let images = data.playlist.songs.map((song, i) => {
                 if (i < 4) {
                   return (
-                    <img src={song.album.imageUrl} alt="" key={song._id} />
+                    <img src={song.album.imageUrl} alt="" key={i} />
                   );
                 }
               });
@@ -271,7 +273,7 @@ class PlaylistShow extends React.Component {
                         <li
                           id={songElement}
                           className="album-show-song"
-                          key={song._id}
+                          key={i+4}
                           onClick={() => this.props.playSongNow(song)}
                         >
                           <div className="album-show-song-start">
