@@ -299,10 +299,7 @@ class ArtistShow extends React.Component {
                               onClick={() => this.props.playSongNow(song)}
                             >
                               <div className="artist-show-album-song-header">
-                                {/* <h1
-                                  key="song-heart"
-                                  className="far fa-heart"
-                                ></h1> */}
+  
                                 {this.isLiked(song._id, likedSongs) ? (
                                   <Mutation
                                     mutation={UNLIKE_SONG}
