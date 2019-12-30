@@ -74,7 +74,6 @@ class LikedSongs extends React.Component {
               )
             };
             if (error) {
-              console.log(error);
             return <p>error</p>
           };
 

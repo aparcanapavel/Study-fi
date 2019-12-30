@@ -209,7 +209,6 @@ class PlaylistShow extends React.Component {
                 </div>
               );
             } else if (error) {
-              console.log(error);
               return <h1>error</h1>;
             } else {
               let images = data.playlist.songs.map((song, i) => {

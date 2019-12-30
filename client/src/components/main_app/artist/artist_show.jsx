@@ -157,8 +157,6 @@ class ArtistShow extends React.Component {
             </div>
           );
           if (error) {
-            console.log(error);
-            debugger;
             return <p>Error</p>;
           }
 
