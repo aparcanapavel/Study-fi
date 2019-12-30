@@ -89,23 +89,24 @@ class PlaylistShow extends React.Component {
             } else if (error) {
               return <h1>error</h1>;
             } else {
+
+              let images = data.playlist.songs.map((song, i) => {
+                if(i < 4){
+                  return <img src={song.album.imageUrl} alt="" key={song._id}/>
+                }
+              })
+              
               return (
                 <div className="playlist-show">
                   <Mutation
                     mutation={REMOVE_USER_PLAYLIST}
                     update={(cache, data2) => this.updateCache(cache, data2)}
                   >
-
-                    {/* compute 4 album images to display */}
-
                     {(removeUserPlaylist, { data2 }) => {
                       return (
                         <div className="playlist-show-top">
                           <div className="albums-window">
-                            <img src="" alt="albums" />
-                            <img src="" alt="albums" />
-                            <img src="" alt="albums" />
-                            <img src="" alt="albums" />
+                            {images}
                           </div>
 
                           <div className="playlist-details">

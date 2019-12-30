@@ -58,10 +58,14 @@ export default {
         artists {
           name
         }
+        album{
+          imageUrl
+        }
       }
       albums {
         _id
         name
+        imageUrl
         artists {
           name
         }
@@ -90,6 +94,9 @@ export default {
         duration
         artists {
           name
+        }
+        album{
+          imageUrl
         }
       }
     }
@@ -165,6 +172,9 @@ export default {
             _id
             name
           }
+          album{
+            imageUrl
+          }
         }
       }
       user(_id: $userId) {
@@ -188,6 +198,9 @@ export default {
             _id
           }
           songUrl
+          album{
+            imageUrl
+          }
         }
       }
     }

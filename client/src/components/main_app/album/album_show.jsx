@@ -66,22 +66,23 @@ class ArtistShow extends React.Component {
     } catch (err) {
       return;
     }
+    // debugger
     if (albumShow) {
 
       let song = data.data.addLikedSong;
-      let likedSongs = albumShow.user.likedSongs;
+      let likedSongs = albumShow.user.likedSongs.concat(song);
 
       cache.writeQuery({
         query: FETCH_ALBUM,
         variables: {
-          id: this.props.match.params.albumId,
+          songId: this.props.match.params.albumId,
           userId: this.props.userId
         },
         data: {
           album: albumShow.album,
           user: {
             _id: this.props.userId,
-            likedSongs: likedSongs.push(song),
+            likedSongs,
             __typename: "UserType"
           }
         }
@@ -164,7 +165,7 @@ class ArtistShow extends React.Component {
           if (error) return <p>Error</p>;
 
           const likedSongs = data.user.likedSongs;
-
+          console.log("render: ",likedSongs)
           return (
             <div className="album-show">
               <div className="album-show-header">
