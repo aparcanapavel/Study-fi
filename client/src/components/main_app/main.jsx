@@ -220,7 +220,9 @@ class MainComponent extends Component {
 
                           <Route
                             path="/library"
-                            render={props => <Library {...props} />}
+                            render={props => <Library {...props} 
+                            currentUserId={userId}
+                            />}
                           />
 
                           <Route

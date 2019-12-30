@@ -198,12 +198,18 @@ export default {
         likedSongs{
           _id
           name
+          duration
           artists{
             _id
             name
           }
+          album{
+            _id
+            name
+            imageUrl
+          }
         }
       }
     }
-  `
+  `,
 };
