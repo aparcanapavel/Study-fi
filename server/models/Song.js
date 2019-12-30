@@ -48,7 +48,6 @@ SongSchema.statics.findAlbum = function(id) {
   return this.findById(id)
     .populate("album")
     .then(song => {
-      // console.log(song)
       const Album = mongoose.model("album");
       return Album.findById(song.album);
     });
@@ -61,13 +60,12 @@ SongSchema.statics.addSongToArtistAlbum = (songId, artistArr, albumId) => {
   return artistArr.forEach(artistId => {
     Artist.findById(artistId).then(artist=> {
       Album.findById(albumId).then(album => {
-        console.log("adding song to artist...");
         artist.songs.push(songId);
+
         if(!album.songs.includes(songId)){
-          console.log("adding song to album...");
           album.songs.push(songId);
         }
-        console.log("--------------------------------------");
+        
         return Promise.all([artist.save(), album.save()])
           .then(([artist, album]) => artist)
       })

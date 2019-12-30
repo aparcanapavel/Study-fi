@@ -209,7 +209,7 @@ class PlaylistShow extends React.Component {
               });
 
               const likedSongs = data.user.likedSongs;
-              console.log("render: ", likedSongs);
+
               return (
                 <div className="playlist-show">
                   <Mutation
