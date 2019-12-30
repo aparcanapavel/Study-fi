@@ -67,6 +67,10 @@
   align-items: center;
 }
 
+.artist-show-song-header > i {
+  margin-right: 10px;
+}
+
 .artist-show-song:hover{
   background-color: rgba(255, 255, 255, 0.082);
 }

@@ -1,6 +1,5 @@
 import React from "react";
 import { Query, Mutation } from "react-apollo";
-import { useMutation } from "@apollo/react-hooks";
 import Queries from "../../../graphql/queries";
 import { Link } from "react-router-dom";
 import SongOptions from "../../song/song_options";
@@ -66,7 +65,7 @@ class ArtistShow extends React.Component {
     } catch (err) {
       return;
     }
-    // debugger
+
     if (albumShow) {
 
       let song = data.data.addLikedSong;
@@ -165,7 +164,7 @@ class ArtistShow extends React.Component {
           if (error) return <p>Error</p>;
 
           const likedSongs = data.user.likedSongs;
-          console.log("render: ",likedSongs)
+
           return (
             <div className="album-show">
               <div className="album-show-header">
