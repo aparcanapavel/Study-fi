@@ -409,7 +409,6 @@ class Search extends React.Component {
                       {songs ? (
                         <div className="search-result-header">
                           <h4>Songs</h4>
-                          <p>SEE ALL</p>
                         </div>
                       ) : null}
                       {songs}
@@ -418,7 +417,6 @@ class Search extends React.Component {
                       {artists ? (
                         <div className="search-result-header">
                           <h4>Artists</h4>
-                          <p>SEE ALL</p>
                         </div>
                       ) : null}
                       {artists}
@@ -427,7 +425,6 @@ class Search extends React.Component {
                       {albums ? (
                         <div className="search-result-header">
                           <h4>Albums</h4>
-                          <p>SEE ALL</p>
                         </div>
                       ) : null}
                       {albums}

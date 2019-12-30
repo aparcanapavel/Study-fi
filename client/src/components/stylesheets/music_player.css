@@ -174,7 +174,7 @@
 
 .right-controlls .volume-seeker-shell{
   position: relative;
-  width: 100px;
+  width: 25%;
   height: 5px;
   margin-left: 1px;
   background-color: rgb(74, 73, 73);
