@@ -6,6 +6,7 @@ import {Link} from "react-router-dom";
 import { withRouter } from "react-router";
 import SongOptions from "../../song/song_options";
 import Loader from "react-loader-spinner"
+
 const { REMOVE_USER_PLAYLIST, LIKE_SONG, UNLIKE_SONG } = Mutations;
 const { FETCH_PLAYLIST, FETCH_USER_PLAYLISTS } = Queries;
 
@@ -198,15 +199,15 @@ class PlaylistShow extends React.Component {
           {({ loading, error, data }) => {
             if (loading) {
               return (
-                <div className="playlist-show-loader">
-              <Loader
-                type="Bars"
-                color="#2F5451"
-                height={100}
-                width={100}
-              />
+                <div className="album-show-loading">
+                  <Loader
+                    type="Bars"
+                    color="#2F5451"
+                    height={100}
+                    width={100}
+                  />
                 </div>
-              )
+              );
             } else if (error) {
               console.log(error);
               return <h1>error</h1>;

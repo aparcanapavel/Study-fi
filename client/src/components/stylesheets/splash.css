@@ -32,3 +32,36 @@
   text-decoration: underline;
   font-size: 15px;
 }
+
+#learn-more-container{
+  position: absolute;
+  display: block;
+  margin: 0 auto;
+  width: 600px;
+  background-color: #282828;
+  color: rgb(221, 221, 221);
+  padding: 30px 50px;
+  top: 20%;
+  border-radius: 10px;
+  font-size: 15px;
+}
+
+#learn-more-container h3{
+  font-size: 30px;
+  margin: 10px 0px;
+  font-family: 'Raleway', sans-serif;
+  border-bottom: 1px solid gray;
+}
+
+
+#learn-more-container p {
+  padding: 10px;
+  letter-spacing: 0.5px;
+  font-family: 'Varela', sans-serif;
+}
+
+#learn-more-container p a {
+  margin-left: 4px;
+  text-decoration: underline;
+  cursor: pointer;
+}
