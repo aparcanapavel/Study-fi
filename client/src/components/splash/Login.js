@@ -12,6 +12,8 @@ class Login extends Component {
       email: "",
       password: ""
     };
+
+    this.demoUser = this.demoUser.bind(this);
   }
 
   update(field) {
@@ -22,6 +24,16 @@ class Login extends Component {
     // here we can write directly to our cache with our returned mutation data
     client.writeData({
       data: { isLoggedIn: data.login.loggedIn }
+    });
+  }
+
+  demoUser(e, login){
+    e.preventDefault();
+    login({
+      variables: {
+        email: "demoUser@gmail.com",
+        password: "password"
+      }
     });
   }
 
@@ -36,8 +48,8 @@ class Login extends Component {
         }}
         update={(client, data) => this.updateCache(client, data)}
       >
-        {loginUser => (
-          <div className="auth-div">
+        {loginUser => {
+          return <div className="auth-div">
             <h1 className="auth-header">
               Login!
             </h1>
@@ -79,10 +91,10 @@ class Login extends Component {
             </div>
 
             <div className="auth-switch">
-              <h1 className="auth-link">Use Demo User</h1>
+              <p className="auth-link" onClick={(e) => this.demoUser(e, loginUser)}>Use Demo User</p>
             </div>
           </div>
-        )}
+        }}
       </Mutation>
     );
   }

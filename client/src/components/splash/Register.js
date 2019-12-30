@@ -3,7 +3,7 @@ import { Mutation } from "react-apollo";
 import Mutations from "../../graphql/mutations";
 import { Link } from "react-router-dom";
 
-const { REGISTER_USER } = Mutations;
+const { REGISTER_USER, LOGIN_USER } = Mutations;
 
 class Register extends Component {
   constructor(props) {
@@ -26,6 +26,22 @@ class Register extends Component {
     });
   }
 
+  updateLoginCache(client, { data }) {
+    client.writeData({
+      data: { isLoggedIn: data.login.loggedIn }
+    });
+  }
+
+  demoUser(e, login) {
+    e.preventDefault();
+    login({
+      variables: {
+        email: "demoUser@gmail.com",
+        password: "password"
+      }
+    });
+  }
+
   render() {
     return (
       <Mutation
@@ -39,9 +55,7 @@ class Register extends Component {
       >
         {registerUser => (
           <div className="auth-div">
-            <h1 className="auth-header">
-              Register!
-            </h1>
+            <h1 className="auth-header">Register!</h1>
             <form
               className="auth-form"
               onSubmit={e => {
@@ -74,17 +88,37 @@ class Register extends Component {
                 type="password"
                 placeholder="Password"
               />
-              <button
-                className="auth-button"
-                type="submit">
-                  Sign Up
+              <button className="auth-button" type="submit">
+                Sign Up
               </button>
               <div className="auth-switch">
                 <h1 className="auth-link-preface">Already a member?</h1>
-                <Link to="/login" > <h1 className="auth-link">Login Instead</h1></Link>
+                <Link to="/login">
+                  {" "}
+                  <h1 className="auth-link">Login Instead</h1>
+                </Link>
               </div>
               <div className="auth-switch">
-                <h1 className="auth-link">Use Demo User</h1>
+                <Mutation
+                  mutation={LOGIN_USER}
+                  onCompleted={data => {
+                    const { token } = data.login;
+                    localStorage.setItem("auth-token", token);
+                    this.props.history.push("/");
+                  }}
+                  update={(client, data) => this.updateLoginCache(client, data)}
+                >
+                  {loginUser => {
+                    return (
+                      <p
+                        className="auth-link"
+                        onClick={e => this.demoUser(e, loginUser)}
+                      >
+                        Use Demo User
+                      </p>
+                    );
+                  }}
+                </Mutation>
               </div>
             </form>
           </div>
