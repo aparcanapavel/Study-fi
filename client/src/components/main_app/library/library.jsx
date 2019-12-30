@@ -12,6 +12,9 @@ class Library extends React.Component {
     <div>
       <LikedSongs 
         currentUserId={this.props.currentUserId}
+        userPlaylists={this.props.userPlaylists}
+        currentSong={this.props.currentSong}
+        playSongNow={this.props.playSongNow}
       />
 
       <Playlists />

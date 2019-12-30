@@ -220,10 +220,12 @@ export default {
   FIND_LIKED_SONGS: gql`
     query findLikedSongs($id: ID!) {
       user(_id: $id) {
+        _id
         likedSongs{
           _id
           name
           duration
+          songUrl
           artists{
             _id
             name

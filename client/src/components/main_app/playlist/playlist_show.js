@@ -203,13 +203,12 @@ class PlaylistShow extends React.Component {
               let images = data.playlist.songs.map((song, i) => {
                 if (i < 4) {
                   return (
-                    <img src={song.album.imageUrl} alt="" key={song._id} />
+                    <img src={song.album.imageUrl} alt="" key={i} />
                   );
                 }
               });
 
               const likedSongs = data.user.likedSongs;
-              console.log("render: ", likedSongs);
               return (
                 <div className="playlist-show">
                   <Mutation
@@ -261,7 +260,7 @@ class PlaylistShow extends React.Component {
                         <li
                           id={songElement}
                           className="album-show-song"
-                          key={song._id}
+                          key={i+4}
                           onClick={() => this.props.playSongNow(song)}
                         >
                           <div className="album-show-song-start">

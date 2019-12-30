@@ -222,8 +222,12 @@ class MainComponent extends Component {
 
                           <Route
                             path="/library"
-                            render={props => <Library {...props} 
+                            render={props => 
+                            <Library {...props}
+                            playSongNow={this.playSongNow}
+                            currentSong={this.state.currentSong}
                             currentUserId={userId}
+                            userPlaylists={userPlaylists}
                             />}
                           />
 
