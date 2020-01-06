@@ -25,7 +25,8 @@
     "client-install": "npm install --prefix client",
     "client": "npm start --prefix client",
     "server": "nodemon --inspect index.js",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
   },
   "repository": {
     "type": "git",
