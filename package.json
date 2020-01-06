@@ -24,8 +24,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "client-install": "npm install --prefix client",
     "client": "npm start --prefix client",
+    "start": "node index.js",
     "server": "nodemon --inspect index.js",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "repository": {
     "type": "git",
