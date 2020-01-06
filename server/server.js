@@ -7,12 +7,14 @@ const schema = require("./schema/schema");
 const cors = require("cors");
 const expressGraphQL = require("express-graphql");
 const app = express();
-// if (process.env.NODE_ENV === 'production') {
-//   app.use(express.static('frontend/build'));
-//   app.get('/', (req, res) => {
-//     res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
-//   })
-// };
+const path = require('path');
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('frontend/build'));
+  app.get('/', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+  })
+};
 if (!db) {
   throw new Error("You must provide a string to connect to MongoDB Atlas");
 }
