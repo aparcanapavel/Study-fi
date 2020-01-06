@@ -9,7 +9,7 @@ Study-fi
 -bonus: integrate a live chat per playlist that deletes in 24h.
 
 ## Live Site
- [Study-fi](https://dashboard.heroku.com/apps/study-fi)
+ [Study-fi](https://study-fi.herokuapp.com/)
 
 ## Overview:
 Study-fi is an app that is targeted towards students or professionals wanting to listen to calm beats to improve their focus and productivity. We will accomplish this by using the spotify api to get songs, albums, and album covers from their library.
