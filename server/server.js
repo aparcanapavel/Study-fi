@@ -16,10 +16,6 @@ if (process.env.NODE_ENV === 'production') {
   })
 };
 
-// if (!db) {
-//   throw new Error("You must provide a string to connect to MongoDB Atlas");
-// }
-
 mongoose
   .connect(db, { useNewUrlParser: true })
   .then(() => console.log("Connected to MongoDB successfully"))
