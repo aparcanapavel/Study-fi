@@ -15,6 +15,7 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
   })
 };
+
 // if (!db) {
 //   throw new Error("You must provide a string to connect to MongoDB Atlas");
 // }
