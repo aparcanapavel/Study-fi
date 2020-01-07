@@ -174,8 +174,7 @@ class MusicPlayer extends React.Component {
     const currentQueue = this.state.queue;
     let songIdx = this.state.currentSongIdx + 1;
     const player = document.getElementById("music-player");
-    if(songIdx === this.state.queue.length){
-      debugger  
+    if(songIdx === this.state.queue.length){ 
       player.pause();
       player.currentTime = 0;
       return this.setState({ songPercentage: 101, isPlaying: false });
