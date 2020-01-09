@@ -229,6 +229,7 @@ class MusicPlayer extends React.Component {
       player.play();
     }, 1);
     this.setState({
+      history: [],
       queue: newQueue,
       currentSongIdx: songIdx,
       isPlaying: true
