@@ -244,15 +244,18 @@ class PlaylistShow extends React.Component {
                               Play
                             </button>
 
-                            <i
+                            <i className="fas fa-ellipsis-h" onClick={this.togglePlaylist} />
+
+                            {
+                            <button
                               onClick={e =>
                                 this.togglePlaylistOptions(
                                   e,
                                   removeUserPlaylist
                                 )
                               }
-                              className="fas fa-ellipsis-h"
-                            ></i>
+                            >Delete Playlist</button>
+                            }
                           </div>
                         </div>
                       );

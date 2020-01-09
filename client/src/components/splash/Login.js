@@ -14,18 +14,19 @@ class Login extends Component {
     };
 
     this.demoUser = this.demoUser.bind(this);
-  }
+    this.handleErrors = this.handleErrors.bind(this);
+  };
 
   update(field) {
     return e => this.setState({ [field]: e.target.value });
-  }
+  };
 
   updateCache(client, { data }) {
     // here we can write directly to our cache with our returned mutation data
     client.writeData({
       data: { isLoggedIn: data.login.loggedIn }
     });
-  }
+  };
 
   demoUser(e, login){
     e.preventDefault();
@@ -35,7 +36,12 @@ class Login extends Component {
         password: "password"
       }
     });
-  }
+  };
+
+  handleErrors(errors) {
+    console.log(errors.message);
+    this.setState({errors: errors.message, wasError: true});
+  };
 
   render() {
     return (
@@ -46,6 +52,9 @@ class Login extends Component {
           localStorage.setItem("auth-token", token);
           this.props.history.push("/");
         }}
+        onError = { errors => {
+          this.handleErrors(errors);
+        }}
         update={(client, data) => this.updateCache(client, data)}
       >
         {loginUser => {
@@ -53,6 +62,8 @@ class Login extends Component {
             <h1 className="auth-header">
               Login!
             </h1>
+            <ul className="error-List">
+            </ul>
             <form
               className="auth-form"
               onSubmit={e => {
@@ -97,7 +108,7 @@ class Login extends Component {
         }}
       </Mutation>
     );
-  }
+  };
 }
 
 export default Login;
