@@ -218,7 +218,7 @@ class ArtistShow extends React.Component {
                       id={songElement}
                       className="album-show-song"
                       key={song._id}
-                      onClick={() => this.props.playSongNow(song)}
+                      onClick={() => this.props.playAlbumSongNow(data.album, i)}
                     >
                       <div className="album-show-song-start">
                         {this.isLiked(song._id, likedSongs) ? (

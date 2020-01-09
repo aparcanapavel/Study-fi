@@ -30,6 +30,7 @@ class MusicPlayer extends React.Component {
     this.handleVol = this.handleVol.bind(this);
     this.toggleMute = this.toggleMute.bind(this);
     this.getQueue = this.getQueue.bind(this);
+    this.playAlbumSongNow = this.playAlbumSongNow.bind(this);
   }
 
   getQueue() {
@@ -227,7 +228,11 @@ class MusicPlayer extends React.Component {
       const player = document.getElementById("music-player");
       player.play();
     }, 1);
-    this.setState({ queue: newQueue, currentSongIdx: 0, isPlaying: true });
+    this.setState({
+      queue: newQueue,
+      currentSongIdx: songIdx,
+      isPlaying: true
+    });
   }
 
   addToQueue(song) {
