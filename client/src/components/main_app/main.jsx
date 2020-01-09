@@ -200,6 +200,7 @@ class MainComponent extends Component {
                                 {...props}
                                 userPlaylists={userPlaylists}
                                 playSongNow={this.playSongNow}
+                                playAlbumSongNow={this.playAlbumSongNow}
                                 currentSong={this.state.currentSong}
                                 userId={userId}
                               />
