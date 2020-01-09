@@ -240,6 +240,7 @@ class MainComponent extends Component {
                                 userPlaylists={userPlaylists}
                                 playSongNow={this.playSongNow}
                                 playAlbumNow={this.playAlbumNow}
+                                playAlbumSongNow={this.playAlbumSongNow}
                                 currentSong={this.state.currentSong}
                                 onRef={ref => (this.playlistShow = ref)}
                                 currentUserId={userId}

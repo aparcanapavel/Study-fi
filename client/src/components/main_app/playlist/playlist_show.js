@@ -284,8 +284,8 @@ class PlaylistShow extends React.Component {
                         <li
                           id={songElement}
                           className="album-show-song"
-                          key={i+4}
-                          onClick={() => this.props.playSongNow(song)}
+                          key={i + 4}
+                          onClick={() => this.props.playAlbumSongNow(data.playlist.songs, i)}
                         >
                           <div className="album-show-song-start">
                             {/* <h1 key="song-heart" className="far fa-heart"></h1> */}
