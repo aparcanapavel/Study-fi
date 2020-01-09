@@ -16,7 +16,8 @@ class PlaylistShow extends React.Component {
     this.state = {
       options: null,
       section: null,
-      bool: false
+      bool: false,
+      playlistOptions: false
     };
     this.toggleSongOptions = this.toggleSongOptions.bind(this);
     this.updateCache = this.updateCache.bind(this);
@@ -84,6 +85,10 @@ class PlaylistShow extends React.Component {
     }).then(() => {
       this.props.history.push("/");
     });
+  }
+
+  togglePlaylistOptions() {
+    this.setState({playlistOptions: !this.state.playlistOptions})
   }
 
   isLiked(songId, likedSongs) {
@@ -248,7 +253,9 @@ class PlaylistShow extends React.Component {
                             <i className="fas fa-ellipsis-h" onClick={this.togglePlaylistOptions} />
 
                             { this.state.playlistOptions &&
+                            <div className="playlist-options-modal"> 
                             <button
+                              className=""
                               onClick={e =>
                                 this.removePlaylist(
                                   e,
@@ -256,6 +263,7 @@ class PlaylistShow extends React.Component {
                                 )
                               }
                             >Delete Playlist</button>
+                            </div>
                             }
                           </div>
                         </div>
