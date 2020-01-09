@@ -76,3 +76,13 @@
   justify-content: center;
   align-items: center;
 }
+
+.playlist-options-modal {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(66, 66, 66);
+  padding: 10px;
+  margin-left: 130px;
+  width: 130px;
+}

@@ -16,11 +16,13 @@ class PlaylistShow extends React.Component {
     this.state = {
       options: null,
       section: null,
-      bool: false
+      bool: false,
+      playlistOptions: false
     };
     this.toggleSongOptions = this.toggleSongOptions.bind(this);
     this.updateCache = this.updateCache.bind(this);
     this.togglePlaylistOptions = this.togglePlaylistOptions.bind(this);
+    this.removePlaylist = this.removePlaylist.bind(this);
     this.updateLike = this.updateLike.bind(this);
     this.updateUnlike = this.updateUnlike.bind(this);
     this.handleLike = this.handleLike.bind(this);
@@ -72,7 +74,7 @@ class PlaylistShow extends React.Component {
     }
   }
 
-  togglePlaylistOptions(e, mutation) {
+  removePlaylist(e, mutation) {
     const playlistId = this.props.match.params.playlistId;
     const userId = this.props.currentUserId;
     mutation({
@@ -83,6 +85,10 @@ class PlaylistShow extends React.Component {
     }).then(() => {
       this.props.history.push("/");
     });
+  }
+
+  togglePlaylistOptions() {
+    this.setState({playlistOptions: !this.state.playlistOptions})
   }
 
   isLiked(songId, likedSongs) {
@@ -244,15 +250,21 @@ class PlaylistShow extends React.Component {
                               Play
                             </button>
 
-                            <i
+                            <i className="fas fa-ellipsis-h" onClick={this.togglePlaylistOptions} />
+
+                            { this.state.playlistOptions &&
+                            <div className="playlist-options-modal"> 
+                            <button
+                              className=""
                               onClick={e =>
-                                this.togglePlaylistOptions(
+                                this.removePlaylist(
                                   e,
                                   removeUserPlaylist
                                 )
                               }
-                              className="fas fa-ellipsis-h"
-                            ></i>
+                            >Delete Playlist</button>
+                            </div>
+                            }
                           </div>
                         </div>
                       );
