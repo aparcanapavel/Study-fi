@@ -32,6 +32,7 @@ class MainComponent extends Component {
     this.closeModal = this.closeModal.bind(this);
     this.removeActive = this.removeActive.bind(this);
     this.setActive = this.setActive.bind(this);
+    this.getQueue = this.getQueue.bind(this);
   }
 
   toPage(page) {
@@ -56,6 +57,12 @@ class MainComponent extends Component {
   }
 
   setCurrentSong(song) {
+    if(this.queueShow) {
+      setTimeout(() => {
+        this.getQueue();
+      },1)
+    }
+    
     this.setState({ currentSong: song });
   }
 
@@ -75,6 +82,24 @@ class MainComponent extends Component {
     this.setState({ modal: false });
   }
 
+  getQueue(){
+    let mPQueue = null;
+    if (this.musicPlayer) mPQueue = this.musicPlayer.getQueue();
+    if(!mPQueue) {
+      this.queueShow.setQueue(null);
+    }
+    
+    const queueData = {
+      queue: mPQueue.queue,
+      history: mPQueue.history,
+      currentSongIdx: mPQueue.currentSongIdx,
+      isPlaying: mPQueue.isPlaying,
+      currentlyPlaying: this.state.currentSong
+    }
+
+    this.queueShow.setQueue(queueData);  
+  }
+
   removeActive() {
     let playlistItems = document.getElementsByClassName("nav-name-item");
 
@@ -85,6 +110,7 @@ class MainComponent extends Component {
   }
 
   render() {
+    console.log("main-song", this.state.currentSong)
     return (
       <Query query={CURRENT_USER_ID}>
         {({ loading, error, data }) => {
@@ -137,9 +163,10 @@ class MainComponent extends Component {
                             <i className="fas fa-search"></i>
                             <p>Search</p>
                           </li>
-                          <li key="3" 
+                          <li
+                            key="3"
                             onClick={() => this.toPage("library")}
-                            className="nav-name-item" 
+                            className="nav-name-item"
                             id="library"
                           >
                             <i className="fas fa-book"></i>
@@ -216,18 +243,26 @@ class MainComponent extends Component {
 
                           <Route
                             path="/queue"
-                            render={props => <QueueShow {...props} />}
+                            render={props => (
+                              <QueueShow
+                                {...props}
+                                onRef={ref => (this.queueShow = ref)}
+                                getQueue={this.getQueue}
+                              />
+                            )}
                           />
 
                           <Route
                             path="/library"
-                            render={props => 
-                            <Library {...props}
-                            playSongNow={this.playSongNow}
-                            currentSong={this.state.currentSong}
-                            currentUserId={userId}
-                            userPlaylists={userPlaylists}
-                            />}
+                            render={props => (
+                              <Library
+                                {...props}
+                                playSongNow={this.playSongNow}
+                                currentSong={this.state.currentSong}
+                                currentUserId={userId}
+                                userPlaylists={userPlaylists}
+                              />
+                            )}
                           />
 
                           <Route

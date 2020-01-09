@@ -29,11 +29,17 @@ class MusicPlayer extends React.Component {
     this.toggleButtonAnimation = this.toggleButtonAnimation.bind(this);
     this.handleVol = this.handleVol.bind(this);
     this.toggleMute = this.toggleMute.bind(this);
+    this.getQueue = this.getQueue.bind(this);
   }
 
-  toggleMute(){
+  getQueue() {
+    if(this.state.queue.length <= 0) return null;
+    return this.state;
+  }
+
+  toggleMute() {
     const isMuted = this.state.isMuted;
-    if(isMuted){
+    if (isMuted) {
       this.setState({ isMuted: !isMuted, volShift: 0 });
     } else {
       this.setState({ isMuted: !isMuted, volShift: 100 });
@@ -94,7 +100,8 @@ class MusicPlayer extends React.Component {
     const clickedPos = e.clientX - OSL;
     const audioEl = document.getElementById("music-player");
 
-    audioEl.currentTime = (clickedPos / e.target.offsetWidth) * audioEl.duration;
+    audioEl.currentTime =
+      (clickedPos / e.target.offsetWidth) * audioEl.duration;
   }
 
   handleVol(e) {
@@ -102,11 +109,11 @@ class MusicPlayer extends React.Component {
     const clickedPos = e.clientX - OSL;
     let volShift = (clickedPos / e.target.offsetWidth) * 100;
 
-    volShift = (100 - volShift);
-    
+    volShift = 100 - volShift;
+
     const audioEl = document.getElementById("music-player");
     audioEl.volume = clickedPos / e.target.offsetWidth;
-    this.setState({ volShift })
+    this.setState({ volShift });
   }
 
   getOffsetLeft(elem) {
@@ -162,14 +169,19 @@ class MusicPlayer extends React.Component {
   }
 
   nextSong() {
-    const currentSong = this.state.queue[0];
+    const currentSong = this.state.queue[this.state.currentSongIdx];
     const currentHist = this.state.history;
     const currentQueue = this.state.queue;
     let songIdx = this.state.currentSongIdx + 1;
+    const player = document.getElementById("music-player");
+    if(songIdx === this.state.queue.length){ 
+      player.pause();
+      player.currentTime = 0;
+      return this.setState({ songPercentage: 101, isPlaying: false });
+    }
     currentHist.push(currentSong);
 
     this.timeout = setTimeout(() => {
-      const player = document.getElementById("music-player");
       player.play();
     }, 1);
     this.setState(
@@ -245,7 +257,11 @@ class MusicPlayer extends React.Component {
             return (
               <div className="controlls">
                 <div className="left-controlls">
-                  <img className="player-album-cover" alt="" src={song.album.imageUrl}/>
+                  <img
+                    className="player-album-cover"
+                    alt=""
+                    src={song.album.imageUrl}
+                  />
                   <div className="player-song-details">
                     <p>{song.name}</p>
                     <p>{artists}</p>
@@ -309,10 +325,8 @@ class MusicPlayer extends React.Component {
                   <Link
                     to={{
                       pathname: "/queue",
-                      state: {
-                        queue: this.state.queue,
-                        currentSongIdx: this.state.currentSongIdx,
-                        history: this.state.history
+                      state:{
+                        isPlaying: this.state.isPlaying
                       }
                     }}
                     className="material-icons"

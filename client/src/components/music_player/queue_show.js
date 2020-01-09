@@ -4,6 +4,10 @@ import { withRouter } from "react-router";
 class QueueShow extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      data: null,
+      noQueue: false
+    }
     this.parseTime = this.parseTime.bind(this);
     this.paresArtists = this.paresArtists.bind(this);
   }
@@ -14,17 +18,27 @@ class QueueShow extends React.Component {
     return `${minutes}:${seconds}`;
   }
 
+  setQueue(data){
+    if(data){
+      this.setState({ data });
+    } else {
+      this.setState({ noQueue: true })
+    }
+  }
+
   componentDidMount() {
     if (!this.props.location.state) {
       this.props.history.push("/");
+    } else {
+      this.props.onRef(this);
+      this.props.getQueue();
     }
   }
-  componentWillUpdate() {
-    this.props.history.push("/");
-    return true;
+  componentWillUnmount() {
+    this.props.onRef(undefined);
   }
 
-  paresArtists(song){
+  paresArtists(song) {
     let artists = "";
     if (song.artists.length > 2) {
       artists = "Various Artists";
@@ -42,27 +56,41 @@ class QueueShow extends React.Component {
   }
 
   render() {
-    if (!this.props.location.state) {
+    if (!this.state.data) {
       return <p>loading...</p>;
     }
-
-    const currentSong = this.props.location.state.queue[
-      this.props.location.state.currentSongIdx
-    ];
+    if(this.noQueue){
+      return (
+        <h3 className="no-queue">Play an Album or playlist to take a look at your queue!</h3>
+      )
+    }
+    
+    const { queue, history, currentSongIdx, isPlaying, currentlyPlaying } = this.state.data;
+    console.log("queue", queue);
+    console.log("history", history);
+    console.log("currentSongIdx", currentSongIdx);
+    console.log("isPlaying", isPlaying);
+    console.log("currentlyPlaying", currentlyPlaying);
+    const currentSong = currentlyPlaying || queue[currentSongIdx];
 
     let currentSongArtists = this.paresArtists(currentSong);
-
-    const queueSongs = this.props.location.state.queue.map(song => {
-      if(song._id !== currentSong._id){
-        return (
-          <li className="queue-song-item" key={song._id}>
-            <p className="queue-song-name">{song.name}</p>
-            <p className="queue-song-artist">{this.paresArtists(song)}</p>
-            <p>{this.parseTime(song.duration)}</p>
-          </li>
-        );
-      }
-    })
+    
+    const historyIds = [];
+    history.forEach(song => {
+      historyIds.push(song._id);
+    })  
+  
+    const queueSongs = queue.map(song => {
+      if (song._id !== currentSong._id && !historyIds.includes(song._id)) {
+          return (
+              <li className="queue-song-item" key={song._id}>
+                <p className="queue-song-name">{song.name}</p>
+                <p className="queue-song-artist">{this.paresArtists(song)}</p>
+                <p>{this.parseTime(song.duration)}</p>
+              </li>
+            );
+          }
+        });
 
     return (
       <section className="queue-container">
@@ -89,9 +117,7 @@ class QueueShow extends React.Component {
             <p>ARTISTS</p>
             <p>LENGTH</p>
           </div>
-          <ul className="next-up-queue">
-            {queueSongs}
-          </ul>
+          <ul className="next-up-queue">{queueSongs}</ul>
         </div>
       </section>
     );
