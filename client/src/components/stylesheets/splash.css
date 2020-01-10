@@ -4,8 +4,9 @@
 }
 
 .splash-page-container {
-  background-image: linear-gradient(rgb(83, 83, 83), rgb(20, 20, 20), rgb(20, 20, 20));
+  background-image: linear-gradient(rgb(0, 46, 173), rgb(144, 1, 163), rgb(255, 244, 92));
   height: 100vh;
+  z-index: -2;
 }
 
 .splash-graphic {
@@ -64,4 +65,33 @@
   margin-left: 4px;
   text-decoration: underline;
   cursor: pointer;
+}
+
+#splash-circle {
+  border-radius: 1000px;
+  position: absolute;
+  z-index: 0;
+}
+
+.splash-circle-1 {
+  width: 300px;
+  height: 300px;
+  background-image: linear-gradient( rgb(144, 1, 163), rgb(0, 46, 173));
+  left: 2%;
+}
+
+.splash-circle-2 {
+  width: 180px;
+  height: 180px;
+  background-image: linear-gradient(rgb(255, 244, 92), rgb(144, 1, 163));
+  top: 60%;
+  right: 20%;
+}
+
+.splash-circle-3 {
+  width: 240px;
+  height: 240px;
+  background-image: linear-gradient(rgb(255, 244, 92), rgb(144, 1, 163));
+  top: 5%;
+  right: 15%;
 }
