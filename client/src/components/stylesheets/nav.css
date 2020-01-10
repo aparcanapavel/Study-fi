@@ -13,14 +13,16 @@
 
 .blurred{
   position: absolute;
-  width: 100%;
+  width: 140%;
   height: 120%;
-  background-color: rgba(74, 74, 74, 0.954);
+  /* background-color: rgba(74, 74, 74, 0.954); */
+  background: linear-gradient(180deg, rgba(74,74,74,1) 80%, rgba(74,74,74,0.954) 100%);
   top: -20px;
   right: 0px;
   z-index: 0;
   filter: blur(8px);
   -webkit-filter: blur(8px);
+  margin-right: -10px;
 }
 
 .nav-auth li {
