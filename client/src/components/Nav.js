@@ -23,6 +23,7 @@ const Nav = props => {
                 >
                   Logout
                 </button>
+                <div className="blurred"></div>
                 </div>
               );
             } else {
