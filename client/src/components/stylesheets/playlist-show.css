@@ -2,6 +2,7 @@
   display: block;
   position: relative;
   margin: 20px;
+  z-index: -1;
 }
 
 .albums-window,
