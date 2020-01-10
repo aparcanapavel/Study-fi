@@ -11,6 +11,18 @@ class Splash extends React.Component {
   render() {
     return (
       <div className="splash-container">
+        <i 
+        id="splash-circle"
+        className="splash-circle-1"
+        />
+        <i 
+        id="splash-circle"
+        className="splash-circle-2"
+        />
+        <i 
+        className="splash-circle-3"
+        id="splash-circle"
+        />
         <Switch>
           <Route exact path="/" component={ SplashGraphic }/>
           <AuthRoute exact path="/login" component={ Login } routeType="auth" />
