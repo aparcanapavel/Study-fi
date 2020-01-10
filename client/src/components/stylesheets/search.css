@@ -55,7 +55,7 @@
 }
 .search-results{
   overflow-y: auto;
-  z-index: 0;
+  z-index: -1;
   margin-bottom: 90px;
   position: sticky;
   /* margin-top: 200px; */

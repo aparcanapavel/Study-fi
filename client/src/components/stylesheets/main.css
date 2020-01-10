@@ -18,7 +18,7 @@
   display: block;
   position: fixed;
   width: 100%;
-  padding: 16px 24px;
+  /* padding: 16px 24px; */
   padding-left: 230px;
   box-sizing: border-box;
 }
@@ -166,8 +166,9 @@ li.current-song-element{
 }
 
 .home-container {
-  height: 95vh;
+  /* height: 95vh; */
   overflow: auto;
+  z-index: -1;
 }
 
 #modal-outter-container{

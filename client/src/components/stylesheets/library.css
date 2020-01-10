@@ -1,3 +1,11 @@
+.liked-container{
+  margin-bottom: 200px;
+}
+
+.liked-library-ul li{
+  z-index: -1;
+}
+
 .liked-songs-header {
   margin: 15px;
   font-size: 24px;

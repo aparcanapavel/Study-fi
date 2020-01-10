@@ -1,7 +1,12 @@
+.playlist-show{
+  padding-top: 10px;;
+}
+
 .playlist-show-top{
   display: block;
   position: relative;
   margin: 20px;
+  z-index: -1;
 }
 
 .albums-window,

@@ -55,7 +55,7 @@ class LikedSongs extends React.Component {
 
   render() {
     return (
-      <ul>
+      <ul className="liked-library-ul">
         <Query query={ FIND_LIKED_SONGS } 
           variables={{id: this.props.currentUserId}}
           fetchPolicy="no-cache"
