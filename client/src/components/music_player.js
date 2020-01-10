@@ -30,10 +30,11 @@ class MusicPlayer extends React.Component {
     this.handleVol = this.handleVol.bind(this);
     this.toggleMute = this.toggleMute.bind(this);
     this.getQueue = this.getQueue.bind(this);
+    this.playAlbumSongNow = this.playAlbumSongNow.bind(this);
   }
 
   getQueue() {
-    if(this.state.queue.length <= 0) return null;
+    if (this.state.queue.length <= 0) return null;
     return this.state;
   }
 
@@ -174,7 +175,7 @@ class MusicPlayer extends React.Component {
     const currentQueue = this.state.queue;
     let songIdx = this.state.currentSongIdx + 1;
     const player = document.getElementById("music-player");
-    if(songIdx === this.state.queue.length){ 
+    if (songIdx === this.state.queue.length) {
       player.pause();
       player.currentTime = 0;
       return this.setState({ songPercentage: 101, isPlaying: false });
@@ -217,6 +218,22 @@ class MusicPlayer extends React.Component {
       player.play();
     }, 1);
     this.setState({ queue: newQueue, currentSongIdx: 0, isPlaying: true });
+  }
+
+  playAlbumSongNow(albumSongs, songIdx) {
+    const newQueue = Object.values(albumSongs);
+    this.timeout = setTimeout(() => {
+      const song = this.state.queue[this.state.currentSongIdx];
+      this.props.setCurrentSong(song);
+      const player = document.getElementById("music-player");
+      player.play();
+    }, 1);
+    this.setState({
+      history: [],
+      queue: newQueue,
+      currentSongIdx: songIdx,
+      isPlaying: true
+    });
   }
 
   addToQueue(song) {
@@ -325,7 +342,7 @@ class MusicPlayer extends React.Component {
                   <Link
                     to={{
                       pathname: "/queue",
-                      state:{
+                      state: {
                         isPlaying: this.state.isPlaying
                       }
                     }}

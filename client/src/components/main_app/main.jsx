@@ -33,12 +33,13 @@ class MainComponent extends Component {
     this.removeActive = this.removeActive.bind(this);
     this.setActive = this.setActive.bind(this);
     this.getQueue = this.getQueue.bind(this);
+    this.playAlbumSongNow = this.playAlbumSongNow.bind(this);
   }
 
   toPage(page) {
     this.removeActive();
-    let selected 
-    if(page === ""){
+    let selected;
+    if (page === "") {
       selected = "home";
     } else {
       selected = page;
@@ -47,7 +48,7 @@ class MainComponent extends Component {
     return this.props.history.push(`/${page}`);
   }
 
-  setActive(elementId){
+  setActive(elementId) {
     const currentActive = document.getElementById(elementId);
     currentActive.classList.add("active");
   }
@@ -57,12 +58,12 @@ class MainComponent extends Component {
   }
 
   setCurrentSong(song) {
-    if(this.queueShow) {
+    if (this.queueShow) {
       setTimeout(() => {
         this.getQueue();
-      },1)
+      }, 1);
     }
-    
+
     this.setState({ currentSong: song });
   }
 
@@ -74,6 +75,10 @@ class MainComponent extends Component {
     this.musicPlayer.playAlbumNow(albumSongs);
   }
 
+  playAlbumSongNow(albumSongs, songIdx) {
+    this.musicPlayer.playAlbumSongNow(albumSongs, songIdx);
+  }
+
   openModal() {
     this.setState({ modal: true });
   }
@@ -82,22 +87,22 @@ class MainComponent extends Component {
     this.setState({ modal: false });
   }
 
-  getQueue(){
+  getQueue() {
     let mPQueue = null;
     if (this.musicPlayer) mPQueue = this.musicPlayer.getQueue();
-    if(!mPQueue) {
+    if (!mPQueue) {
       this.queueShow.setQueue(null);
     }
-    
+
     const queueData = {
       queue: mPQueue.queue,
       history: mPQueue.history,
       currentSongIdx: mPQueue.currentSongIdx,
       isPlaying: mPQueue.isPlaying,
       currentlyPlaying: this.state.currentSong
-    }
+    };
 
-    this.queueShow.setQueue(queueData);  
+    this.queueShow.setQueue(queueData);
   }
 
   removeActive() {
@@ -110,12 +115,11 @@ class MainComponent extends Component {
   }
 
   render() {
-    console.log("main-song", this.state.currentSong)
     return (
       <Query query={CURRENT_USER_ID}>
         {({ loading, error, data }) => {
-          if(loading) return <p>loading..</p>
-          if(error) {
+          if (loading) return <p>loading..</p>;
+          if (error) {
             //force refresh upon login to prevent error form displaying
             return window.location.reload();
           }
@@ -196,6 +200,7 @@ class MainComponent extends Component {
                                 {...props}
                                 userPlaylists={userPlaylists}
                                 playSongNow={this.playSongNow}
+                                playAlbumSongNow={this.playAlbumSongNow}
                                 currentSong={this.state.currentSong}
                                 userId={userId}
                               />
@@ -209,6 +214,7 @@ class MainComponent extends Component {
                                 userPlaylists={userPlaylists}
                                 playSongNow={this.playSongNow}
                                 playAlbumNow={this.playAlbumNow}
+                                playAlbumSongNow={this.playAlbumSongNow}
                                 currentSong={this.state.currentSong}
                                 onRef={ref => (this.albumShow = ref)}
                                 userId={userId}
@@ -234,6 +240,7 @@ class MainComponent extends Component {
                                 userPlaylists={userPlaylists}
                                 playSongNow={this.playSongNow}
                                 playAlbumNow={this.playAlbumNow}
+                                playAlbumSongNow={this.playAlbumSongNow}
                                 currentSong={this.state.currentSong}
                                 onRef={ref => (this.playlistShow = ref)}
                                 currentUserId={userId}

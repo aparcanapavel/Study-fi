@@ -29,7 +29,7 @@ const Nav = props => {
               return (
                 <ul className="nav-auth">
                   <li><Link to="/login" className="nav-link">Login</Link></li>
-                  <li><Link to="/register" className="nav-link">Register</Link></li>
+                  <li><Link to="/register" className="nav-link">Sign up</Link></li>
                 </ul>
               );
             }
