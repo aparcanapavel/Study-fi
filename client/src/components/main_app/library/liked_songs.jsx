@@ -115,7 +115,7 @@ class LikedSongs extends React.Component {
                       )}
                     </Mutation> */}
                     <i
-                      key="song-heart"
+                      id="song-heart"
                       className="fas fa-heart"
                     ></i>
 
