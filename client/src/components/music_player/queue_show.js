@@ -66,11 +66,11 @@ class QueueShow extends React.Component {
     }
     
     const { queue, history, currentSongIdx, isPlaying, currentlyPlaying } = this.state.data;
-    console.log("queue", queue);
-    console.log("history", history);
-    console.log("currentSongIdx", currentSongIdx);
-    console.log("isPlaying", isPlaying);
-    console.log("currentlyPlaying", currentlyPlaying);
+    // console.log("queue", queue);
+    // console.log("history", history);
+    // console.log("currentSongIdx", currentSongIdx);
+    // console.log("isPlaying", isPlaying);
+    // console.log("currentlyPlaying", currentlyPlaying);
     const currentSong = currentlyPlaying || queue[currentSongIdx];
 
     let currentSongArtists = this.paresArtists(currentSong);
