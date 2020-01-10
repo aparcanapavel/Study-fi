@@ -9,7 +9,7 @@ class Library extends React.Component {
 
   render() {
     return (
-    <div>
+    <div className="liked-container">
       <h1 className="liked-songs-header">Liked Songs</h1>
       <LikedSongs 
         currentUserId={this.props.currentUserId}
