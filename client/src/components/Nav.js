@@ -28,10 +28,12 @@ const Nav = props => {
               );
             } else {
               return (
-                <ul className="nav-auth">
-                  <li><Link to="/login" className="nav-link">Login</Link></li>
-                  <li><Link to="/register" className="nav-link">Sign up</Link></li>
-                </ul>
+                <div className="nav-auth">
+                  <ul className="not-logged-in">
+                    <li><Link to="/login" className="nav-link">Login</Link></li>
+                    <li><Link to="/register" className="nav-link">Sign up</Link></li>
+                  </ul>
+                </div>
               );
             }
           }}

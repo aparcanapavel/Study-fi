@@ -48,3 +48,9 @@
   margin: 10px;
   color: white;
 }
+
+.not-logged-in{
+  display: flex;
+  flex-direction: row-reverse;
+  margin-right: 25px;
+}
