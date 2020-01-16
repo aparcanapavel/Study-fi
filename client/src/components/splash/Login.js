@@ -10,7 +10,8 @@ class Login extends Component {
 
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      errors: null
     };
 
     this.demoUser = this.demoUser.bind(this);
@@ -104,6 +105,10 @@ class Login extends Component {
             <div className="auth-switch">
               <p className="auth-link" onClick={(e) => this.demoUser(e, loginUser)}>Use Demo User</p>
             </div>
+
+            <ul className="errors-ul">
+              {this.state.errors}
+            </ul>
           </div>
         }}
       </Mutation>
