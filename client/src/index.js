@@ -31,9 +31,10 @@ async function setupClient() {
 
   const errorLink = onError(({ graphQLErrors }) => {
     //this is where the error happens. force reload to fix?
-    if (graphQLErrors) graphQLErrors.map(({ message }) => console.log(message));
-    // debugger
-    if (graphQLErrors[0].path[0] !== "login" || graphQLErrors[0].path[0] !== "register"){
+    if (graphQLErrors[0].path[0] === "login" || graphQLErrors[0].path[0] === "register"){
+      if (graphQLErrors) graphQLErrors.map(({ message }) => console.log(message));
+    } else {
+      if (graphQLErrors) graphQLErrors.map(({ message }) => console.log(message));
       window.location.reload();
     }
   });

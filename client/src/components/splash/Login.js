@@ -40,7 +40,7 @@ class Login extends Component {
   };
 
   handleErrors(errors) {
-    console.log(errors.message);
+    console.log("login", errors.message);
     this.setState({errors: errors.message, wasError: true});
   };
 
