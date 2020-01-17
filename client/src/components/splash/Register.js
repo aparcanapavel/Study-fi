@@ -12,7 +12,8 @@ class Register extends Component {
     this.state = {
       email: "",
       name: "",
-      password: ""
+      password: "",
+      errors: null
     };
   }
 
@@ -42,6 +43,11 @@ class Register extends Component {
     });
   }
 
+  handleErrors(errors) {
+    const splitErr = errors.message.split(":");
+    this.setState({ errors: splitErr[1] });
+  };
+
   render() {
     return (
       <Mutation
@@ -50,6 +56,9 @@ class Register extends Component {
           const { token } = data.register;
           localStorage.setItem("auth-token", token);
           this.props.history.push("/");
+        }}
+        onError={errors => {
+          this.handleErrors(errors);
         }}
         update={(client, data) => this.updateCache(client, data)}
       >
@@ -121,6 +130,10 @@ class Register extends Component {
                 </Mutation>
               </div>
             </form>
+
+            <ul className="errors-ul">
+              {this.state.errors}
+            </ul>
           </div>
         )}
       </Mutation>

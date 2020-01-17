@@ -7,6 +7,7 @@
   background-image: linear-gradient(rgb(0, 46, 173), rgb(144, 1, 163), rgb(255, 244, 92));
   height: 100vh;
   z-index: -2;
+  overflow: hidden;
 }
 
 .splash-graphic {

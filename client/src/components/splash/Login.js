@@ -10,7 +10,8 @@ class Login extends Component {
 
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      errors: null
     };
 
     this.demoUser = this.demoUser.bind(this);
@@ -39,8 +40,9 @@ class Login extends Component {
   };
 
   handleErrors(errors) {
-    console.log(errors.message);
-    this.setState({errors: errors.message, wasError: true});
+    const splitErr = errors.message.split(":");
+    console.log("login", splitErr[1]);
+    this.setState({ errors: splitErr[1] });
   };
 
   render() {
@@ -104,6 +106,10 @@ class Login extends Component {
             <div className="auth-switch">
               <p className="auth-link" onClick={(e) => this.demoUser(e, loginUser)}>Use Demo User</p>
             </div>
+
+            <ul className="errors-ul">
+              {this.state.errors}
+            </ul>
           </div>
         }}
       </Mutation>
