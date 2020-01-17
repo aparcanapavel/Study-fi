@@ -41,7 +41,6 @@ class Login extends Component {
 
   handleErrors(errors) {
     const splitErr = errors.message.split(":");
-    console.log("login", splitErr[1]);
     this.setState({ errors: splitErr[1] });
   };
 
