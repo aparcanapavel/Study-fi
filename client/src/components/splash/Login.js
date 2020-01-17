@@ -39,7 +39,15 @@ class Login extends Component {
     });
   };
 
+  componentWillUnmount(){
+    clearTimeout(this.timer);
+  }
+
   handleErrors(errors) {
+    this.timer = setTimeout(() => {
+      const authModal = document.getElementById("auth-div");
+      authModal.classList.add("error");
+    },1);
     const splitErr = errors.message.split(":");
     this.setState({ errors: splitErr[1] });
   };
@@ -59,7 +67,7 @@ class Login extends Component {
         update={(client, data) => this.updateCache(client, data)}
       >
         {loginUser => {
-          return <div className="auth-div">
+          return <div className="auth-div" id="auth-div">
             <h1 className="auth-header">
               Login!
             </h1>

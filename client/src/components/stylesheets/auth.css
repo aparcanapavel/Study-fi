@@ -6,8 +6,9 @@
   padding-bottom: 65px;
   background-color: rgb(0, 0, 0);
   border-radius: 10px;
-    z-index: 1;
-
+  z-index: 1;
+  border: 3px solid transparent;
+  transition: border 0.3s;
 }
 
 .auth-form {
@@ -61,6 +62,7 @@
   border-bottom: 1px solid rgb(111, 111, 255);
 }
 
+
 .auth-link:hover {
   cursor: pointer;
 }
@@ -68,4 +70,8 @@
 .errors-ul {
   color: red;
   height: 10px;
+}
+
+#auth-div.error{
+  border: 3px solid rgb(158, 3, 3);
 }
