@@ -21,8 +21,10 @@
   padding: 10px;
   margin: 15px;
   background: rgb(94, 94, 94);
+  border: 1px solid transparent;
   border-radius: 5px;
   color: white;
+  transition: 0.3s;
 }
 
 .auth-button {

@@ -52,6 +52,22 @@ class Login extends Component {
     this.setState({ errors: splitErr[1] });
   };
 
+  emailStyle() {
+    if (this.state.errors && (this.state.errors.includes("Email") || this.state.errors.includes("email"))) {
+      return { "border": "1px solid red" }
+    } else {
+      return {}
+    }
+  };
+
+  passwordStyle() {
+    if (this.state.errors && (this.state.errors.includes("Password") || this.state.errors.includes("password"))) {
+      return { "border": "1px solid red" }
+    } else {
+      return {}
+    }
+  }
+
   render() {
     return (
       <Mutation
@@ -71,7 +87,8 @@ class Login extends Component {
             <h1 className="auth-header">
               Login!
             </h1>
-            <ul className="error-List">
+            <ul className="errors-ul">
+              {this.state.errors}
             </ul>
             <form
               className="auth-form"
@@ -90,6 +107,7 @@ class Login extends Component {
                 value={this.state.email}
                 onChange={this.update("email")}
                 placeholder="Email"
+                style={this.emailStyle()}
               />
               <input
                 className="auth-input"
@@ -97,6 +115,7 @@ class Login extends Component {
                 onChange={this.update("password")}
                 type="password"
                 placeholder="Password"
+                style={this.passwordStyle()}
               />
               <button
                 className="auth-button"
@@ -114,9 +133,7 @@ class Login extends Component {
               <p className="auth-link" onClick={(e) => this.demoUser(e, loginUser)}>Use Demo User</p>
             </div>
 
-            <ul className="errors-ul">
-              {this.state.errors}
-            </ul>
+            
           </div>
         }}
       </Mutation>
