@@ -14,6 +14,7 @@ import PlaylistShow from "./playlist/playlist_show";
 import CreatePlaylist from "./playlist/create_playlist";
 import QueueShow from '../music_player/queue_show';
 import Library from "./library/library";
+import Loader from "react-loader-spinner";
 const { CURRENT_USER_ID, FETCH_USER_PLAYLISTS } = Queries;
 
 class MainComponent extends Component {
@@ -118,10 +119,29 @@ class MainComponent extends Component {
     return (
       <Query query={CURRENT_USER_ID}>
         {({ loading, error, data }) => {
-          if (loading) return <p>loading..</p>;
+          if (loading) {
+            return (<div className="loading-main">
+            <Loader
+              type="Bars"
+              color="#2F5451"
+              height={100}
+              width={100}
+            />
+          </div>
+          )};
           if (error) {
             //force refresh upon login to prevent error form displaying
-            return window.location.reload();
+            window.location.reload();
+            return (
+              <div className="loading-main">
+                <Loader
+                  type="Bars"
+                  color="#2F5451"
+                  height={100}
+                  width={100}
+                />
+              </div>
+            )
           }
 
           const userId = data.currentUserId;
@@ -132,7 +152,17 @@ class MainComponent extends Component {
                 variables={{ id: data.currentUserId }}
               >
                 {({ loading, error, data }) => {
-                  if (loading) return null;
+                  if (loading) {
+                    return (
+                    <div className="loading-main">
+                      <Loader
+                        type="Bars"
+                        color="#2F5451"
+                        height={100}
+                        width={100}
+                      />
+                    </div>
+                    )};
                   if (error) return <p>error</p>;
 
                   let userPlaylists = Object.values(
