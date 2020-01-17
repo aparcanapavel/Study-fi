@@ -44,8 +44,8 @@ class Register extends Component {
   }
 
   handleErrors(errors) {
-    console.log("register", errors.message);
-    this.setState({ errors: errors.message, wasError: true });
+    const splitErr = errors.message.split(":");
+    this.setState({ errors: splitErr[1] });
   };
 
   render() {
@@ -130,6 +130,10 @@ class Register extends Component {
                 </Mutation>
               </div>
             </form>
+
+            <ul className="errors-ul">
+              {this.state.errors}
+            </ul>
           </div>
         )}
       </Mutation>
