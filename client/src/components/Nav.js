@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { withRouter } from "react-router";
 import { Query, ApolloConsumer } from "react-apollo";
 import Queries from "../graphql/queries";
 const { IS_LOGGED_IN } = Queries;
@@ -19,6 +20,8 @@ const Nav = props => {
                     e.preventDefault();
                     localStorage.removeItem("auth-token");
                     client.writeData({ data: { isLoggedIn: false } });
+                    props.history.push("/");
+                    window.location.reload();
                   }}
                 >
                   Logout
@@ -43,4 +46,4 @@ const Nav = props => {
   );
 };
 
-export default Nav;
+export default withRouter(Nav);
