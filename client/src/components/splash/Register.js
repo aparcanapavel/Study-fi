@@ -64,7 +64,7 @@ class Register extends Component {
       >
         {registerUser => (
           <div className="auth-div">
-            <h1 className="auth-header">Register!</h1>
+            <h1 className="auth-header">Sign Up!</h1>
             <form
               className="auth-form"
               onSubmit={e => {
