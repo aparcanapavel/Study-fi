@@ -43,7 +43,15 @@ class Register extends Component {
     });
   }
 
+  componentWillUnmount() {
+    clearTimeout(this.timer);
+  }
+
   handleErrors(errors) {
+    this.timer = setTimeout(() => {
+      const authModal = document.getElementById("auth-div");
+      authModal.classList.add("error");
+    }, 1);
     const splitErr = errors.message.split(":");
     this.setState({ errors: splitErr[1] });
   };
@@ -63,7 +71,7 @@ class Register extends Component {
         update={(client, data) => this.updateCache(client, data)}
       >
         {registerUser => (
-          <div className="auth-div">
+          <div className="auth-div" id="auth-div">
             <h1 className="auth-header">Register!</h1>
             <form
               className="auth-form"
