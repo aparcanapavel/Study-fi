@@ -37,5 +37,4 @@ Based off ***Spotify***, *Study-fi* is an app that is targeted towards students 
 
 
 ## Wireframes and Code Snippets:
-
-
+  
