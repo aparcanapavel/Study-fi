@@ -1,5 +1,5 @@
 # Study-fi
-
+[Study-fi Live Link](https://study-fi.herokuapp.com/)
 ## Technologies Used: ##
 - GraphQL
 - Apollo Client
@@ -20,9 +20,6 @@
 - Continuous play of music when navigating pages
 - Utilizing Voice to Text API 
 
-## Live Site
- [Study-fi](https://study-fi.herokuapp.com/)
-
 
 ## Overview:
 Based off ***Spotify***, *Study-fi* is an app that is targeted towards students and/or professionals aiming to improve their focus and productivity. With a library filled with lo-fi music, user will be allowed to:
@@ -37,4 +34,7 @@ Based off ***Spotify***, *Study-fi* is an app that is targeted towards students 
 
 
 ## Wireframes and Code Snippets:
-  
+![Splay-page](https://github.com/aparcanapavel/Study-fi/blob/master/readmeImgs/splash.png?raw=true)
+- Upon visiting Study-fi, users are welcomed with a spash page
+- Users can Sign Up/Log In
+- Users can click *Learn more* to read more about the application.
