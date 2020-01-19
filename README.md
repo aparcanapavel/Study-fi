@@ -33,7 +33,7 @@ Based off ***Spotify***, *Study-fi* is an app that is targeted towards students 
 - Add to Queue(***bonus***)
 
 
-## Wireframes and Code Snippets:
+## Wireframes:
 ![Splash-page](https://github.com/aparcanapavel/Study-fi/blob/master/readmeImgs/splash.png?raw=true)
 - Upon visiting Study-fi, users are welcomed with a spash page
 - Users can Sign Up/Log In
