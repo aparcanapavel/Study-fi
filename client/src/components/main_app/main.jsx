@@ -204,7 +204,7 @@ class MainComponent extends Component {
                             id="library"
                           >
                             <i className="fas fa-book"></i>
-                            <p>Your Library</p>
+                            <p>Library</p>
                           </li>
                         </ul>
                         <h3>PLAYLISTS</h3>
