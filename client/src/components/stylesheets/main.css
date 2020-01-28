@@ -195,3 +195,16 @@ li.current-song-element{
   justify-content: center;
   align-items: center;
 }
+
+#ellipsis-icon{
+  transition: color 0.3s;
+  cursor: pointer;
+}
+
+#ellipsis-icon:hover{
+  color: rgb(189, 189, 189);
+}
+
+#ellipsis-icon:active{
+  color: gray;
+}

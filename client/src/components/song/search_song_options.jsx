@@ -26,6 +26,7 @@ class SearchSongOptions extends React.Component {
     return (
       <div className="search-song-options">
         <i
+          id="ellipsis-icon"
           onClick={e =>
             this.toggleSongOptions(e, this.props.songId)
           }

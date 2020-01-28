@@ -1,8 +1,5 @@
 .liked-container{
   margin-bottom: 200px;
-}
-
-.liked-library-ul li{
   z-index: -1;
 }
 

@@ -48,11 +48,14 @@ class CreatePlaylist extends React.Component {
     } catch (err) {
       return;
     }
-
+    
     if (playlists) {
       let playlistArray = playlists.user.playlists;
       let newPlaylist = data.data.createPlaylist;
 
+      console.log("userPlaylists", playlistArray);
+      console.log("newPlaylist", newPlaylist);
+      
       cache.writeQuery({
         query: FETCH_USER_PLAYLISTS,
         data: {

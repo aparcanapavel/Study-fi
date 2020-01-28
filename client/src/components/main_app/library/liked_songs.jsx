@@ -60,9 +60,9 @@ class LikedSongs extends React.Component {
           variables={{id: this.props.currentUserId}}
           fetchPolicy="no-cache"
         >
-          {({ loading, error, data }) => {
-            if (loading) {
-              return (
+        {({ loading, error, data }) => {
+          if (loading) {
+            return (
               <div className="album-show-loading">
                 <Loader
                   type="Bars"
@@ -71,80 +71,77 @@ class LikedSongs extends React.Component {
                   width={100}
                 />
               </div>
-              )
-            };
-            if (error) {
-            return <p>error</p>
+            )
           };
-
-
-              return data.user.likedSongs.map((song, i) => {
+          if (error) return <p>error</p>;
+            
+          return data.user.likedSongs.map((song, i) => {
               
-                const currentSong = this.props.currentSong;
-                let songElement;
-                if (currentSong) {
-              songElement =
-                currentSong._id === song._id
-                  ? "current-song-element"
-                  : null;
-              }
-              return (
-                <li
-                  id={songElement}
-                  className="artist-show-song"
-                  key={song._id}
-                  onClick={() => this.props.playSongNow(song)}
-                >
-                <div className="artist-show-song-header">
+          const currentSong = this.props.currentSong;
+          let songElement;
+          if (currentSong) {
+            songElement = currentSong._id === song._id
+                ? "current-song-element"
+                : null;
+          }
+          return (
+            <li
+              id={songElement}
+              className="artist-show-song"
+              key={song._id}
+              onClick={() => this.props.playSongNow(song)}
+            >
+              <div className="artist-show-song-header">
+              {/* <Mutation
+                mutation={UNLIKE_SONG}
+                update={(cache, data) =>
+                  this.updateUnlike(cache, data)
+                }
+              >
+                {(removeLikedSong, { data }) => (
+                  <i
+                    key="song-heart"
+                    className="fas fa-heart"
+                    onClick={e =>
+                      this.handleLike(e, removeLikedSong, song._id)
+                    }
+                  ></i>
+                )}
+              </Mutation> */}
 
-
-                    {/* <Mutation
-                      mutation={UNLIKE_SONG}
-                      update={(cache, data) =>
-                        this.updateUnlike(cache, data)
-                      }
-                    >
-                      {(removeLikedSong, { data }) => (
-                        <i
-                          key="song-heart"
-                          className="fas fa-heart"
-                          onClick={e =>
-                            this.handleLike(e, removeLikedSong, song._id)
-                          }
-                        ></i>
-                      )}
-                    </Mutation> */}
-                    <i
-                      key="song-heart"
-                      id="song-heart"
-                      className="fas fa-heart"
-                    ></i>
-
-                  <img
-                    className="song-album-icon"
-                    src={song.album.imageUrl}
-                    alt="album"
-                  />
-                  <h1 className="song-index">{i + 1}</h1>
-                  <h1 className="artist-show-song-name">{song.name}</h1>
-                </div>
                 <i
-                  onClick={e =>
-                    this.toggleSongOptions(e, song._id, "popular")
-                  }
-                  className="fas fa-ellipsis-h"
+                  key="song-heart"
+                  id="song-heart"
+                  className="fas fa-heart"
                 ></i>
-                {this.state.options === song._id &&
-                  this.state.section === "popular" && (
-                    <SongOptions
-                      userPlaylists={this.props.userPlaylists}
-                      section={"popular-song-options-container"}
-                      songId={song._id}
-                      toggleSongOptions={this.toggleSongOptions}
-                    />
-                  )}
-              </li>
-              )
+
+                <img
+                  className="song-album-icon"
+                  src={song.album.imageUrl}
+                  alt="album"
+                />
+
+                <h1 className="song-index">{i + 1}</h1>
+                <h1 className="artist-show-song-name">{song.name}</h1>
+              </div>
+              <i
+                id="ellipsis-icon"
+                onClick={e =>
+                  this.toggleSongOptions(e, song._id, "popular")
+                }
+                className="fas fa-ellipsis-h"
+              ></i>
+              {this.state.options === song._id &&
+                this.state.section === "popular" && (
+                  <SongOptions
+                    userPlaylists={this.props.userPlaylists}
+                    section={"popular-song-options-container"}
+                    songId={song._id}
+                    toggleSongOptions={this.toggleSongOptions}
+                  />
+                )}
+            </li>
+            )
             });
           }}
         </Query>

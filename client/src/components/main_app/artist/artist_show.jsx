@@ -243,6 +243,7 @@ class ArtistShow extends React.Component {
                         <h1 className="artist-show-song-name">{song.name}</h1>
                       </div>
                       <i
+                        id="ellipsis-icon"
                         onClick={e =>
                           this.toggleSongOptions(e, song._id, "popular")
                         }
@@ -354,6 +355,7 @@ class ArtistShow extends React.Component {
                                 {this.parseTime(song.duration)}
                               </h1>
                               <i
+                                id="ellipsis-icon"
                                 onClick={e =>
                                   this.toggleSongOptions(e, song._id, "album")
                                 }
