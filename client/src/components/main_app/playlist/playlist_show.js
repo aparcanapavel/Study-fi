@@ -356,7 +356,6 @@ class PlaylistShow extends React.Component {
                           </h1>
 
                           <i
-                            id="ellipsis-icon"
                             onClick={e =>
                               this.toggleSongOptions(e, song._id, "popular")
                             }
