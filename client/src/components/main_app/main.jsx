@@ -168,7 +168,7 @@ class MainComponent extends Component {
                   let userPlaylists = Object.values(
                     data.user.playlists
                   ).reverse();
-
+                    console.log("main-playlists",userPlaylists);
                   return (
                     <main className="overall-container">
                       <nav className="top-nav">

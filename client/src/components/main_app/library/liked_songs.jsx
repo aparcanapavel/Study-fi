@@ -129,6 +129,7 @@ class LikedSongs extends React.Component {
                   <h1 className="artist-show-song-name">{song.name}</h1>
                 </div>
                 <i
+                  id="ellipsis-icon"
                   onClick={e =>
                     this.toggleSongOptions(e, song._id, "popular")
                   }

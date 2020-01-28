@@ -250,7 +250,7 @@ class PlaylistShow extends React.Component {
                               Play
                             </button>
 
-                            <i className="fas fa-ellipsis-h" onClick={this.togglePlaylistOptions} />
+                            <i id="ellipsis-icon" className="fas fa-ellipsis-h" onClick={this.togglePlaylistOptions} />
 
                             { this.state.playlistOptions &&
                             <div className="playlist-options-modal"> 
@@ -356,6 +356,7 @@ class PlaylistShow extends React.Component {
                           </h1>
 
                           <i
+                            id="ellipsis-icon"
                             onClick={e =>
                               this.toggleSongOptions(e, song._id, "popular")
                             }
