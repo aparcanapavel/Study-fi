@@ -27,10 +27,10 @@ app.use(cors());
 
 setInterval(() => {
   return app.get('/', (req, res) => {
-    return res.send('Hello');
+   res.send('Hello');
   });
-}
-, 1740000 );
+  // return console.log("test")
+}, 1740000 );
 
 app.use(
   "/graphql",
