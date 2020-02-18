@@ -26,11 +26,11 @@ app.use(bodyParser.json());
 app.use(cors());
 
 setInterval(() => {
-  app.get('/', (req, res) => {
+  return app.get('/', (req, res) => {
     return res.send('Hello');
-    // return console.log("test");
   });
-}, 1740000);
+}
+, 1740000 );
 
 app.use(
   "/graphql",
