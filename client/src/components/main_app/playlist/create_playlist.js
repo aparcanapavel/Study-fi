@@ -53,8 +53,8 @@ class CreatePlaylist extends React.Component {
       let playlistArray = playlists.user.playlists;
       let newPlaylist = data.data.createPlaylist;
 
-      console.log("userPlaylists", playlistArray);
-      console.log("newPlaylist", newPlaylist);
+      // console.log("userPlaylists", playlistArray);
+      // console.log("newPlaylist", newPlaylist);
       
       cache.writeQuery({
         query: FETCH_USER_PLAYLISTS,

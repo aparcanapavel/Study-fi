@@ -17,7 +17,7 @@ class PlaylistIndex extends React.Component{
   }
   
   render() {
-    console.log("playlist index", this.props.playlists);
+    // console.log("playlist index", this.props.playlists);
     let playlists = this.props.playlists.map(playlist => {
       return (
         <li

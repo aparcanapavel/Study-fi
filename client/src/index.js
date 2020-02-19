@@ -21,8 +21,15 @@ async function setupClient() {
     dataIdFromObject: object => object._id || null
   });
 
+  let uri;
+  if (process.env.NODE_ENV === "production") {
+    uri = `/graphql`;
+  } else {
+    uri = "http://localhost:5000/graphql";
+  }
+
   const httpLink = createHttpLink({
-    uri: "http://localhost:5000/graphql",
+    uri,
     headers: {
       // pass our token into the header of each request
       authorization: localStorage.getItem("auth-token")
