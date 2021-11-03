@@ -17,7 +17,7 @@
     "react-fade-in": "^0.1.7",
     "react-loader-spinner": "^3.1.5",
     "react-speech-recognition": "^2.0.4",
-    "validator": "^12.1.0"
+    "validator": "^13.7.0"
   },
   "devDependencies": {},
   "scripts": {
