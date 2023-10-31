@@ -1,5 +1,5 @@
 # Study-fi
-[Study-fi Live Link](https://study-fi.herokuapp.com/)
+
 ## Technologies Used: ##
 - GraphQL
 - Apollo Client
